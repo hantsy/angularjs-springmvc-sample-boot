@@ -1,0 +1,22 @@
+<div class="page-header">
+	<h1>Posts</h1>
+</div>
+
+<table class="table table-striped">
+    <tr>
+        <th>
+            <msg key="title"></msg>
+        </th>
+        <th>
+            <msg key="createdOn"></msg>
+        </th>
+        <th>
+            <msg key="createdBy"></msg>
+        </th>
+    </tr>
+    <tr ng-repeat="post in posts|orderBy:-createdOn">
+        <td><a ng-href="#/details/{{post.id}}">{{post.title}}</a></td>
+        <td>{{post.createdOn|date:'short'}}</td>
+        <td>{{post.createdBy.displayName}}</td>
+    </tr>
+</table>

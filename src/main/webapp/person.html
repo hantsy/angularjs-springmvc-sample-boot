@@ -1,0 +1,41 @@
+<table class="table table-striped">
+    <tr>
+        <th ng-click="orderBy('firstName')">
+            <msg key="firstName"></msg>
+            <i ng-class="orderIcon('firstName')"></i></th>
+        <th ng-click="orderBy('lastName')">
+            <msg key="lastName"></msg>
+            <i ng-class="orderIcon('lastName')"></i></th>
+        <th>
+            <msg key="delete"></msg>
+        </th>
+    </tr>
+    <tr ng-repeat="person in persons|orderBy:order">
+        <td>{{person.firstName}}</td>
+        <td>{{person.lastName}}</td>
+        <td><a ng-click="delete(person)"><i class="icon-trash"></i></a></td>
+    </tr>
+</table>
+
+<form>
+    <fieldset>
+        <legend>
+            <msg key="newPerson"></msg>
+        </legend>
+
+        <label>
+            <msg key="firstName"></msg>
+        </label>
+        <input type="text" ng-model="person.firstName"/>
+
+        <label>
+            <msg key="lastName"></msg>
+        </label>
+        <input type="text" ng-model="person.lastName"/>
+
+        <label></label>
+        <button type="submit" class="btn" ng-click="save()">
+            <msg key="save"></msg>
+        </button>
+    </fieldset>
+</form>

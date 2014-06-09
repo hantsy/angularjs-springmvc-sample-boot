@@ -1,0 +1,98 @@
+<div ng-controller="UserAdminController">
+    <div class="page-header">
+        <h1>
+            <msg key="userAdmin" />
+        </h1>
+    </div>
+    <div class="row">
+        <div class="toolbar pull-right">
+            <button ng-click="initAdd()" class="btn btn-success">
+                <span class="glyphicon glyphicon-plus"></span> <msg key="addUser"></msg> 
+            </button>
+        </div>
+    </div>
+    <div class="row">
+        <table class="table table-hover table-striped">
+            <tr>
+                <th width="50px">#</th>
+                <th ng-click="orderBy('username')"><msg key="username" /> <span
+                ng-class="orderIcon('username')"></span></th>
+            <th ng-click="orderBy('displayName')"><msg key="displayName" /> <span
+                ng-class="orderIcon('displayName')"></span></th>
+            <th ng-click="orderBy('role')"><msg key="role" /> <span
+                ng-class="orderIcon('role')"></span></th>
+            <th><msg key="actions" /></th>
+            </tr>
+            <tr ng-repeat="u in users|orderBy:order">
+                <td>{{$index + 1}}</td>
+                <td>
+                    <div class="text-left">{{u.username}}</div>
+                </td>
+                <td>{{u.displayName}}</td>
+                <td>{{u.role}}</td>
+                <td><a ng-click="delete($index)"><span
+                            class="glyphicon glyphicon-trash"></span></a></td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="modal fade" id="userDialog" tabindex="-1" role="dialog"
+         aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"
+                            aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">
+                        <msg key="addUser"></msg>
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form form-horizontal">
+                        <div class="form-group">
+                            <label class="control-label col-md-3" for="username"><msg
+                                    key="username"></msg></label>
+                            <div class="col-md-6">
+                                <input class="form-control" id="username"
+                                       ng-model="user.username" ng-required="true" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="password" class="control-label col-md-3"><msg
+                                    key="password"></msg></label>
+                            <div class="col-md-6">
+                                <input class="form-control" type="password" id="password"
+                                       ng-model="user.password" ng-required="true" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3" for="displayName"><msg
+                                    key="displayName"></msg></label>
+                            <div class="col-md-6">
+                                <input class="form-control" type="text" id="displayName"
+                                       ng-model="user.displayName" ng-required="true" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3" for="role"><msg
+                                    key="role"></msg></label>
+                            <div class="col-md-6">
+                                <select class="form-control" id="role"
+                                        ng-options="c for c in roleOpts" ng-model="user.role"
+                                        ng-required="true" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" ng-click="save()" class="btn btn-primary">
+                        <msg key="save"></msg>
+                    </button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">
+                        <msg key="cancel"></msg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

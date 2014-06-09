@@ -1,0 +1,57 @@
+
+<div class="page-header">
+	<h1>
+		<msg key="personalHome" />
+	</h1>
+</div>
+<div class="row">
+	<div class="col-md-9 col-lg-9 col-sm-6">
+		<table class="table table-striped">
+			<tr>
+				<td width="40%">
+					<div class="text-right">
+						<msg key="username" />
+					</div>
+				</td>
+				<td>
+					<div class="text-left">{{user.username}}</div>
+				</td>
+			</tr>
+			<tr>
+				<td width="40%">
+					<div class="text-right">
+						<msg key="displayName" />
+					</div>
+				</td>
+				<td>
+					<div class="text-left">{{user.displayName}}</div>
+				</td>
+			</tr>
+			<tr>
+				<td width="40%">
+					<div class="text-right">
+						<msg key="role" />
+					</div>
+				</td>
+				<td>
+					<div class="text-left">{{user.role}}</div>
+				</td>
+			</tr>
+		</table>
+	</div>
+	<div class="col-md-3 col-lg-3 col-sm-6">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title">
+					<msg key="availableActions" />
+				</h3>
+			</div>
+			<div class="panel-body">
+				<ul class="list-unstyled">
+					<li><a href="#/user/password"><msg key="changePassword"></msg></a></li>
+					<li><a href="#/user/profile"><msg key="updateProfile"></msg></a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>

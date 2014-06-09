@@ -1,0 +1,18 @@
+<div class="row toolbar">
+    <div class="btn-toolbar" role="toolbar">
+        <div class="btn-group btn-group-sm pull-right">
+            <button type="button" class="btn" ng-class="{'btn-primary':axinversed, 'btn-default':!axinversed}" ng-click="inverseAX()"><msg key="inverseX"/></button>
+            <button type="button" class="btn" ng-class="{'btn-primary':ayinversed, 'btn-default':!ayinversed}" ng-click="inverseAY()"><msg key="inverseY"/></button>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <!--                <div id="chart" class="with-3d-shadow with-transitions">
+                        <svg></svg>
+                    </div>-->
+
+    <div class="thumbnail">
+        <img ng-src="{{areaScatterImgSrc}}"/>
+    </div>
+
+</div>

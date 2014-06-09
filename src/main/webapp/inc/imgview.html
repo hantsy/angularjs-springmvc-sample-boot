@@ -1,0 +1,46 @@
+<div class="row">
+    <div class="row" ng-repeat="rowIdx in []| range:imgRows" ng-show="imgresult">
+        <div ng-class="imgCssClass" ng-repeat="colIdx in []| range:imgCols">
+            <div class="thumbnail" ng-show="imgDataArray[rowIdx][colIdx].imgSrc != 'img/na.jpg'">
+                <a ng-click="showImg(rowIdx, colIdx)">
+                    <img ng-src="{{showImgThumb(rowIdx, colIdx)}}"/>
+                </a>
+                <div class="caption">                                 
+                    <ul class="list-unstyled">
+                        <li><msg key-expr="'type'+imgDataArray[rowIdx][colIdx].type"/></li>
+                        <li>{{imgDataArray[rowIdx][colIdx].physicalX-stat.leftEdge|number:2}}mm, {{imgDataArray[rowIdx][colIdx].physicalY|number:2}}m</li>
+                        <li>{{imgDataArray[rowIdx][colIdx].physicalWidth|number:2}}mm, {{imgDataArray[rowIdx][colIdx].physicalLength|number:2}}mm, {{imgDataArray[rowIdx][colIdx].area|number:2}}mm<sup>2</sup></li>
+                    </ul>   
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row" ng-show="imgresult">
+    <div class="col-md-3 pagination">
+        <div class="btn-toolbar pull-right" role="toolbar">
+            <div class="btn-group  btn-group-sm">
+                <div class="btn btn-default"><msg key="totalPages"/>{{imgresult.totalPages}}</div>
+                <div class="btn btn-default"><msg key="totalItems"/>{{imgresult.totalElements}}</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <ul class="pagination pagination-sm">
+            <li ng-class="{disabled:!!imgresult.firstPage}"><a ng-click="selectImgPage(0)">&laquo;</a></li>
+            <li ng-class="{disabled:!imgresult.hasPreviousPage}"><a ng-click="preImgPage()">&lsaquo;</a></li>
+            <li ng-class="{active:imgPage == p}" ng-repeat="p in displayImgPages"><a ng-click="selectImgPage(p)">{{p + 1}}</a></li>
+            <li ng-class="{disabled:!imgresult.hasNextPage}"><a ng-click="nextImgPage()">&rsaquo;</a></li>
+            <li ng-class="{disabled:!!imgresult.lastPage}"><a ng-click="selectImgPage(imgresult.totalPages - 1)">&raquo;</a></li>
+        </ul>
+    </div>
+    <div class="col-md-3 pagination">
+        <div class="btn-toolbar" role="toolbar">
+            <div class="btn-group  btn-group-sm pull-left">
+                <button class="btn" ng-class="{'btn-primary':modeIsSelected(1), 'btn-default':!modeIsSelected(1)}" ng-click="selectViewMode(1)">2x4</button>
+                <button class="btn" ng-class="{'btn-primary':modeIsSelected(2), 'btn-default':!modeIsSelected(2)}" ng-click="selectViewMode(2)">3x6</button>
+                <button class="btn" ng-class="{'btn-primary':modeIsSelected(3), 'btn-default':!modeIsSelected(3)}" ng-click="selectViewMode(3)">5x12</button>
+            </div>
+        </div>
+    </div>
+</div>
