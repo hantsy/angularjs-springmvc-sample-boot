@@ -158,6 +158,11 @@
             });
         };
         
+        
+        $scope.cancel = function(){
+        	$location.path('/posts');
+        }
+        
     });
     
     as.controller('CommentsController', function($rootScope, $scope, $http, $routeParams, i18n, $location) {

@@ -1,7 +1,9 @@
 package com.hantsylabs.restexample.springmvc.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,6 +13,11 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
 
 /**
  *  
@@ -39,6 +46,16 @@ public class Comment implements Serializable {
 	@ManyToOne()
 	private Post post;
 	
+	@ManyToOne
+	@JoinColumn(name="created_by")
+	@CreatedBy
+	private User createdBy;
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name="created_on")
+	@CreatedDate
+	private Date createdOn;
+	
 	public Long getId() {
 		return id;
 	}
@@ -53,6 +70,30 @@ public class Comment implements Serializable {
 
 	public void setContent(String content) {
 		this.content = content;
+	}
+
+	public Post getPost() {
+		return post;
+	}
+
+	public void setPost(Post post) {
+		this.post = post;
+	}
+
+	public User getCreatedBy() {
+		return createdBy;
+	}
+
+	public void setCreatedBy(User createdBy) {
+		this.createdBy = createdBy;
+	}
+
+	public Date getCreatedOn() {
+		return createdOn;
+	}
+
+	public void setCreatedOn(Date createdOn) {
+		this.createdOn = createdOn;
 	}
 
 	

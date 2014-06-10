@@ -17,7 +17,7 @@
 		<slf4j.version>1.7.6</slf4j.version>
 		<querydsl.version>3.2.2</querydsl.version>
 		<spring.version>4.0.5.RELEASE</spring.version>
-		<spring-security.version>3.2.2.RELEASE</spring-security.version>
+		<spring-security.version>3.2.4.RELEASE</spring-security.version>
 		<hibernate.version>4.3.5.Final</hibernate.version>
 	</properties>
 
@@ -88,7 +88,7 @@
 			<dependency>
 				<groupId>org.springframework.data</groupId>
 				<artifactId>spring-data-releasetrain</artifactId>
-				<version>Codd-SR1</version>
+				<version>Dijkstra-RELEASE</version>
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>

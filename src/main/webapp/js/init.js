@@ -22,6 +22,9 @@
                 .when('/posts/:id',
                         {controller:'DetailsController',
                 			templateUrl: 'posts/details.html'})
+                .when('/posts/new',
+                        {controller:'NewPostController',
+                			templateUrl: 'posts/new.html'})
                 .when('/admin/users',
                         {templateUrl: 'admin/users.html'})
                 .when('/user/home',
@@ -172,7 +175,7 @@
             }
             $rootScope.requests401 = [];
 
-            $location.path('/search');
+            $location.path('/posts');
         });
 
         /**
@@ -188,11 +191,6 @@
                     })
                     .error(function(data) {
                         console.log('login failed...');
-                        $rootScope.message = {
-                            text: 'Login failed',
-                            type: 'danger',
-                            show: true
-                        };
                     });
         });
 

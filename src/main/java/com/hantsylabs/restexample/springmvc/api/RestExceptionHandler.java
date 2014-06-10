@@ -22,12 +22,11 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     private static final Logger log = LoggerFactory.getLogger(RestExceptionHandler.class);
 
     @ExceptionHandler
-    public ResponseEntity<ResponseMessage> handleAuthenticationException(AuthenticationException ex) {
+    public ResponseEntity<AlertMessage> handleAuthenticationException(AuthenticationException ex) {
         if (log.isDebugEnabled()) {
             log.debug("handling authentication exception...");
         }
-        return new ResponseEntity<>(new ResponseMessage(ResponseMessage.Type.danger, ex.getMessage()), HttpStatus.UNAUTHORIZED);
+        return new ResponseEntity<>(new AlertMessage(AlertMessage.Type.danger, ex.getMessage()), HttpStatus.UNAUTHORIZED);
     }
-    
-    
+       
 }

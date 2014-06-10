@@ -8,7 +8,7 @@
         <meta name="author" content="">
         <link rel="shortcut icon" href="ico/favicon.ico">
 
-        <title>STATISTIC APP</title>
+        <title>REST EXAMPLE APP</title>
 
         <!-- Bootstrap core CSS -->
         <link href="libs/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet"
@@ -43,16 +43,16 @@
                 </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav" ng-show="user.username">
-                        <li ng-class="activeWhen(path() == '/search')"><a
-                                href="#/search"><msg key="search"></msg></a></li>
-
+                        <li ng-class="activeWhen(path() == '/posts')"><a
+                                href="#/posts"><msg key="posts"></msg></a></li>
+						<li ng-class="activeWhen(path() == '/posts/new')"><a
+                                href="#/posts/new"><msg key="newPost"></msg></a></li>
                         <li class="dropdown" ng-class="activeWhen(path().substring(0, 6) === '/admin')" 
                             ng-show="user.username && user.role == 'ADMIN'">
                             <a href="#" class="dropdown-toggle"
                                data-toggle="dropdown"><msg key="administration"></msg> <b class="caret"></b></a>
                             <ul class="dropdown-menu">
                                 <li><a href="#/admin/users"><msg key="userAdmin"></msg></a></li>
-                                <li><a href="#/admin/machines"><msg key="machineAdmin"></msg></a></li>
                             </ul>
                         </li>
                     </ul>
@@ -60,17 +60,14 @@
                         <li class="dropdown"><a href="#" class="dropdown-toggle"
                                                 data-toggle="dropdown">{{user.displayName}} <b class="caret"></b></a>
                             <ul class="dropdown-menu">
-                                <li><a href="#/user"><msg key="personalHome"></msg></a></li>
+                                <li><a href="#/user/home"><msg key="personalHome"></msg></a></li>
                                 <li><a href="#/user/password"><msg key="changePassword"></msg></a></li>
                                 <li><a href="#/user/profile"><msg key="updateProfile"></msg></a></li>
                                 <li class="divider"></li>
                                 <li><a ng-click="logout()"><msg key="logout"></msg></a></li>
                             </ul></li>
                     </ul>
-                    <div class="nav navbar-nav navbar-right" ng-hide="true">
-                        <a href="#" class="btn btn-default navbar-btn navbar-right"
-                           onclick="$('#login').modal('show')"><msg key="signin"></msg></a>
-                    </div>
+
                 </div>
 
 
@@ -87,20 +84,19 @@
 
             <ng-view></ng-view>
 
-
         </div>
         <footer>
             <div class="container">
                 <div class="row">
-                    <ul class="nav nav-pills">
-                        <li ng-class="activeWhen(language() == 'zh_CN')"><a
-                                ng-click="setLanguage('zh_CN')">简体中文</a></li>
-                        <li ng-class="activeWhen(language() == 'en')"><a
-                                ng-click="setLanguage('en')">English</a></li>
-                    </ul>
+                    <div class="btn-group btn-group-sm">
+                        <a class="btn btn-default" ng-class="(language() == 'zh_CN')?'btn-primary':''"
+                                ng-click="setLanguage('zh_CN')">简体中文</a>
+                        <a class="btn btn-default" ng-class="(language() == 'en')?'btn-primary':''"
+                                ng-click="setLanguage('en')">English</a>
+                    </div>
                 </div>
                 <div class="row">
-                    <div class="center-block">&copy;2014 fast-corp.com.cn, all rights reserved.</div>
+                    <div class="center-block">&copy;2014 HantsyLabs.com, all rights reserved.</div>
                 </div>
             </div>
         </footer>
@@ -121,16 +117,9 @@
         src="libs/angularjs/1.2.14/angular-resource.min.js"></script>
         <script type="text/javascript"
         src="libs/angularjs/1.2.14/angular-cookies.min.js"></script>
-        <!--        <script type="text/javascript"
-                src="libs/angularui/ng-grid-2.0.7.min.js"></script>-->
+
         <script type="text/javascript"
         src="libs/angularui/ui-bootstrap-tpls-0.10.0.js"></script> 
-
-        <!-- n v. d3 charts-->
-        <script type="text/javascript"
-        src="libs/nvd3/d3.min.js"></script> 
-        <script type="text/javascript"
-        src="libs/nvd3/nv.d3.min.js"></script>
 
         <script type="text/javascript" src="js/controller.js"></script>
         <script type="text/javascript" src="js/filter.js"></script>
@@ -138,11 +127,6 @@
         <script type="text/javascript" src="js/base64.js"></script>
         <script type="text/javascript" src="js/directive.js"></script> 
         <script type="text/javascript" src="js/init.js"></script>
-        <script type="text/javascript">
-                                            window.onbeforeunload = function() {
-                                                return "你确定要关闭窗口吗?";
-                                            };
-        </script>
     </body>
 
 </html>

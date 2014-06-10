@@ -19,7 +19,7 @@
 		<p>{{comment.content}}</p>
 		<p ng-show="user.id==post.createdBy.id">
 			<a class="btn btn-default btn-danger"
-				ng-click="delComment(comment.id)"><msg key="delete"></msg><span
+				ng-click="delComment($index)"><msg key="delete"></msg><span
 				class="glyphicon glyphicon-remove-sign"></span></a>
 		</p>
 	</li>
