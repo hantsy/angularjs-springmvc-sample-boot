@@ -8,23 +8,29 @@
             message,
             //Define the main module.
             //The module is accessible everywhere using "angular.module('angularspring')", therefore global variables can be avoided totally.
-            as = angular.module('statApp', ['ngRoute', 'ngResource', 'ngCookies', 'ui.bootstrap', 'statApp.i18n', 'statApp.services', 'statApp.controllers', 'statApp.directives', 'statApp.filters']);
+            as = angular.module('exampleApp', ['ngRoute', 'ngResource', 'ngCookies', 'ui.bootstrap', 'exampleApp.i18n', 'exampleApp.services', 'exampleApp.controllers', 'exampleApp.directives', 'exampleApp.filters']);
 
     as.config(function($routeProvider, $httpProvider) {
         //configure the rounting of ng-view
         $routeProvider
+                .when('/',
+                        {templateUrl: 'home.html',
+                            publicAccess: true})
+                .when('/home',
+                        {templateUrl: 'home.html',
+                            publicAccess: true})
                 .when('/login',
                         {templateUrl: 'login.html',
                             publicAccess: true})
                 .when('/posts',
                 		{controller:'PostsController',
                 			templateUrl: 'posts/home.html'})
-                .when('/posts/:id',
-                        {controller:'DetailsController',
-                			templateUrl: 'posts/details.html'})
                 .when('/posts/new',
                         {controller:'NewPostController',
                 			templateUrl: 'posts/new.html'})
+                .when('/posts/:id',
+                        {controller:'DetailsController',
+                			templateUrl: 'posts/details.html'})
                 .when('/admin/users',
                         {templateUrl: 'admin/users.html'})
                 .when('/user/home',

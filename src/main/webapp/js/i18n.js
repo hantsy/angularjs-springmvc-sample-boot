@@ -1,5 +1,5 @@
 (function () {
-    var as = angular.module('statApp.i18n',[]);
+    var as = angular.module('exampleApp.i18n',[]);
 
     as.service('i18n', function () {
         var self = this;

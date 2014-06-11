@@ -1,5 +1,5 @@
 (function() {
-    var app = angular.module('statApp.directives', []);
+    var app = angular.module('exampleApp.directives', []);
 
     app.directive('datetimepicker', function() {
         return {

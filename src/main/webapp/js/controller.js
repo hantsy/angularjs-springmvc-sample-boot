@@ -1,5 +1,5 @@
 (function() {
-    var as = angular.module('statApp.controllers', []);
+    var as = angular.module('exampleApp.controllers', []);
 
     as.controller('MainController', function($q, $scope, $rootScope, $http, i18n, $location) {
         var load = function() {
@@ -148,60 +148,65 @@
             return property === $scope.order.substring(1) ? $scope.order[0] === '+' ? 'glyphicon glyphicon-chevron-up' : 'glyphicon glyphicon-chevron-down' : '';
         };
     });
-    
+
     as.controller('NewPostController', function($scope, $http, i18n, $location) {
         var actionUrl = 'api/posts/';
-        
+
         $scope.save = function() {
             $http.post(actionUrl, $scope.newPost).success(function() {
                 $location.path('/posts');
             });
         };
-        
-        
-        $scope.cancel = function(){
-        	$location.path('/posts');
-        }
-        
+
+
+        $scope.cancel = function() {
+            $location.path('/posts');
+        };
+
     });
-    
-    as.controller('CommentsController', function($rootScope, $scope, $http, $routeParams, i18n, $location) {
-        
-        var actionUrl = 'api/posts/'
-        	,loadComment = function(){
-	        	$http.get(actionUrl+$routeParams.id+'/comments')
-	        		.success(function(data){
-	        			$scope.comments = data;
-	        		});
-        	}
-        	,load = function() {
-        		$q.all([
-        	        $http.get(actionUrl+$routeParams.id),
-        	        $http.get(actionUrl+$routeParams.id+'/comments')
-        	        ])
-	        	 .then(function(result) {
-	                $scope.post = result[0].data;
-	                $scope.comments = result[1].data;
-	            });
-        	};
+
+    as.controller('DetailsController', function($scope, $http, $routeParams, $q) {
+
+        var actionUrl = 'api/posts/',
+                loadComments = function() {
+                    $http.get(actionUrl + $routeParams.id + '/comments')
+                            .success(function(data) {
+                                $scope.comments = data;
+                            });
+                },
+                load = function() {
+                    $q.all([
+                        $http.get(actionUrl + $routeParams.id),
+                        $http.get(actionUrl + $routeParams.id + '/comments')
+                    ])
+                            .then(function(result) {
+                                $scope.post = result[0].data;
+                                $scope.comments = result[1].data;
+                            });
+                };
 
         load();
-        
-        $scope.newComment={};
-        
+
+        $scope.newComment = {};
+
         $scope.save = function() {
-            $http.post(actionUrl+$routeParams.id+'/comments', $scope.newComment).success(function() {
-            	 loadComments();
-            	 $scope.newComment={};
+            $http.post(actionUrl + $routeParams.id + '/comments', $scope.newComment).success(function() {
+                $('#commentDialog').modal('hide');
+                loadComments();
+                $scope.newComment = {};
             });
         };
-        
+
         $scope.delComment = function(idx) {
-            $http.delete('api/comments/'+$scope.comments[idx].id).success(function() {
-            	$scope.comments.splice(idx, 1);
+            $http.delete('api/comments/' + $scope.comments[idx].id).success(function() {
+                $scope.comments.splice(idx, 1);
             });
         };
         
+        $scope.addComment=function(){
+            $('#commentDialog').modal('show');
+        };
+
     });
 
     as.controller('PostsController', function($scope, $http, i18n) {
@@ -213,7 +218,7 @@
                 };
 
         load();
-        
+
         $scope.delPost = function(idx) {
             console.log('delete index @' + idx + ', id is@' + $scope.users[idx].id);
             if (confirm($.i18n.prop('confirm.delete'))) {
@@ -222,7 +227,7 @@
                 });
             }
         };
-        
+
     });
 
 }());

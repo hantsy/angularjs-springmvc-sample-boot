@@ -1,5 +1,5 @@
 (function () {
-var as = angular.module('statApp.services', []);
+var as = angular.module('exampleApp.services', []);
         as.service('base64', function () {
         var keyStr = "ABCDEFGHIJKLMNOP" +
                 "QRSTUVWXYZabcdef" +

@@ -1,5 +1,5 @@
 (function() {
-    var app = angular.module('statApp.filters', []);
+    var app = angular.module('exampleApp.filters', []);
 
     app.filter('range', function() {
         return function(input, total) {

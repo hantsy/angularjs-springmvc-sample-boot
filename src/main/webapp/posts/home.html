@@ -15,7 +15,7 @@
         </th>
     </tr>
     <tr ng-repeat="post in posts|orderBy:-createdOn">
-        <td><a ng-href="#/details/{{post.id}}">{{post.title}}</a></td>
+        <td><a ng-href="#/posts/{{post.id}}">{{post.title}}</a></td>
         <td>{{post.createdOn|date:'short'}}</td>
         <td>{{post.createdBy.displayName}}</td>
     </tr>
