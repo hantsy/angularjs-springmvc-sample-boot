@@ -1,6 +1,5 @@
 package com.hantsylabs.restexample.springmvc.api;
 
-import java.util.List;
 
 import javax.inject.Inject;
 
@@ -9,17 +8,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.hantsylabs.restexample.springmvc.Constants;
-import com.hantsylabs.restexample.springmvc.model.Comment;
-import com.hantsylabs.restexample.springmvc.model.Post;
 import com.hantsylabs.restexample.springmvc.repository.CommentRepository;
-import com.hantsylabs.restexample.springmvc.repository.PostRepository;
 
 @RestController
 @RequestMapping(value = Constants.URI_API)
@@ -40,7 +35,7 @@ public class CommentController {
 		commentRepository.delete(id);
 		
 
-		return new ResponseEntity<>(AlertMessage.success("Comment is deleted successfully!"), HttpStatus.OK);
+		return new ResponseEntity<>(AlertMessage.success("Comment is deleted successfully!"), HttpStatus.NO_CONTENT);
 	}
 
 }

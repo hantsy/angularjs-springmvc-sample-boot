@@ -12,12 +12,16 @@ import org.springframework.web.bind.annotation.RestController;
 import com.hantsylabs.restexample.springmvc.Constants;
 
 @Configuration
-@ComponentScan(basePackageClasses = {Constants.class},
+@ComponentScan(
+        basePackageClasses = {Constants.class},
         excludeFilters = {
-            @Filter(type = FilterType.ANNOTATION, value = {RestController.class, ControllerAdvice.class})})
+            @Filter(type = FilterType.ANNOTATION, value = {RestController.class, ControllerAdvice.class})
+        }
+)
 @PropertySources({
     @PropertySource("classpath:/app.properties"),
-    @PropertySource(value = "classpath:/database.properties", ignoreResourceNotFound = true)})
+    @PropertySource(value = "classpath:/database.properties", ignoreResourceNotFound = true)
+})
 public class AppConfig {
 
 }

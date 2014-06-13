@@ -25,12 +25,16 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hantsylabs.restexample.springmvc.Constants;
+import org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackageClasses = { Constants.class },
-includeFilters = { @Filter(type = FilterType.ANNOTATION,
-value = {RestController.class, ControllerAdvice.class }) })
+@ComponentScan(
+    basePackageClasses = { Constants.class },
+    includeFilters = { 
+        @Filter(type = FilterType.ANNOTATION, value = {RestController.class, ControllerAdvice.class })
+    }
+)
 public class WebConfig extends SpringDataWebConfiguration {
 
 	private static final Logger logger = LoggerFactory
@@ -72,5 +76,11 @@ public class WebConfig extends SpringDataWebConfiguration {
 		objectMapper.setSerializationInclusion(Include.NON_EMPTY);
 		return objectMapper;
 	}
+        
+        
+        @Bean
+        public ExceptionHandlerExceptionResolver exceptionHandlerExceptionResolver(){
+            return new ExceptionHandlerExceptionResolver();
+        }
 
 }
