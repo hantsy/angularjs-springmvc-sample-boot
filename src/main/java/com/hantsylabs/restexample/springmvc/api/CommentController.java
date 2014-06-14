@@ -35,7 +35,7 @@ public class CommentController {
 		commentRepository.delete(id);
 		
 
-		return new ResponseEntity<>(AlertMessage.success("Comment is deleted successfully!"), HttpStatus.NO_CONTENT);
+		return new ResponseEntity<>(AlertMessage.success("comment.deleted"), HttpStatus.NO_CONTENT);
 	}
 
 }

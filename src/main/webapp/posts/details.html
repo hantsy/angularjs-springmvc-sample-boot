@@ -8,18 +8,18 @@
 <p>{{post.content}}</p>
 
 <h3>Comments({{comments.length}})</h3>
-<div class="row" ng-hide="user.id == post.createdBy.id">
-    <p class="pull-right" >
+<div class="row">
+    <div class="pull-right">
         <a class="btn btn-default btn-success" ng-click="addComment()"><span class="glyphicon glyphicon-plus-sign"></span> <msg
                 key="addComment"></msg></a>
-    </p>
+    </div>
 </div>
-<ul class="unstyled-list">
-    <li ng-repeat="comment in comments">
+<ul class="list-unstyled">
+    <li ng-repeat="comment in comments" style="border-bottom: #ccc dotted thin !important;">
         <p><small>By {{comment.createdBy.displayName}} at
             {{comment.createdOn|date:'short'}}</small></p>
         <p>{{comment.content}}</p>
-        <p class="pull-right" ng-show="user.id == post.createdBy.id">
+        <p ng-show="user.id == post.createdBy.id">
             <a class="btn btn-sm btn-default btn-danger"
                ng-click="delComment($index)"><span class="glyphicon glyphicon-remove-sign"></span> <msg key="delete"></msg></a>
         </p>
@@ -30,7 +30,7 @@
      aria-labelledby="commentModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form class="form form-horizontal" role="form" ng-submit="save()">
+            <form class="form form-horizontal" role="form" ng-submit="save()" name="commentForm" novalidate>
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal"
                             aria-hidden="true">&times;</button>
@@ -39,15 +39,16 @@
                     </h4>
                 </div>
                 <div class="modal-body"> 
-                    <div class="form-group">
+                    <div class="form-group" ng-class="{'has-error':commentForm.content.$invalid && !commentForm.content.$pristine }">
                         <div class="col-md-12">
-                            <textarea class="form-control" type="text" placeholder="Comment on post"
-                                      ng-model="newComment.content" rows="8"></textarea>
+                            <textarea name="content" class="form-control" type="text" placeholder="Comment on post"
+                                      ng-model="newComment.content" rows="8" ng-required="true" ng-minlength="10"></textarea>
+                            <p ng-show="commentForm.content.$invalid" class="help-block">At least 10 chars.</p>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" ng-click="save()" class="btn btn-primary">
+                    <button type="submit" ng-disabled="commentForm.$invalid" class="btn btn-primary">
                         <msg key="save"></msg>
                     </button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">

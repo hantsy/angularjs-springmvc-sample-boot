@@ -99,7 +99,7 @@ public class PostController {
 		}
 
 		return new ResponseEntity<AlertMessage>(
-				AlertMessage.success("Post created successfully!"),
+				AlertMessage.success("post.created"),
 				HttpStatus.CREATED);
 	}
 	
@@ -112,7 +112,7 @@ public class PostController {
 
 		postRepository.delete(id);
 
-		return new ResponseEntity<>(AlertMessage.success("Post was deleted successfully!"), HttpStatus.NO_CONTENT);
+		return new ResponseEntity<>(AlertMessage.success("post.deleted!"), HttpStatus.NO_CONTENT);
 	}
 
 	@RequestMapping(value = "/posts/{id}/comments", method = RequestMethod.POST)

@@ -25,11 +25,11 @@ import com.hantsylabs.restexample.springmvc.security.SecurityUtil;
 
 @Configuration
 @EnableJpaRepositories(basePackages = {"com.hantsylabs.restexample.springmvc"})
-@EnableJpaAuditing(auditorAwareRef="auditor")
+@EnableJpaAuditing(auditorAwareRef = "auditor")
 @EnableTransactionManagement(mode = AdviceMode.ASPECTJ)
 public class JpaConfig {
-    
-    private static final Logger log=LoggerFactory.getLogger(JpaConfig.class);
+
+    private static final Logger log = LoggerFactory.getLogger(JpaConfig.class);
 
     @Inject
     private Environment env;
@@ -52,8 +52,8 @@ public class JpaConfig {
         extraProperties.put("hibernate.format_sql", env.getProperty("hibernate.format_sql"));
         extraProperties.put("hibernate.show_sql", env.getProperty("hibernate.show_sql"));
         extraProperties.put("hibernate.hbm2ddl.auto", env.getProperty("hibernate.hbm2ddl.auto"));
-        if(log.isDebugEnabled()){
-            log.debug(" hibernate.dialect @"+env.getProperty("hibernate.dialect"));
+        if (log.isDebugEnabled()) {
+            log.debug(" hibernate.dialect @" + env.getProperty("hibernate.dialect"));
         }
         if (env.getProperty("hibernate.dialect") != null) {
             extraProperties.put("hibernate.dialect", env.getProperty("hibernate.dialect"));
@@ -65,17 +65,16 @@ public class JpaConfig {
     public PlatformTransactionManager transactionManager() {
         return new JpaTransactionManager(entityManagerFactory().getObject());
     }
-    
-    
-    @Bean 
-    public AuditorAware<User> auditor(){
-    	return new AuditorAware<User>() {
 
-			@Override
-			public User getCurrentAuditor() {
-				return SecurityUtil.currentUser();
-			}
-		};
+    @Bean
+    public AuditorAware<User> auditor() {
+        return new AuditorAware<User>() {
+
+            @Override
+            public User getCurrentAuditor() {
+                return SecurityUtil.currentUser();
+            }
+        };
     }
-    
+
 }
