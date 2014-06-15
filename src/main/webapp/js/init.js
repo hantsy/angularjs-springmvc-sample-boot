@@ -14,29 +14,29 @@
         //configure the rounting of ng-view
         $routeProvider
                 .when('/',
-                        {templateUrl: 'home.html',
+                        {templateUrl: 'partials/home.html',
                             publicAccess: true})
                 .when('/home',
-                        {templateUrl: 'home.html',
+                        {templateUrl: 'partials/home.html',
                             publicAccess: true})
                 .when('/login',
-                        {templateUrl: 'login.html',
+                        {templateUrl: 'partials/login.html',
                             publicAccess: true})
                 .when('/posts',
-                		{controller:'PostsController',
-                			templateUrl: 'posts/home.html'})
+                        {controller: 'PostsController',
+                            templateUrl: 'partials/posts/home.html'})
                 .when('/posts/new',
-                        {controller:'NewPostController',
-                			templateUrl: 'posts/new.html'})
+                        {controller: 'NewPostController',
+                            templateUrl: 'partials/posts/new.html'})
                 .when('/posts/:id',
-                        {controller:'DetailsController',
-                			templateUrl: 'posts/details.html'})
+                        {controller: 'DetailsController',
+                            templateUrl: 'partials/posts/details.html'})
                 .when('/admin/users',
-                        {templateUrl: 'admin/users.html'})
+                        {templateUrl: 'partials/admin/users.html'})
                 .when('/user/home',
-                        {templateUrl: 'user/home.html'})
+                        {templateUrl: 'partials/user/home.html'})
                 .when('/user/profile',
-                        {templateUrl: 'user/profile.html'});
+                        {templateUrl: 'partials/user/profile.html'});
 
         //configure $http to catch message responses and show them
         $httpProvider.interceptors.push(function($q) {
@@ -221,7 +221,7 @@
                 $rootScope.$broadcast('event:loginRequired');
             } else if (!!$rootScope.user) {
                 //console.log('already logged in...'); 
-                if (nextLoc.templateUrl == 'login.html') {
+                if (nextLoc.templateUrl == 'partials/login.html') {
                     console.log('in login.html, go to /user/home...');
                     $location.path('/user/home');
                 } else {
@@ -229,7 +229,7 @@
                 }
             }
         });
-        
+
         //$rootScope.$on('$viewContentChange', funtion());
     });
 }());

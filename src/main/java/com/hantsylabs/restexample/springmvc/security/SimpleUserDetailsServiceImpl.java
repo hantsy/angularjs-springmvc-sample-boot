@@ -33,7 +33,7 @@ public class SimpleUserDetailsServiceImpl implements UserDetailsService {
 			return users.get(0);
 		}
 		
-		return null;
+		throw new UsernameNotFoundException("username not found:"+username);
 	}
 
 }

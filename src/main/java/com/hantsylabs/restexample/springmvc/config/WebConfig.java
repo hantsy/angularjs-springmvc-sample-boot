@@ -25,6 +25,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hantsylabs.restexample.springmvc.Constants;
+import org.springframework.core.annotation.Order;
 import org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver;
 
 @Configuration
@@ -78,9 +79,9 @@ public class WebConfig extends SpringDataWebConfiguration {
 	}
         
         
-        @Bean
-        public ExceptionHandlerExceptionResolver exceptionHandlerExceptionResolver(){
-            return new ExceptionHandlerExceptionResolver();
-        }
+//        @Bean
+//        public ExceptionHandlerExceptionResolver exceptionHandlerExceptionResolver(){
+//            return new ExceptionHandlerExceptionResolver();
+//        }
 
 }

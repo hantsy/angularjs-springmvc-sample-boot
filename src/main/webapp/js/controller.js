@@ -113,7 +113,7 @@
 
         load();
 
-        $scope.roleOpts = ['OPERATOR', 'ENGINEER', 'ADMIN'];
+        $scope.roleOpts = ['USER', 'ADMIN'];
         $scope.user = {};
 
         $scope.delete = function(idx) {
