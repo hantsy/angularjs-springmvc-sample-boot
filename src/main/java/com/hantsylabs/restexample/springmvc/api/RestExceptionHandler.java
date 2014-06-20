@@ -18,13 +18,13 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
  * exception message into JSON format.
  */
 @ControllerAdvice(annotations = RestController.class)
-public class RestExceptionHandler extends ResponseEntityExceptionHandler {
+public class RestExceptionHandler {
 
     private static final Logger log = LoggerFactory.getLogger(RestExceptionHandler.class);
 
-    @ExceptionHandler(value = {AuthenticationException.class})
+    @ExceptionHandler(value = {Exception.class})
     @ResponseBody
-    public ResponseEntity<AlertMessage> handleAuthenticationException(AuthenticationException ex, WebRequest request) {
+    public ResponseEntity<AlertMessage> handleAuthenticationException(Exception ex, WebRequest request) {
         if (log.isDebugEnabled()) {
             log.debug("handling authentication exception...");
         }
