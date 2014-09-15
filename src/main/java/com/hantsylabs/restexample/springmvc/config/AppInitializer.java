@@ -11,12 +11,12 @@ public class AppInitializer extends
 
     @Override
     protected Class<?>[] getRootConfigClasses() {
-        return new Class[]{AppConfig.class, DataSourceConfig.class, JpaConfig.class};
+        return new Class[]{AppConfig.class, DataSourceConfig.class, JpaConfig.class, SecurityConfig.class};
     }
 
     @Override
     protected Class<?>[] getServletConfigClasses() {
-        return new Class[]{WebConfig.class, SecurityConfig.class};
+        return new Class[]{WebConfig.class};
     }
 
     @Override

@@ -17,23 +17,24 @@ import com.hantsylabs.restexample.springmvc.repository.UserRepository;
 @Named
 public class SimpleUserDetailsServiceImpl implements UserDetailsService {
 
-	private static final Logger log = LoggerFactory
-			.getLogger(SimpleUserDetailsServiceImpl.class);
+    private static final Logger log = LoggerFactory.getLogger(SimpleUserDetailsServiceImpl.class);
 
-	@Inject
-	private UserRepository userRepository;
+    @Inject
+    private UserRepository userRepository;
 
-	@Override
-	public UserDetails loadUserByUsername(String username)
-			throws UsernameNotFoundException {
-		List<User> users = userRepository.findByUsername(username);
-		log.debug("found users by username @" + username + ", user count @"
-				+ users.size());
-		if (!users.isEmpty()) {
-			return users.get(0);
-		}
-		
-		throw new UsernameNotFoundException("username not found:"+username);
-	}
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        User user = userRepository.findByUsername(username);
+        if (user == null) {
+            throw new UsernameNotFoundException("username not found:" + username);
+        }
+
+        if (log.isDebugEnabled()) {
+            log.debug("found by username @" + username);
+        }
+        
+       return user;
+
+    }
 
 }

@@ -71,12 +71,12 @@ public class PostController {
 	@RequestMapping(value = "/posts/{id}/comments", method = RequestMethod.GET)
 	@ResponseBody
 	public ResponseEntity<List<Comment>> getCommentsOfPost(
-			@PathVariable("id") Long id) {
+			@PathVariable("id") Post post) {
 		if (log.isDebugEnabled()) {
-			log.debug("get comments of post@" + id);
+			log.debug("get comments of post@" + post);
 		}
 
-		List<Comment> commentsOfPost = commentRepository.findByPostId(id);
+		List<Comment> commentsOfPost = commentRepository.findByPost(post);
 
 		if (log.isDebugEnabled()) {
 			log.debug("get post @" + commentsOfPost.size());

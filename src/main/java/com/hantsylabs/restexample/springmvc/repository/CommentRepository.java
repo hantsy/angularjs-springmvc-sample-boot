@@ -12,7 +12,5 @@ import com.hantsylabs.restexample.springmvc.model.Post;
 public interface CommentRepository extends JpaRepository<Comment, Long> {
 	
 	public List<Comment> findByPost(Post post);
-
-	public List<Comment> findByPostId(Long id);
-
+	
 }

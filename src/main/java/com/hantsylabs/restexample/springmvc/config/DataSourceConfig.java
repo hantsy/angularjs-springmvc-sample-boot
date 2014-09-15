@@ -26,7 +26,7 @@ public class DataSourceConfig {
     }
 
     @Bean
-    @Profile("test")
+    @Profile("staging")
     public DataSource testDataSource() {
         BasicDataSource bds = new BasicDataSource();
         bds.setDriverClassName("com.mysql.jdbc.Driver");

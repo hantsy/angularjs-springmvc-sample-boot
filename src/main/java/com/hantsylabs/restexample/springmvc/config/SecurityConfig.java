@@ -26,33 +26,38 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	public void configure(WebSecurity web) throws Exception {
 		web
-                    .ignoring()
-			.antMatchers("/**/*.html", 
-                                "/css/**", 
-                                "/js/**", 
-                                "/i18n/**", 
-                                "/libs/**",
-                                "/img/**", 
-                                "/ico/**");
+            .ignoring()
+			.antMatchers("/**/*.html", //
+                         "/css/**", //
+                         "/js/**", //
+                         "/i18n/**",// 
+                         "/libs/**",//
+                         "/img/**", //
+                         "/ico/**");
 	}
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests()
-                        .antMatchers("/api/public/**")
-			.permitAll()
-			.antMatchers("/api/**")
-			.authenticated()
-			.anyRequest()
-			.permitAll()
-                    .and()
-                        .securityContext()
-                        .securityContextRepository(new NullSecurityContextRepository())
-                    .and()
-                        .httpBasic()
-                    .and()
-                        .csrf()
-                        .disable();
+		http
+		    .authorizeRequests()
+                .antMatchers("/api/public/**")
+                .permitAll()
+            .and()    
+                .authorizeRequests()   
+    			.antMatchers("/api/**")
+    			.authenticated()
+    		.and()
+    			.authorizeRequests()   
+    			.anyRequest()
+    			.permitAll()
+            .and()
+                .securityContext()
+                .securityContextRepository(new NullSecurityContextRepository())
+            .and()
+                .httpBasic()
+            .and()
+                .csrf()
+                .disable();
 
                     // .formLogin().loginPage("/login").permitAll().and().logout()
                     // .permitAll();
