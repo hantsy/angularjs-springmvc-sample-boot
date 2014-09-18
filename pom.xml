@@ -624,13 +624,12 @@
 
 				<log4j.level>INFO</log4j.level>
 
-				<spring.profiles.active>test</spring.profiles.active>
+				<spring.profiles.active>prod</spring.profiles.active>
 
-				<hibernate.hbm2ddl.auto>update</hibernate.hbm2ddl.auto>
+				<hibernate.hbm2ddl.auto>none</hibernate.hbm2ddl.auto>
 				<hibernate.show_sql>false</hibernate.show_sql>
 				<hibernate.format_sql>false</hibernate.format_sql>
 				<hibernate.dialect>org.hibernate.dialect.MySQL5Dialect</hibernate.dialect>
-
 			</properties>
 			<dependencies>
 				<dependency>
