@@ -589,7 +589,7 @@
             </properties>
         </profile>
         <profile>
-            <id>test</id>
+            <id>staging</id>
             <properties>
                 <db.connectionURL><![CDATA[jdbc:mysql://localhost:3306/app]]>
                 </db.connectionURL>
@@ -598,7 +598,7 @@
 
                 <log4j.level>INFO</log4j.level>
 
-                <spring.profiles.active>test</spring.profiles.active>
+                <spring.profiles.active>staging</spring.profiles.active>
 
                 <hibernate.hbm2ddl.auto>update</hibernate.hbm2ddl.auto>
                 <hibernate.show_sql>false</hibernate.show_sql>
@@ -616,7 +616,7 @@
             <build>
                 <resources>
                     <resource>
-                        <directory>src/main/resources-test</directory>
+                        <directory>src/main/resources-staging</directory>
                         <filtering>true</filtering>
                     </resource>
                 </resources>
@@ -650,7 +650,7 @@
             <build>
                 <resources>
                     <resource>
-                        <directory>src/main/resources-test</directory>
+                        <directory>src/main/resources-prod</directory>
                         <filtering>true</filtering>
                     </resource>
                 </resources>
