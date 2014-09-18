@@ -6,7 +6,7 @@ An example application using AnguarJS/Bootstrap as frontend and Spring MVC as RE
 
 ## JDK 8
 
-Oracle Java 8 is required, go to Oracle Java website [Oracle Java website](http://java.oracle.com) and download it.
+Oracle Java 8 is required, go to [Oracle Java website](http://java.oracle.com) and download it.
 
 ## Run this project
 
