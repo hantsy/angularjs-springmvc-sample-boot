@@ -1,7 +1,5 @@
 package com.hantsylabs.restexample.springmvc.security;
 
-import java.util.List;
-
 import javax.inject.Inject;
 import javax.inject.Named;
 

@@ -118,12 +118,10 @@ public class PostController {
 	@RequestMapping(value = "/posts/{id}/comments", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseEntity<Void> createCommentOfPost(
-			@PathVariable("id") Long id, @RequestBody Comment comment) {
+			@PathVariable("id") Post post, @RequestBody Comment comment) {
 		if (log.isDebugEnabled()) {
-			log.debug("new comment of post@" + id);
+			log.debug("new comment of post@" + post);
 		}
-
-		Post post = postRepository.findOne(id);
 
 		comment.setPost(post);
 

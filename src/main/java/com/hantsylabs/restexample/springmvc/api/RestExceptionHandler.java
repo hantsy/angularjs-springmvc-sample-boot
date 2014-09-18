@@ -18,7 +18,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
  * exception message into JSON format.
  */
 @ControllerAdvice(annotations = RestController.class)
-public class RestExceptionHandler {
+public class RestExceptionHandler extends ResponseEntityExceptionHandler{
 
     private static final Logger log = LoggerFactory.getLogger(RestExceptionHandler.class);
 
