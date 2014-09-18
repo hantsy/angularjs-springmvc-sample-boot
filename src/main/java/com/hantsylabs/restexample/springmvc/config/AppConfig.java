@@ -2,6 +2,7 @@ package com.hantsylabs.restexample.springmvc.config;
 
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.ComponentScan.Filter;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.FilterType;
 import org.springframework.context.annotation.PropertySource;
@@ -9,6 +10,9 @@ import org.springframework.context.annotation.PropertySources;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hantsylabs.restexample.springmvc.Constants;
 
 @Configuration
@@ -23,5 +27,13 @@ import com.hantsylabs.restexample.springmvc.Constants;
     @PropertySource(value = "classpath:/database.properties", ignoreResourceNotFound = true)
 })
 public class AppConfig {
+    
+    @Bean
+    public ObjectMapper objectMapper() {
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.configure(DeserializationFeature.FAIL_ON_IGNORED_PROPERTIES, false);
+        objectMapper.setSerializationInclusion(Include.NON_EMPTY);
+        return objectMapper;
+    }
 
 }

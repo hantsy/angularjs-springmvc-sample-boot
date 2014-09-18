@@ -3,6 +3,8 @@ package com.hantsylabs.restexample.springmvc.config;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
@@ -16,17 +18,15 @@ import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.config.annotation.ContentNegotiationConfigurer;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
+import org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver;
 
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
-import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hantsylabs.restexample.springmvc.Constants;
-import org.springframework.core.annotation.Order;
-import org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver;
 
 @Configuration
 @EnableWebMvc
@@ -40,11 +40,19 @@ public class WebConfig extends SpringDataWebConfiguration {
 
 	private static final Logger logger = LoggerFactory
 			.getLogger(WebConfig.class);
+	
+	@Inject
+	private ObjectMapper objectMapper;
 
 	@Override
 	public void addViewControllers(ViewControllerRegistry registry) {
 		// super.addViewControllers(registry);
 	}
+	
+    @Override
+    public void configureHandlerExceptionResolvers(List<HandlerExceptionResolver> exceptionResolvers) {
+        exceptionResolvers.add(exceptionHandlerExceptionResolver());
+    }
 
 	@Override
 	public void configureDefaultServletHandling(
@@ -65,23 +73,13 @@ public class WebConfig extends SpringDataWebConfiguration {
 		MappingJackson2HttpMessageConverter jackson2Converter = new MappingJackson2HttpMessageConverter();
 		jackson2Converter.setSupportedMediaTypes(Arrays
 				.asList(MediaType.APPLICATION_JSON));
-		jackson2Converter.setObjectMapper(objectMapper());
+		jackson2Converter.setObjectMapper(objectMapper);
 		converters.add(jackson2Converter);
 	}
-
-	@Bean
-	public ObjectMapper objectMapper() {
-		ObjectMapper objectMapper = new ObjectMapper();
-		objectMapper.configure(
-				DeserializationFeature.FAIL_ON_IGNORED_PROPERTIES, false);
-		objectMapper.setSerializationInclusion(Include.NON_EMPTY);
-		return objectMapper;
-	}
         
-        
-//        @Bean
-//        public ExceptionHandlerExceptionResolver exceptionHandlerExceptionResolver(){
-//            return new ExceptionHandlerExceptionResolver();
-//        }
+    @Bean
+    public ExceptionHandlerExceptionResolver exceptionHandlerExceptionResolver() {
+        return new ExceptionHandlerExceptionResolver();
+    }
 
 }
