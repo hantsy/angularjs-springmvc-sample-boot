@@ -42,7 +42,7 @@ public class PostController {
 			log.debug("get all postsinfo");
 		}
 
-		Sort createdOnDesc = new Sort(Direction.DESC, "createdOn");
+		Sort createdOnDesc = new Sort(Direction.DESC, "createdDate");
 		List<Post> posts = postRepository.findAll(createdOnDesc);
 
 		if (log.isDebugEnabled()) {
