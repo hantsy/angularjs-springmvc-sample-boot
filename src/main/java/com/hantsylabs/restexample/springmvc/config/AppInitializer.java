@@ -6,22 +6,27 @@ import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 @Order(0)
-public class AppInitializer extends
-        AbstractAnnotationConfigDispatcherServletInitializer {
+public class AppInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
 
     @Override
     protected Class<?>[] getRootConfigClasses() {
-        return new Class[]{AppConfig.class, DataSourceConfig.class, JpaConfig.class, SecurityConfig.class};
+        return new Class[] {//
+        AppConfig.class, //
+                DataSourceConfig.class, //
+                JpaConfig.class, //
+                SecurityConfig.class,//
+                SwaggerConfig.class //
+        };
     }
 
     @Override
     protected Class<?>[] getServletConfigClasses() {
-        return new Class[]{WebConfig.class};
+        return new Class[] { WebConfig.class };
     }
 
     @Override
     protected String[] getServletMappings() {
-        return new String[]{"/"};
+        return new String[] { "/" };
     }
 
     @Override
@@ -30,7 +35,7 @@ public class AppInitializer extends
         encodingFilter.setEncoding("UTF-8");
         encodingFilter.setForceEncoding(true);
 
-        return new Filter[]{encodingFilter};
+        return new Filter[] { encodingFilter };
     }
 
 }

@@ -37,6 +37,13 @@
 			<id>io.spring.repo.maven.milestone</id>
 			<url>http://repo.spring.io/milestone/</url>
 		</repository>
+
+		<repository>
+			<id>oss-jfrog-artifactory</id>
+			<name>oss-jfrog-artifactory-releases</name>
+			<url>http://oss.jfrog.org/artifactory/oss-release-local</url>
+		</repository>
+
 		<repository>
 			<id>jvnet-nexus-releases</id>
 			<name>jvnet-nexus-releases</name>
@@ -253,6 +260,19 @@
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-annotations</artifactId>
 			<version>2.4.0</version>
+		</dependency>
+
+		<!-- Swagger Spring MVC -->
+		<dependency>
+			<groupId>com.mangofactory</groupId>
+			<artifactId>swagger-springmvc</artifactId>
+			<version>0.8.8</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.ajar</groupId>
+			<artifactId>swagger-spring-mvc-ui</artifactId>
+			<version>0.2</version>
 		</dependency>
 
 		<!--log4j -->

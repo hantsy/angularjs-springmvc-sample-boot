@@ -39,7 +39,7 @@ public class PostController {
 	@ResponseBody
 	public ResponseEntity<List<Post>> getAllPosts() {
 		if (log.isDebugEnabled()) {
-			log.debug("get all postsinfo");
+			log.debug("get all posts");
 		}
 
 		Sort createdOnDesc = new Sort(Direction.DESC, "createdDate");
