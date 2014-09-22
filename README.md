@@ -5,11 +5,12 @@ An example application using AnguarJS/Bootstrap as frontend and Spring MVC as RE
 
 
 ##Requirements
+
    * JDK 8
 
      Oracle Java 8 is required, go to [Oracle Java website](http://java.oracle.com) to download it and install into your system. 
      
-     Optionally, you can set **JAVA\_HOMTE** environment variable and add *&lt;JDK installation dir>/bin* in your **PATH**.
+     Optionally, you can set **JAVA\_HOME** environment variable and add *&lt;JDK installation dir>/bin* in your **PATH** environment variable.
 
    * Apache Maven
    
@@ -25,7 +26,7 @@ An example application using AnguarJS/Bootstrap as frontend and Spring MVC as RE
     git clone https://github.com/hantsy/angularjs-springmvc-sample
     </pre>
   
-   2. And enter the root folder, run `mvn tomcat7:run` to startup an embeded tomcat7 to serve this application.
+   2. And enter the root folder, run `mvn tomcat7:run` to start up an embedded tomcat7 to serve this application.
   
     <pre>
     mvn tomcat7:run
@@ -35,4 +36,4 @@ An example application using AnguarJS/Bootstrap as frontend and Spring MVC as RE
 
 
 
-*The detailed steps will be added in the wiki pages of this project.*
+*The detailed steps will be added in the wiki pages of this project soon.*
