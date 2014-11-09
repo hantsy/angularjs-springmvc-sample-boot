@@ -87,7 +87,7 @@ public class PostController {
 
 	@RequestMapping(value = "/posts", method = RequestMethod.POST)
 	@ResponseBody
-	public ResponseEntity<AlertMessage> createPost(@RequestBody Post post) {
+	public ResponseEntity<ResponseMessage> createPost(@RequestBody Post post) {
 		if (log.isDebugEnabled()) {
 			log.debug("create a new post");
 		}
@@ -98,21 +98,21 @@ public class PostController {
 			log.debug("saved post id is @" + saved.getId());
 		}
 
-		return new ResponseEntity<AlertMessage>(
-				AlertMessage.success("post.created"),
+		return new ResponseEntity<ResponseMessage>(
+				ResponseMessage.success("post.created"),
 				HttpStatus.CREATED);
 	}
 	
 	@RequestMapping(value = "/posts/{id}", method = RequestMethod.DELETE)
 	@ResponseBody
-	public ResponseEntity<AlertMessage> deletePost(@PathVariable("id") Long id) {
+	public ResponseEntity<ResponseMessage> deletePost(@PathVariable("id") Long id) {
 		if (log.isDebugEnabled()) {
 			log.debug("delete post by id @" + id);
 		}
 
 		postRepository.delete(id);
 
-		return new ResponseEntity<>(AlertMessage.success("post.deleted!"), HttpStatus.NO_CONTENT);
+		return new ResponseEntity<>(ResponseMessage.success("post.deleted!"), HttpStatus.NO_CONTENT);
 	}
 
 	@RequestMapping(value = "/posts/{id}/comments", method = RequestMethod.POST)

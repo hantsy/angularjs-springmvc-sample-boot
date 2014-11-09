@@ -24,11 +24,11 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(value = { Exception.class })
     @ResponseBody
-    public ResponseEntity<AlertMessage> handleAuthenticationException(Exception ex, WebRequest request) {
+    public ResponseEntity<ResponseMessage> handleAuthenticationException(Exception ex, WebRequest request) {
         if (log.isDebugEnabled()) {
             log.debug("handling exception...");
         }
-        return new ResponseEntity<>(new AlertMessage(AlertMessage.Type.danger, ex.getMessage()), HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(new ResponseMessage(ResponseMessage.Type.danger, ex.getMessage()), HttpStatus.BAD_REQUEST);
     }
 
 }

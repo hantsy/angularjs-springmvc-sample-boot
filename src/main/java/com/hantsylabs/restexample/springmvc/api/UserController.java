@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.hantsylabs.restexample.springmvc.Constants;
-import com.hantsylabs.restexample.springmvc.api.AlertMessage.Type;
+import com.hantsylabs.restexample.springmvc.api.ResponseMessage.Type;
 import com.hantsylabs.restexample.springmvc.model.User;
 import com.hantsylabs.restexample.springmvc.repository.UserRepository;
 import com.hantsylabs.restexample.springmvc.security.SecurityUtil;
@@ -49,13 +49,13 @@ public class UserController {
 
 	@RequestMapping(value = "/user/changepw", method = RequestMethod.PUT)
 	@ResponseBody
-	public ResponseEntity<AlertMessage> changePassword(
+	public ResponseEntity<ResponseMessage> changePassword(
 			@RequestBody PasswordForm fm) {
 		log.debug("change password of user@" + fm);
 		User user = SecurityUtil.currentUser();
 
 		if (!passwordEncoder.matches(fm.getOldPassword(), user.getPassword())) {
-			return new ResponseEntity<AlertMessage>(new AlertMessage(
+			return new ResponseEntity<ResponseMessage>(new ResponseMessage(
 					Type.danger, "currentPasswordIsWrong"),
 					HttpStatus.BAD_REQUEST);
 		}
@@ -63,20 +63,20 @@ public class UserController {
 		user.setPassword(passwordEncoder.encode(fm.getNewPassword()));
 		userRepository.save(user);
 
-		return new ResponseEntity<AlertMessage>(new AlertMessage(
+		return new ResponseEntity<ResponseMessage>(new ResponseMessage(
 				Type.success, "passwordUpdated"), HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/user/updateProfile", method = RequestMethod.PUT)
 	@ResponseBody
-	public ResponseEntity<AlertMessage> updateProfile(@RequestBody User u) {
+	public ResponseEntity<ResponseMessage> updateProfile(@RequestBody User u) {
 		log.debug("update user profile data @" + u);
 
 		User user = SecurityUtil.currentUser();
 		BeanUtils.copyProperties(u, user, "username", "password", "role");
 		userRepository.save(user);
 
-		return new ResponseEntity<AlertMessage>(new AlertMessage(
+		return new ResponseEntity<ResponseMessage>(new ResponseMessage(
 				Type.success, "profileUpdated"), HttpStatus.OK);
 	}
 
@@ -94,22 +94,22 @@ public class UserController {
 	
 	@RequestMapping(value = "/users", method = RequestMethod.POST)
 	@ResponseBody
-	public ResponseEntity<AlertMessage> saveUser(@RequestBody User u) {
+	public ResponseEntity<ResponseMessage> saveUser(@RequestBody User u) {
 		log.debug("save user data @" + u);
 		u.setPassword(passwordEncoder.encode(u.getPassword()));
 		userRepository.save(u);
 
-		return new ResponseEntity<AlertMessage>(new AlertMessage(
+		return new ResponseEntity<ResponseMessage>(new ResponseMessage(
 				Type.success, "userSaved"), HttpStatus.CREATED);
 	}
 	
 	@RequestMapping(value = "/users/{id}", method = RequestMethod.DELETE)
 	@ResponseBody
-	public ResponseEntity<AlertMessage> deleteUser(@PathVariable("id") Long id) {
+	public ResponseEntity<ResponseMessage> deleteUser(@PathVariable("id") Long id) {
 		log.debug("delete user data @" + id);
 		userRepository.delete(id);
 		
-		return new ResponseEntity<AlertMessage>(new AlertMessage(
+		return new ResponseEntity<ResponseMessage>(new ResponseMessage(
 				Type.success, "userDeleted"), HttpStatus.OK);
 	}
 

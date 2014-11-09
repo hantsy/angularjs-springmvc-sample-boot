@@ -27,14 +27,14 @@ public class CommentController {
 
 	@RequestMapping(value = "/comments/{id}", method = RequestMethod.DELETE)
 	@ResponseBody
-	public ResponseEntity<AlertMessage> deleteComment(@PathVariable("id") Long id) {
+	public ResponseEntity<ResponseMessage> deleteComment(@PathVariable("id") Long id) {
 		if (log.isDebugEnabled()) {
 			log.debug("get comments of post id @"+id);
 		}
 
 		commentRepository.delete(id);
 		
-		return new ResponseEntity<>(AlertMessage.success("comment.deleted"), HttpStatus.NO_CONTENT);
+		return new ResponseEntity<>(ResponseMessage.success("comment.deleted"), HttpStatus.NO_CONTENT);
 	}
 
 }
