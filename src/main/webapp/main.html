@@ -50,7 +50,7 @@
 						href="#/posts/new"><msg key="newPost"></msg></a></li>
 					<li class="dropdown"
 						ng-class="activeWhen(path().substring(0, 6) === '/admin')"
-						ng-show="user.username && user.role == 'ADMIN'"><a href="#"
+						ng-show="user.username && user.role == 'ADMIN'"><a href="javascript:void(0);"
 						class="dropdown-toggle" data-toggle="dropdown"><msg
 								key="administration"></msg> <b class="caret"></b></a>
 						<ul class="dropdown-menu">
@@ -58,7 +58,7 @@
 						</ul></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right" ng-show="user.username">
-					<li class="dropdown"><a href="#" class="dropdown-toggle"
+					<li class="dropdown"><a href="javascript:void(0);" class="dropdown-toggle"
 						data-toggle="dropdown">{{user.displayName}} <b class="caret"></b></a>
 						<ul class="dropdown-menu">
 							<li><a href="#/user/home"><msg key="personalHome"></msg></a></li>

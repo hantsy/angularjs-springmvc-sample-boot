@@ -20,7 +20,12 @@ import com.hantsylabs.restexample.springmvc.Constants;
 @ComponentScan(
         basePackageClasses = {Constants.class},
         excludeFilters = {
-            @Filter(type = FilterType.ANNOTATION, value = {RestController.class, ControllerAdvice.class})
+            @Filter(
+            		type = FilterType.ANNOTATION, 
+            		value = {
+            				RestController.class, 
+            				ControllerAdvice.class}
+            		)
         }
 )
 @PropertySources({

@@ -12,15 +12,21 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import com.hantsylabs.restexample.springmvc.model.User;
 import com.hantsylabs.restexample.springmvc.repository.UserRepository;
 
-@Named
+//@Named
 public class SimpleUserDetailsServiceImpl implements UserDetailsService {
 
     private static final Logger log = LoggerFactory.getLogger(SimpleUserDetailsServiceImpl.class);
 
-    @Inject
+    //@Inject
     private UserRepository userRepository;
+    
 
-    @Override
+    public SimpleUserDetailsServiceImpl(UserRepository userRepository) {
+		super();
+		this.userRepository = userRepository;
+	}
+
+	@Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByUsername(username);
         if (user == null) {

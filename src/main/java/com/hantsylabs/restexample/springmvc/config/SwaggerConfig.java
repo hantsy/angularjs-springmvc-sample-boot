@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.ResponseEntity;
 
 import com.mangofactory.swagger.configuration.SpringSwaggerConfig;
 import com.mangofactory.swagger.plugin.EnableSwagger;
@@ -45,15 +47,16 @@ public class SwaggerConfig {
                 .apiVersion("V1.0")//
                 .apiInfo(apiInfo())//
                // .includePatterns(".*api.*")
+                .genericModelSubstitutes(ResponseEntity.class, HttpEntity.class)
                 .build();
         
     }
 
     private ApiInfo apiInfo() {
         ApiInfo apiInfo = new ApiInfo(//
-                "CRM RESTful API",//
-                "CRM RESTful APIs for developers", //
-                "CRM API terms of service",//
+                "Blog RESTful API",//
+                "Blog RESTful APIs for developers", //
+                "Blog API terms of service",//
                 "hantsy@gmail.com",//
                 "Commericial Lisence", //
                 "lisence URL");

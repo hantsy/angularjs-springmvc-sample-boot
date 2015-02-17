@@ -4,16 +4,18 @@ import javax.inject.Inject;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationProvider;
-import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.servlet.configuration.EnableWebMvcSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.context.NullSecurityContextRepository;
 
+import com.hantsylabs.restexample.springmvc.repository.UserRepository;
 import com.hantsylabs.restexample.springmvc.security.SimpleUserDetailsServiceImpl;
 
 @Configuration
@@ -21,7 +23,7 @@ import com.hantsylabs.restexample.springmvc.security.SimpleUserDetailsServiceImp
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Inject
-	private SimpleUserDetailsServiceImpl userDetailsService;	
+	private UserRepository userRepository;	
 
 	@Override
 	public void configure(WebSecurity web) throws Exception {
@@ -51,8 +53,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     			.anyRequest()
     			.permitAll()
             .and()
-                .securityContext()
-                .securityContextRepository(new NullSecurityContextRepository())
+                .sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             .and()
                 .httpBasic()
             .and()
@@ -66,17 +68,32 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth)
 			throws Exception {
-		auth.authenticationProvider(authenticationProvider());
+		auth
+			.userDetailsService(new SimpleUserDetailsServiceImpl(userRepository))
+			.passwordEncoder(passwordEncoder());
+	}
+
+
+	@Bean
+	@Override
+	public AuthenticationManager authenticationManagerBean() throws Exception {
+		return super.authenticationManagerBean();
 	}
 
 	@Bean
-	public AuthenticationProvider authenticationProvider() {
-		DaoAuthenticationProvider _authenticationProvider = new DaoAuthenticationProvider();
-		_authenticationProvider.setPasswordEncoder(passwordEncoder());
-		_authenticationProvider.setUserDetailsService(userDetailsService);
-
-		return _authenticationProvider;
+	@Override
+	public UserDetailsService userDetailsServiceBean() throws Exception {
+		return super.userDetailsServiceBean();
 	}
+
+//	@Bean
+//	public AuthenticationProvider authenticationProvider() {
+//		DaoAuthenticationProvider _authenticationProvider = new DaoAuthenticationProvider();
+//		_authenticationProvider.setPasswordEncoder(passwordEncoder());
+//		_authenticationProvider.setUserDetailsService(userDetailsService);
+//
+//		return _authenticationProvider;
+//	}
 
 	@Bean
 	public BCryptPasswordEncoder passwordEncoder() {

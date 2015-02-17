@@ -39,9 +39,9 @@ public class DataSourceConfig {
     public DataSource testDataSource() {
         BasicDataSource bds = new BasicDataSource();
         bds.setDriverClassName("com.mysql.jdbc.Driver");
-        bds.setUrl(env.getProperty("db.connectionURL"));
-        bds.setUsername(env.getProperty("db.username"));
-        bds.setPassword(env.getProperty("db.password"));
+        bds.setUrl(env.getProperty("jdbc.url"));
+        bds.setUsername(env.getProperty("jdbc.username"));
+        bds.setPassword(env.getProperty("jdbc.password"));
         return bds;
     }
 
@@ -49,7 +49,7 @@ public class DataSourceConfig {
     @Profile("prod")
     public DataSource prodDataSource() {
         JndiObjectFactoryBean ds = new JndiObjectFactoryBean();
-        ds.setJndiName("");
+        ds.setJndiName("jdbc/postDS");
         ds.setCache(true);
 
         return (DataSource) ds.getObject();
