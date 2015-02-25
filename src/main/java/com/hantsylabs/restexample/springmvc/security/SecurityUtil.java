@@ -8,17 +8,17 @@ import com.hantsylabs.restexample.springmvc.model.User;
 
 public class SecurityUtil {
 
-	public static User currentUser() {
-		Authentication auth = SecurityContextHolder.getContext()
-				.getAuthentication();
-		if (auth == null) {
-			return null;
-		}
+    public static User currentUser() {
+        Authentication auth = SecurityContextHolder.getContext()
+                .getAuthentication();
+        if (auth == null) {
+            return null;
+        }
 
-		if (auth instanceof AnonymousAuthenticationToken) {
-			return null;
-		}
+        if (auth instanceof AnonymousAuthenticationToken) {
+            return null;
+        }
 
-		return (User) auth.getPrincipal();
-	}
+        return (User) auth.getPrincipal();
+    }
 }

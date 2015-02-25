@@ -33,8 +33,17 @@ import com.hantsylabs.restexample.springmvc.Constants;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackageClasses = { Constants.class }, includeFilters = { @Filter(type = FilterType.ANNOTATION, value = {
-        RestController.class, ControllerAdvice.class }) })
+@ComponentScan(
+        basePackageClasses = {Constants.class},
+        useDefaultFilters = false,
+        includeFilters = {
+            @Filter(
+                    type = FilterType.ANNOTATION,
+                    value = {
+                        RestController.class,
+                        ControllerAdvice.class
+                    })
+        })
 public class WebConfig extends SpringDataWebConfiguration {
 
     private static final Logger logger = LoggerFactory.getLogger(WebConfig.class);
@@ -57,7 +66,6 @@ public class WebConfig extends SpringDataWebConfiguration {
         return resolver;
     }
 
-    
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
         // super.addViewControllers(registry);

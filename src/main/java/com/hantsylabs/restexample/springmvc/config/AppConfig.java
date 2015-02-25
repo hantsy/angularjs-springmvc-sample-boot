@@ -24,7 +24,9 @@ import com.hantsylabs.restexample.springmvc.Constants;
             		type = FilterType.ANNOTATION, 
             		value = {
             				RestController.class, 
-            				ControllerAdvice.class}
+            				ControllerAdvice.class,
+                            Configuration.class
+                        }
             		)
         }
 )

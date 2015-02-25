@@ -14,7 +14,7 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 /**
- * Called when an exception occurs during request processing. Transforms the
+ * Called when an exception occurs during request processing. Transforms 
  * exception message into JSON format.
  */
 @ControllerAdvice(annotations = RestController.class)

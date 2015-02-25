@@ -19,14 +19,13 @@ public class SimpleUserDetailsServiceImpl implements UserDetailsService {
 
     //@Inject
     private UserRepository userRepository;
-    
 
     public SimpleUserDetailsServiceImpl(UserRepository userRepository) {
-		super();
-		this.userRepository = userRepository;
-	}
+        super();
+        this.userRepository = userRepository;
+    }
 
-	@Override
+    @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByUsername(username);
         if (user == null) {
@@ -36,8 +35,8 @@ public class SimpleUserDetailsServiceImpl implements UserDetailsService {
         if (log.isDebugEnabled()) {
             log.debug("found by username @" + username);
         }
-        
-       return user;
+
+        return user;
 
     }
 

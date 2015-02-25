@@ -58,7 +58,7 @@ public class SwaggerConfig {
                 "Blog RESTful APIs for developers", //
                 "Blog API terms of service",//
                 "hantsy@gmail.com",//
-                "Commericial Lisence", //
+                "GPL Lisence", //
                 "lisence URL");
         return apiInfo;
     }
