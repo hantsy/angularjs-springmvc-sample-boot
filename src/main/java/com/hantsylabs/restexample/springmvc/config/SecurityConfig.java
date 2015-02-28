@@ -9,17 +9,16 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.annotation.web.servlet.configuration.EnableWebMvcSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.web.context.NullSecurityContextRepository;
 
 import com.hantsylabs.restexample.springmvc.repository.UserRepository;
 import com.hantsylabs.restexample.springmvc.security.SimpleUserDetailsServiceImpl;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 
 @Configuration
-@EnableWebMvcSecurity
+@EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Inject
@@ -60,9 +59,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .and()
                 .csrf()
                 .disable();
-
-                    // .formLogin().loginPage("/login").permitAll().and().logout()
-                    // .permitAll();
 	}
 
 	@Override
@@ -85,15 +81,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	public UserDetailsService userDetailsServiceBean() throws Exception {
 		return super.userDetailsServiceBean();
 	}
-
-//	@Bean
-//	public AuthenticationProvider authenticationProvider() {
-//		DaoAuthenticationProvider _authenticationProvider = new DaoAuthenticationProvider();
-//		_authenticationProvider.setPasswordEncoder(passwordEncoder());
-//		_authenticationProvider.setUserDetailsService(userDetailsService);
-//
-//		return _authenticationProvider;
-//	}
 
 	@Bean
 	public BCryptPasswordEncoder passwordEncoder() {
