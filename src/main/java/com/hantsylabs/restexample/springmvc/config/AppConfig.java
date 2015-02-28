@@ -21,26 +21,24 @@ import com.hantsylabs.restexample.springmvc.Constants;
         basePackageClasses = {Constants.class},
         excludeFilters = {
             @Filter(
-            		type = FilterType.ANNOTATION, 
-            		value = {
-            				RestController.class, 
-            				ControllerAdvice.class,
-                            Configuration.class
-                        }
-            		)
+                    type = FilterType.ANNOTATION,
+                    value = {
+                        RestController.class,
+                        ControllerAdvice.class,
+                        Configuration.class
+                    }
+            )
         }
 )
-@PropertySources({
-    @PropertySource("classpath:/app.properties"),
-    @PropertySource(value = "classpath:/database.properties", ignoreResourceNotFound = true)
-})
+@PropertySource("classpath:/app.properties")
+@PropertySource(value = "classpath:/database.properties", ignoreResourceNotFound = true)
 public class AppConfig {
-    
+
     @Bean
     public ObjectMapper objectMapper() {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.registerModule(new JodaModule());
-        
+
         objectMapper.configure(DeserializationFeature.FAIL_ON_IGNORED_PROPERTIES, false);
         objectMapper.setSerializationInclusion(Include.NON_EMPTY);
         return objectMapper;

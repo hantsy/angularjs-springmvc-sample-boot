@@ -14,11 +14,11 @@ import org.springframework.jndi.JndiObjectFactoryBean;
 
 /**
  * Different configurations for different stages.
- * 
+ *
  * In development stage using an embedded database to get better performance.
- * 
+ *
  * In production, container managed DataSource is highly recommended.
- * 
+ *
  * @author hantsy
  *
  */
@@ -31,7 +31,9 @@ public class DataSourceConfig {
     @Bean
     @Profile("dev")
     public DataSource dataSource() {
-        return new EmbeddedDatabaseBuilder().setType(EmbeddedDatabaseType.H2).build();
+        return new EmbeddedDatabaseBuilder()
+                .setType(EmbeddedDatabaseType.H2)
+                .build();
     }
 
     @Bean
@@ -49,6 +51,7 @@ public class DataSourceConfig {
     @Profile("prod")
     public DataSource prodDataSource() {
         JndiObjectFactoryBean ds = new JndiObjectFactoryBean();
+        ds.setLookupOnStartup(true);
         ds.setJndiName("jdbc/postDS");
         ds.setCache(true);
 

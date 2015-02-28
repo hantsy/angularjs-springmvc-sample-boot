@@ -15,6 +15,7 @@ import com.mangofactory.swagger.configuration.SpringSwaggerConfig;
 import com.mangofactory.swagger.models.dto.ApiInfo;
 import com.mangofactory.swagger.plugin.EnableSwagger;
 import com.mangofactory.swagger.plugin.SwaggerSpringMvcPlugin;
+import org.springframework.context.annotation.ComponentScan;
 
 
 /**
@@ -47,7 +48,7 @@ public class SwaggerConfig {
         return new SwaggerSpringMvcPlugin(this.springSwaggerConfig)
                 .apiVersion("V1.0")//
                 .apiInfo(apiInfo())//
-               // .includePatterns(".*api.*")
+                .includePatterns(".*api.*")
                 .genericModelSubstitutes(ResponseEntity.class, HttpEntity.class)
                 .build();
         

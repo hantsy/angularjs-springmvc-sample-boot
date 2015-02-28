@@ -20,9 +20,6 @@ public class DataImporter implements ApplicationListener<ContextRefreshedEvent> 
             .getLogger(DataImporter.class);
 
     @Inject
-    private Environment env;
-
-    @Inject
     private UserRepository userRepository;
 
     @Inject

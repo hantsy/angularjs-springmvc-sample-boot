@@ -30,6 +30,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hantsylabs.restexample.springmvc.Constants;
+import org.springframework.stereotype.Controller;
 
 @Configuration
 @EnableWebMvc
@@ -40,10 +41,12 @@ import com.hantsylabs.restexample.springmvc.Constants;
             @Filter(
                     type = FilterType.ANNOTATION,
                     value = {
+                        Controller.class,
                         RestController.class,
                         ControllerAdvice.class
                     })
-        })
+        }
+)
 public class WebConfig extends SpringDataWebConfiguration {
 
     private static final Logger logger = LoggerFactory.getLogger(WebConfig.class);
