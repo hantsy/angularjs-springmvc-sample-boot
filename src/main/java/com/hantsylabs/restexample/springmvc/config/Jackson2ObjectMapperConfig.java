@@ -26,7 +26,7 @@ public class Jackson2ObjectMapperConfig {
         Jackson2ObjectMapperBuilder builder = new Jackson2ObjectMapperBuilder();
         builder.serializationInclusion(Include.NON_EMPTY);
         builder.featuresToDisable(
-                SerializationFeature.WRITE_DATES_AS_TIMESTAMPS,
+               // SerializationFeature.WRITE_DATES_AS_TIMESTAMPS,
                 DeserializationFeature.FAIL_ON_IGNORED_PROPERTIES,
                 DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
         builder.featuresToEnable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);

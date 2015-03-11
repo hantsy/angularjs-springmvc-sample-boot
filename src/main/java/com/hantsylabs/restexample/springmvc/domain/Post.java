@@ -11,56 +11,77 @@ import javax.persistence.Table;
 
 import org.springframework.data.jpa.domain.AbstractAuditable;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import javax.persistence.Enumerated;
+import javax.validation.constraints.Size;
 
 /**
- *  
+ *
  * @author hantsy
  *
  */
 @Entity
-@Table(name="posts")
-@JsonIgnoreProperties("comments")
+@Table(name = "posts")
 public class Post extends AbstractAuditable<User, Long> {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1L;
 
+    public enum Status {
 
-	@Column(name = "title")
-	private String title;
+        DRAFT,
+        PUBLISHED
+    }
 
-	@Column(name = "content")
-	private String content;
-		
-	@OneToMany(mappedBy="post", cascade={CascadeType.ALL})
-	private List<Comment> comments=new ArrayList<>();
-	
+    @Column(name = "title")
+    private String title;
 
-	public String getTitle() {
-		return title;
-	}
+    @Column(name = "content")
+    @Size(max = 2000)
+    private String content;
 
-	public void setTitle(String title) {
-		this.title = title;
-	}
+    @Column(name = "status")
+    @Enumerated
+    private Status status = Status.DRAFT;
 
-	public String getContent() {
-		return content;
-	}
+    @OneToMany(mappedBy = "post", cascade = {CascadeType.ALL})
+    private List<Comment> comments = new ArrayList<>();
 
-	public void setContent(String content) {
-		this.content = content;
-	}
+    public String getTitle() {
+        return title;
+    }
 
-	public List<Comment> getComments() {
-		return comments;
-	}
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
-	public void setComments(List<Comment> comments) {
-		this.comments = comments;
-	}
+    public String getContent() {
+        return content;
+    }
 
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
+    }
+
+    @Override
+    public String toString() {
+        return "Post{" + "title=" + title + ", content=" + content + ", status=" + status + ", comments=" + comments + '}';
+    }
 }

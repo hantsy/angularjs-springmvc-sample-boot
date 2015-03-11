@@ -1,8 +1,15 @@
-package com.hantsylabs.restexample.springmvc.api;
+package com.hantsylabs.restexample.springmvc.model;
 
-public class PasswordForm {
+import java.io.Serializable;
+import javax.validation.constraints.NotNull;
 
+public class PasswordForm implements Serializable{
+    private static final long serialVersionUID = 1L;
+
+    @NotNull
 	private String oldPassword;
+    
+    @NotNull
 	private String newPassword;
 	
 	public String getOldPassword() {

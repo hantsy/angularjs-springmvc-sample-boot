@@ -94,7 +94,5 @@ public class Comment implements Serializable {
 
 	public void setCreatedOn(Date createdOn) {
 		this.createdOn = createdOn;
-	}
-
-	
+	}	
 }

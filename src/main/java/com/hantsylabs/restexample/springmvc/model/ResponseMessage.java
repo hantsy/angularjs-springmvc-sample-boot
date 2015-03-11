@@ -1,4 +1,4 @@
-package com.hantsylabs.restexample.springmvc.api;
+package com.hantsylabs.restexample.springmvc.model;
 
 /**
  * Used to transport messages back to the client.

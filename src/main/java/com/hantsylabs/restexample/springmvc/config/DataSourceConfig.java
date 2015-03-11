@@ -25,6 +25,10 @@ import org.springframework.jndi.JndiObjectFactoryBean;
 @Configuration
 public class DataSourceConfig {
 
+    private static final String ENV_JDBC_PASSWORD = "jdbc.password";
+    private static final String ENV_JDBC_USERNAME = "jdbc.username";
+    private static final String ENV_JDBC_URL = "jdbc.url";
+
     @Inject
     private Environment env;
 
@@ -41,9 +45,9 @@ public class DataSourceConfig {
     public DataSource testDataSource() {
         BasicDataSource bds = new BasicDataSource();
         bds.setDriverClassName("com.mysql.jdbc.Driver");
-        bds.setUrl(env.getProperty("jdbc.url"));
-        bds.setUsername(env.getProperty("jdbc.username"));
-        bds.setPassword(env.getProperty("jdbc.password"));
+        bds.setUrl(env.getProperty(ENV_JDBC_URL));
+        bds.setUsername(env.getProperty(ENV_JDBC_USERNAME));
+        bds.setPassword(env.getProperty(ENV_JDBC_PASSWORD));
         return bds;
     }
 

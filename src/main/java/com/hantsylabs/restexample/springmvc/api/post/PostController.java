@@ -1,5 +1,6 @@
-package com.hantsylabs.restexample.springmvc.api;
+package com.hantsylabs.restexample.springmvc.api.post;
 
+import com.hantsylabs.restexample.springmvc.model.ResponseMessage;
 import java.util.List;
 
 import javax.inject.Inject;

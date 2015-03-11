@@ -34,14 +34,4 @@ import com.hantsylabs.restexample.springmvc.Constants;
 @PropertySource(value = "classpath:/database.properties", ignoreResourceNotFound = true)
 public class AppConfig {
 
-//    @Bean
-//    public ObjectMapper objectMapper() {
-//        ObjectMapper objectMapper = new ObjectMapper();
-//        objectMapper.registerModule(new JodaModule());
-//
-//        objectMapper.configure(DeserializationFeature.FAIL_ON_IGNORED_PROPERTIES, false);
-//        objectMapper.setSerializationInclusion(Include.NON_EMPTY);
-//        return objectMapper;
-//    }
-
 }

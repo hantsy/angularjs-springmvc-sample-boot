@@ -20,6 +20,7 @@
         <spring-security.version>4.0.0.RC2</spring-security.version>
         <hibernate.version>4.3.8.Final</hibernate.version>
         <jackson.version>2.4.4</jackson.version>
+        <modelmapper.version>0.7.3</modelmapper.version>
     </properties>
     <repositories>
 
@@ -276,6 +277,13 @@
             <groupId>org.ajar</groupId>
             <artifactId>swagger-spring-mvc-ui</artifactId>
             <version>0.4</version>
+        </dependency>
+        
+        <!--mdoelmapper-->
+        <dependency>
+            <groupId>org.modelmapper</groupId>
+            <artifactId>modelmapper</artifactId>
+            <version>${modelmapper.version}</version>
         </dependency>
 
         <!--log4j -->
