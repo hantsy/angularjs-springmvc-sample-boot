@@ -18,8 +18,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.hantsylabs.restexample.springmvc.Constants;
-import com.hantsylabs.restexample.springmvc.model.Comment;
-import com.hantsylabs.restexample.springmvc.model.Post;
+import com.hantsylabs.restexample.springmvc.domain.Comment;
+import com.hantsylabs.restexample.springmvc.domain.Post;
 import com.hantsylabs.restexample.springmvc.repository.CommentRepository;
 import com.hantsylabs.restexample.springmvc.repository.PostRepository;
 

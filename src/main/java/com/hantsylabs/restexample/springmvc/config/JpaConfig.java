@@ -20,7 +20,7 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-import com.hantsylabs.restexample.springmvc.model.User;
+import com.hantsylabs.restexample.springmvc.domain.User;
 import com.hantsylabs.restexample.springmvc.security.SecurityUtil;
 
 @Configuration
@@ -30,6 +30,11 @@ import com.hantsylabs.restexample.springmvc.security.SecurityUtil;
 public class JpaConfig {
 
     private static final Logger log = LoggerFactory.getLogger(JpaConfig.class);
+
+    private static final String ENV_HIBERNATE_DIALECT = "hibernate.dialect";
+    private static final String ENV_HIBERNATE_HBM2DDL_AUTO = "hibernate.hbm2ddl.auto";
+    private static final String ENV_HIBERNATE_SHOW_SQL = "hibernate.show_sql";
+    private static final String ENV_HIBERNATE_FORMAT_SQL = "hibernate.format_sql";
 
     @Inject
     private Environment env;
@@ -49,14 +54,14 @@ public class JpaConfig {
 
     private Properties jpaProperties() {
         Properties extraProperties = new Properties();
-        extraProperties.put("hibernate.format_sql", env.getProperty("hibernate.format_sql"));
-        extraProperties.put("hibernate.show_sql", env.getProperty("hibernate.show_sql"));
-        extraProperties.put("hibernate.hbm2ddl.auto", env.getProperty("hibernate.hbm2ddl.auto"));
+        extraProperties.put(ENV_HIBERNATE_FORMAT_SQL, env.getProperty(ENV_HIBERNATE_FORMAT_SQL));
+        extraProperties.put(ENV_HIBERNATE_SHOW_SQL, env.getProperty(ENV_HIBERNATE_SHOW_SQL));
+        extraProperties.put(ENV_HIBERNATE_HBM2DDL_AUTO, env.getProperty(ENV_HIBERNATE_HBM2DDL_AUTO));
         if (log.isDebugEnabled()) {
-            log.debug(" hibernate.dialect @" + env.getProperty("hibernate.dialect"));
+            log.debug(" hibernate.dialect @" + env.getProperty(ENV_HIBERNATE_DIALECT));
         }
-        if (env.getProperty("hibernate.dialect") != null) {
-            extraProperties.put("hibernate.dialect", env.getProperty("hibernate.dialect"));
+        if (env.getProperty(ENV_HIBERNATE_DIALECT) != null) {
+            extraProperties.put(ENV_HIBERNATE_DIALECT, env.getProperty(ENV_HIBERNATE_DIALECT));
         }
         return extraProperties;
     }
@@ -68,13 +73,7 @@ public class JpaConfig {
 
     @Bean
     public AuditorAware<User> auditor() {
-        return new AuditorAware<User>() {
-
-            @Override
-            public User getCurrentAuditor() {
-                return SecurityUtil.currentUser();
-            }
-        };
+        return () -> SecurityUtil.currentUser();
     }
 
 }

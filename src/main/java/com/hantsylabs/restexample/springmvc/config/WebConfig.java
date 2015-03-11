@@ -26,11 +26,11 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver;
-import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hantsylabs.restexample.springmvc.Constants;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
 
 @Configuration
 @EnableWebMvc
@@ -61,13 +61,20 @@ public class WebConfig extends SpringDataWebConfiguration {
                 .setCachePeriod(0);
     }
 
-    @Bean
-    public InternalResourceViewResolver getInternalResourceViewResolver() {
-        InternalResourceViewResolver resolver = new InternalResourceViewResolver();
-        resolver.setPrefix("classpath:/resources/");
-        resolver.setSuffix(".jsp");
-        return resolver;
+    @Override
+    public void configureViewResolvers(ViewResolverRegistry registry) {
+        registry.jsp("classpath:/resources/", ".jsp");
     }
+    
+    
+
+//    @Bean
+//    public InternalResourceViewResolver getInternalResourceViewResolver() {
+//        InternalResourceViewResolver resolver = new InternalResourceViewResolver();
+//        resolver.setPrefix("classpath:/resources/");
+//        resolver.setSuffix(".jsp");
+//        return resolver;
+//    }
 
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
@@ -106,9 +113,11 @@ public class WebConfig extends SpringDataWebConfiguration {
 
     private List<HttpMessageConverter<?>> messageConverters() {
         List<HttpMessageConverter<?>> messageConverters = new ArrayList<>();
+        
         MappingJackson2HttpMessageConverter jackson2Converter = new MappingJackson2HttpMessageConverter();
         jackson2Converter.setSupportedMediaTypes(Arrays.asList(MediaType.APPLICATION_JSON));
         jackson2Converter.setObjectMapper(objectMapper);
+        
         messageConverters.add(jackson2Converter);
         return messageConverters;
     }

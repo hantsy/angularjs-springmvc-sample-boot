@@ -1,4 +1,4 @@
-package com.hantsylabs.restexample.springmvc.config;
+package com.hantsylabs.restexample.springmvc.service;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -7,10 +7,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
-import org.springframework.core.env.Environment;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import com.hantsylabs.restexample.springmvc.model.User;
+import com.hantsylabs.restexample.springmvc.domain.User;
 import com.hantsylabs.restexample.springmvc.repository.UserRepository;
 
 @Named

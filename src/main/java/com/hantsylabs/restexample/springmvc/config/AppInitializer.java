@@ -14,7 +14,8 @@ public class AppInitializer extends AbstractAnnotationConfigDispatcherServletIni
                 AppConfig.class, //
                 DataSourceConfig.class, //
                 JpaConfig.class, //
-                SecurityConfig.class,//              
+                SecurityConfig.class,//   
+                Jackson2ObjectMapperConfig.class
         };
     }
 

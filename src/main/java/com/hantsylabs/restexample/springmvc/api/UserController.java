@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.hantsylabs.restexample.springmvc.Constants;
 import com.hantsylabs.restexample.springmvc.api.ResponseMessage.Type;
-import com.hantsylabs.restexample.springmvc.model.User;
+import com.hantsylabs.restexample.springmvc.domain.User;
 import com.hantsylabs.restexample.springmvc.repository.UserRepository;
 import com.hantsylabs.restexample.springmvc.security.SecurityUtil;
 

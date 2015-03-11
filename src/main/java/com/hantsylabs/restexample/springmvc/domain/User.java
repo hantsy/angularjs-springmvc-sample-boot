@@ -1,4 +1,4 @@
-package com.hantsylabs.restexample.springmvc.model;
+package com.hantsylabs.restexample.springmvc.domain;
 
 import java.io.Serializable;
 import java.util.Arrays;
@@ -31,17 +31,17 @@ public class User implements UserDetails, Serializable {
 
 	private String username;
 	private String password;
-	private String displayName;
+	private String name;
 	private String role;
 
 	public User() {
 	}
 
-	public User(String username, String password, String displayName,
+	public User(String username, String password, String name,
 			String role) {
 		this.username = username;
 		this.password = password;
-		this.displayName = displayName;
+		this.name = name;
 		this.role = role;
 	}
 
@@ -53,15 +53,15 @@ public class User implements UserDetails, Serializable {
 		this.id = id;
 	}
 
-	public String getDisplayName() {
-		if (this.displayName == null || this.displayName.trim().length() == 0) {
+	public String getName() {
+		if (this.name == null || this.name.trim().length() == 0) {
 			return this.username;
 		}
-		return displayName;
+		return name;
 	}
 
-	public void setDisplayName(String displayName) {
-		this.displayName = displayName;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public void setUsername(String username) {
@@ -118,7 +118,7 @@ public class User implements UserDetails, Serializable {
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", username=" + username + ", password="
-				+ password + ", displayName=" + displayName + ", role=" + role
+				+ password + ", name=" + name + ", role=" + role
 				+ "]";
 	}
 

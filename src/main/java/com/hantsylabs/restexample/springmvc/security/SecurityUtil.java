@@ -4,7 +4,7 @@ import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
-import com.hantsylabs.restexample.springmvc.model.User;
+import com.hantsylabs.restexample.springmvc.domain.User;
 
 public class SecurityUtil {
 

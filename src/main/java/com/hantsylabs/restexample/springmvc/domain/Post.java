@@ -1,4 +1,4 @@
-package com.hantsylabs.restexample.springmvc.model;
+package com.hantsylabs.restexample.springmvc.domain;
 
 import java.util.ArrayList;
 import java.util.List;

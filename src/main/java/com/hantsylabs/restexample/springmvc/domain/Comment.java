@@ -1,4 +1,4 @@
-package com.hantsylabs.restexample.springmvc.model;
+package com.hantsylabs.restexample.springmvc.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
