@@ -24,8 +24,8 @@ import com.hantsylabs.restexample.springmvc.domain.User;
 import com.hantsylabs.restexample.springmvc.security.SecurityUtil;
 
 @Configuration
-@EnableJpaRepositories(basePackages = {"com.hantsylabs.restexample.springmvc"})
-@EnableJpaAuditing(auditorAwareRef = "auditor")
+//@EnableJpaRepositories(basePackages = {"com.hantsylabs.restexample.springmvc"})
+//@EnableJpaAuditing(auditorAwareRef = "auditor")
 @EnableTransactionManagement(mode = AdviceMode.ASPECTJ)
 public class JpaConfig {
 
@@ -71,9 +71,9 @@ public class JpaConfig {
         return new JpaTransactionManager(entityManagerFactory().getObject());
     }
 
-    @Bean
-    public AuditorAware<User> auditor() {
-        return () -> SecurityUtil.currentUser();
-    }
+//    @Bean
+//    public AuditorAware<User> auditor() {
+//        return () -> SecurityUtil.currentUser();
+//    }
 
 }

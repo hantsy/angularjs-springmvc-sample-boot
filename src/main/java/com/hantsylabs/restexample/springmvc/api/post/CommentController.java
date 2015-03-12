@@ -1,6 +1,5 @@
 package com.hantsylabs.restexample.springmvc.api.post;
 
-
 import com.hantsylabs.restexample.springmvc.model.ResponseMessage;
 import javax.inject.Inject;
 
@@ -15,27 +14,28 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.hantsylabs.restexample.springmvc.Constants;
-import com.hantsylabs.restexample.springmvc.repository.CommentRepository;
+import com.hantsylabs.restexample.springmvc.service.BlogService;
 
 @RestController
-@RequestMapping(value = Constants.URI_API)
+@RequestMapping(value = Constants.URI_API + Constants.URI_COMMENTS)
 public class CommentController {
-	private static final Logger log = LoggerFactory
-			.getLogger(CommentController.class);
 
-	@Inject
-	private CommentRepository commentRepository;
+    private static final Logger log = LoggerFactory
+            .getLogger(CommentController.class);
 
-	@RequestMapping(value = "/comments/{id}", method = RequestMethod.DELETE)
-	@ResponseBody
-	public ResponseEntity<ResponseMessage> deleteComment(@PathVariable("id") Long id) {
-		if (log.isDebugEnabled()) {
-			log.debug("get comments of post id @"+id);
-		}
+    @Inject
+    private BlogService blogService;
 
-		commentRepository.delete(id);
-		
-		return new ResponseEntity<>(ResponseMessage.success("comment.deleted"), HttpStatus.NO_CONTENT);
-	}
+    @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
+    @ResponseBody
+    public ResponseEntity<Void> deleteComment(@PathVariable("id") Long id) {
+        if (log.isDebugEnabled()) {
+            log.debug("get comments of post id @" + id);
+        }
+
+        blogService.deleteCommentById(id);
+
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 
 }

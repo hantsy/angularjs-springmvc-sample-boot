@@ -14,6 +14,8 @@ public class PostDetails implements Serializable {
      *
      */
     private static final long serialVersionUID = 1L;
+    
+    private Long id;
 
     private String title;
 
@@ -27,6 +29,14 @@ public class PostDetails implements Serializable {
 
     private Date lastModifiedDate;
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+    
     public String getTitle() {
         return title;
     }
@@ -77,7 +87,7 @@ public class PostDetails implements Serializable {
 
     @Override
     public String toString() {
-        return "PostDetails{" + "title=" + title + ", content=" + content + ", createdBy=" + createdBy + ", createdDate=" + createdDate + ", lastModifiedBy=" + lastModifiedBy + ", lastModifiedDate=" + lastModifiedDate + '}';
+        return "PostDetails{" + "id=" + id + ", title=" + title + ", content=" + content + ", createdBy=" + createdBy + ", createdDate=" + createdDate + ", lastModifiedBy=" + lastModifiedBy + ", lastModifiedDate=" + lastModifiedDate + '}';
     }
 
 }

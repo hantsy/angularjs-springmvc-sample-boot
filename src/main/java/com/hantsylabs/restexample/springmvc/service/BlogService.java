@@ -6,9 +6,13 @@
 package com.hantsylabs.restexample.springmvc.service;
 
 import com.hantsylabs.restexample.springmvc.DTOUtils;
+import com.hantsylabs.restexample.springmvc.domain.Comment;
 import com.hantsylabs.restexample.springmvc.domain.Post;
+import com.hantsylabs.restexample.springmvc.model.CommentDetails;
+import com.hantsylabs.restexample.springmvc.model.CommentForm;
 import com.hantsylabs.restexample.springmvc.model.PostDetails;
 import com.hantsylabs.restexample.springmvc.model.PostForm;
+import com.hantsylabs.restexample.springmvc.repository.CommentRepository;
 import com.hantsylabs.restexample.springmvc.repository.PostRepository;
 import com.hantsylabs.restexample.springmvc.repository.PostSpecifications;
 import javax.inject.Inject;
@@ -33,7 +37,10 @@ public class BlogService {
     @Inject
     private PostRepository postRepository;
 
-    public Page<PostDetails> findPostDetailsByKeyword(String q, Post.Status status, Pageable page) {
+    @Inject
+    private CommentRepository commentRepository;
+
+    public Page<PostDetails> searchPostsByCriteria(String q, Post.Status status, Pageable page) {
         if (log.isDebugEnabled()) {
             log.debug("search posts by keyword@" + q + ", page @" + page);
         }
@@ -98,4 +105,75 @@ public class BlogService {
         return DTOUtils.map(post, PostDetails.class);
     }
 
+    public Page<CommentDetails> findCommentsByPostId(Long id, Pageable page) {
+        if (log.isDebugEnabled()) {
+            log.debug("find comments by post id@" + id);
+        }
+
+        Page<Comment> comments = commentRepository.findByPostId(id, page);
+
+        if (log.isDebugEnabled()) {
+            log.debug("found results@" + comments.getTotalElements());
+        }
+
+        return DTOUtils.mapPage(comments, CommentDetails.class);
+    }
+
+    public CommentDetails saveCommentOfPost(Long id, CommentForm fm) {
+        Assert.notNull(id, "post id can not be null");
+
+        if (log.isDebugEnabled()) {
+            log.debug("find post by id@" + id);
+        }
+
+        Post post = postRepository.findOne(id);
+
+        if (post == null) {
+            throw new ResourceNotFoundException(id);
+        }
+
+        Comment comment = DTOUtils.map(fm, Comment.class);
+
+        comment.setPost(post);
+
+        comment = commentRepository.save(comment);
+
+        if (log.isDebugEnabled()) {
+            log.debug("comment saved@" + comment);
+        }
+
+        return DTOUtils.map(comment, CommentDetails.class);
+    }
+
+    public void deletePostById(Long id) {
+        Assert.notNull(id, "post id can not be null");
+
+        if (log.isDebugEnabled()) {
+            log.debug("find post by id@" + id);
+        }
+
+        Post post = postRepository.findOne(id);
+
+        if (post == null) {
+            throw new ResourceNotFoundException(id);
+        }
+
+        postRepository.delete(post);
+    }
+
+    public void deleteCommentById(Long id) {
+        Assert.notNull(id, "comment id can not be null");
+
+        if (log.isDebugEnabled()) {
+            log.debug("delete comment by id@" + id);
+        }
+
+        Comment comment = commentRepository.findOne(id);
+
+        if (comment == null) {
+            throw new ResourceNotFoundException(id);
+        }
+
+        commentRepository.delete(comment);
+    }
 }

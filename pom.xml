@@ -607,6 +607,14 @@
 
                 <!-- mail config -->
             </properties>
+            <build>
+                <resources>
+                    <resource>
+                        <directory>src/main/resources-dev</directory>
+                        <filtering>true</filtering>
+                    </resource>
+                </resources>
+            </build>
         </profile>
         <profile>
             <id>staging</id>
@@ -630,7 +638,6 @@
                 <dependency>
                     <groupId>mysql</groupId>
                     <artifactId>mysql-connector-java</artifactId>
-                    <version>5.1.30</version>
                 </dependency>
             </dependencies>
             <build>
@@ -663,7 +670,6 @@
                 <dependency>
                     <groupId>mysql</groupId>
                     <artifactId>mysql-connector-java</artifactId>
-                    <version>5.1.30</version>
                 </dependency>
             </dependencies>
             <build>

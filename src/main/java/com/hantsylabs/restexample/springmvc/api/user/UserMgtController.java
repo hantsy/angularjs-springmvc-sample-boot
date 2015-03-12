@@ -1,7 +1,6 @@
 package com.hantsylabs.restexample.springmvc.api.user;
 
 import com.hantsylabs.restexample.springmvc.model.ResponseMessage;
-import java.util.List;
 
 import javax.inject.Inject;
 
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.hantsylabs.restexample.springmvc.Constants;
-import com.hantsylabs.restexample.springmvc.domain.User;
 import com.hantsylabs.restexample.springmvc.model.UserDetails;
 import com.hantsylabs.restexample.springmvc.model.UserForm;
 import com.hantsylabs.restexample.springmvc.service.UserService;

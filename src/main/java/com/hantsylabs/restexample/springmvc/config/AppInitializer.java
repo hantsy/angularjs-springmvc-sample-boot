@@ -12,8 +12,9 @@ public class AppInitializer extends AbstractAnnotationConfigDispatcherServletIni
     protected Class<?>[] getRootConfigClasses() {
         return new Class[] {
                 AppConfig.class, //
-                DataSourceConfig.class, //
+                DataSourceConfig.class, //            
                 JpaConfig.class, //
+                DataJpaConfig.class,//
                 SecurityConfig.class,//   
                 Jackson2ObjectMapperConfig.class,//
                 MessageSourceConfig.class
