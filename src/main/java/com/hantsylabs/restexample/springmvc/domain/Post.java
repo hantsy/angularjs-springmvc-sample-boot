@@ -1,6 +1,8 @@
 package com.hantsylabs.restexample.springmvc.domain;
 
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -12,7 +14,16 @@ import javax.persistence.Table;
 import org.springframework.data.jpa.domain.AbstractAuditable;
 
 import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.Size;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
 
 /**
  *
@@ -21,7 +32,7 @@ import javax.validation.constraints.Size;
  */
 @Entity
 @Table(name = "posts")
-public class Post extends AbstractAuditable<User, Long> {
+public class Post implements Serializable {
 
     /**
      *
@@ -33,6 +44,11 @@ public class Post extends AbstractAuditable<User, Long> {
         DRAFT,
         PUBLISHED
     }
+
+    @Id()
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Long id;
 
     @Column(name = "title")
     private String title;
@@ -47,6 +63,34 @@ public class Post extends AbstractAuditable<User, Long> {
 
     @OneToMany(mappedBy = "post", cascade = {CascadeType.ALL})
     private List<Comment> comments = new ArrayList<>();
+
+    @ManyToOne
+    @JoinColumn(name = "created_by")
+    @CreatedBy
+    private User createdBy;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "created_date")
+    @CreatedDate
+    private Date createdDate;
+
+    @ManyToOne
+    @JoinColumn(name = "last_modified_by")
+    @CreatedBy
+    private User lastModifiedBy;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "last_modified_date")
+    @CreatedDate
+    private Date lastModifiedDate;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getTitle() {
         return title;
@@ -80,8 +124,41 @@ public class Post extends AbstractAuditable<User, Long> {
         this.comments = comments;
     }
 
+    public User getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(User createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public Date getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public User getLastModifiedBy() {
+        return lastModifiedBy;
+    }
+
+    public void setLastModifiedBy(User lastModifiedBy) {
+        this.lastModifiedBy = lastModifiedBy;
+    }
+
+    public Date getLastModifiedDate() {
+        return lastModifiedDate;
+    }
+
+    public void setLastModifiedDate(Date lastModifiedDate) {
+        this.lastModifiedDate = lastModifiedDate;
+    }
+
     @Override
     public String toString() {
-        return "Post{" + "title=" + title + ", content=" + content + ", status=" + status + ", comments=" + comments + '}';
+        return "Post{" + "title=" + title + ", content=" + content + ", status=" + status + ", comments=" + comments + ", createdBy=" + createdBy + ", createdDate=" + createdDate + ", lastModifiedBy=" + lastModifiedBy + ", lastModifiedDate=" + lastModifiedDate + '}';
     }
+
 }

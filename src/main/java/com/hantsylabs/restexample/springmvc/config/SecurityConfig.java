@@ -34,6 +34,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                          "/i18n/**",// 
                          "/libs/**",//
                          "/img/**", //
+                         "/webjars/**",//
                          "/ico/**");
 	}
 

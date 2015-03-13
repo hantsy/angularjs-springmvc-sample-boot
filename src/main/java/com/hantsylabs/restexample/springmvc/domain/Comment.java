@@ -36,7 +36,7 @@ public class Comment implements Serializable {
 
 	@Id()
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "ID")
+	@Column(name = "id")
 	private Long id;
 
 	@Column(name = "content")

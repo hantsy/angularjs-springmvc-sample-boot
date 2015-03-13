@@ -59,14 +59,15 @@ public class WebConfig extends SpringDataWebConfiguration {
         registry.addResourceHandler("css/", "images/", "lib/", "swagger-ui.js")//
                 .addResourceLocations("classpath:META-INF/resources/")//
                 .setCachePeriod(0);
+
+        registry.addResourceHandler("webjars/**")
+                .addResourceLocations("classpath:META-INF/resources/webjars/");
     }
 
     @Override
     public void configureViewResolvers(ViewResolverRegistry registry) {
         registry.jsp("classpath:/resources/", ".jsp");
     }
-    
-    
 
 //    @Bean
 //    public InternalResourceViewResolver getInternalResourceViewResolver() {
@@ -75,7 +76,6 @@ public class WebConfig extends SpringDataWebConfiguration {
 //        resolver.setSuffix(".jsp");
 //        return resolver;
 //    }
-
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
         // super.addViewControllers(registry);
@@ -113,11 +113,11 @@ public class WebConfig extends SpringDataWebConfiguration {
 
     private List<HttpMessageConverter<?>> messageConverters() {
         List<HttpMessageConverter<?>> messageConverters = new ArrayList<>();
-        
+
         MappingJackson2HttpMessageConverter jackson2Converter = new MappingJackson2HttpMessageConverter();
         jackson2Converter.setSupportedMediaTypes(Arrays.asList(MediaType.APPLICATION_JSON));
         jackson2Converter.setObjectMapper(objectMapper);
-        
+
         messageConverters.add(jackson2Converter);
         return messageConverters;
     }

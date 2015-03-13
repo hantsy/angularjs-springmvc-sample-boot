@@ -6,38 +6,17 @@
 </div>
 <div class="row">
 	<div class="col-md-9 col-lg-9 col-sm-6">
-		<table class="table table-striped">
-			<tr>
-				<td width="40%">
-					<div class="text-right">
-						<msg key="username" />
-					</div>
-				</td>
-				<td>
-					<div class="text-left">{{user.username}}</div>
-				</td>
-			</tr>
-			<tr>
-				<td width="40%">
-					<div class="text-right">
-						<msg key="displayName" />
-					</div>
-				</td>
-				<td>
-					<div class="text-left">{{user.displayName}}</div>
-				</td>
-			</tr>
-			<tr>
-				<td width="40%">
-					<div class="text-right">
-						<msg key="role" />
-					</div>
-				</td>
-				<td>
-					<div class="text-left">{{user.role}}</div>
-				</td>
-			</tr>
-		</table>
+            
+            <dl>
+                <dt><msg key="username" /></dt>
+                <dd>{{user.username}}</dd>
+                
+                <dt><msg key="displayName" /></dt>
+                <dd>{{user.name}}</dd>
+                
+                <dt><msg key="role" /></dt>
+                <dd>{{user.role}}</dd>
+            </dl>
 	</div>
 	<div class="col-md-3 col-lg-3 col-sm-6">
 		<div class="panel panel-default">

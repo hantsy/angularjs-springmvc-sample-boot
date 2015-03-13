@@ -41,8 +41,8 @@ public class PostController {
     @RequestMapping(value = "", method = RequestMethod.GET)
     @ResponseBody
     public ResponseEntity<Page<PostDetails>> getAllPosts(
-            @RequestParam("q") String keyword, //
-            @RequestParam("status") Post.Status status, //
+            @RequestParam(value="q", required = false) String keyword, //
+            @RequestParam(value="status", required = false) Post.Status status, //
             @PageableDefault(page = 0, size = 10, sort = "createdDate", direction = Direction.DESC) Pageable page) {
         if (log.isDebugEnabled()) {
             log.debug("get all posts of q@" + keyword + ", status @" + status + ", page@" + page);

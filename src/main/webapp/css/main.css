@@ -14,15 +14,3 @@ footer{
 .toolbar{
     margin:10px;
 }
-
-svg {
-  overflow: hidden;
-}
-
-#chart{
-    margin: 0px;
-}
-
-#chart svg{
-    height: 500px;
-}

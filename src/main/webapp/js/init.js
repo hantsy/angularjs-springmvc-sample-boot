@@ -1,5 +1,5 @@
 //Define a function scope, variables used inside it will NOT be globally visible.
-(function() {
+(function () {
 
     var
             //the HTTP headers to be used by all requests
@@ -8,9 +8,9 @@
             message,
             //Define the main module.
             //The module is accessible everywhere using "angular.module('angularspring')", therefore global variables can be avoided totally.
-            as = angular.module('exampleApp', ['ngRoute', 'ngResource', 'ngCookies',  'exampleApp.i18n', 'exampleApp.services', 'exampleApp.controllers',  'exampleApp.filters']);
+            as = angular.module('exampleApp', ['ngRoute', 'ngResource', 'ngCookies', 'exampleApp.i18n', 'exampleApp.services', 'exampleApp.controllers', 'exampleApp.filters']);
 
-    as.config(function($routeProvider, $httpProvider) {
+    as.config(function ($routeProvider, $httpProvider) {
         //configure the rounting of ng-view
         $routeProvider
                 .when('/',
@@ -35,12 +35,14 @@
                         {templateUrl: 'partials/admin/users.html'})
                 .when('/user/home',
                         {templateUrl: 'partials/user/home.html'})
+                .when('/user/password',
+                        {templateUrl: 'partials/user/password.html'})
                 .when('/user/profile',
                         {templateUrl: 'partials/user/profile.html'});
 
         //configure $http to catch message responses and show them
-        $httpProvider.interceptors.push(function($q) {
-            var setMessage = function(response) {
+        $httpProvider.interceptors.push(function ($q) {
+            var setMessage = function (response) {
                 //if the response has a text and a type property, it is a message to be shown
                 if (response.data.text && response.data.type) {
                     message = {
@@ -67,13 +69,13 @@
 
             return {
                 //this is called after each successful server request
-                'response': function(response) {
+                'response': function (response) {
                     // console.log('request:' + response);
                     setMessage(response);
                     return response || $q.when(response);
                 },
                 //this is called after each unsuccessful server request
-                'responseError': function(response) {
+                'responseError': function (response) {
                     //console.log('requestError:' + response);
                     setMessage(response);
                     return $q.reject(response);
@@ -108,24 +110,24 @@
 //            };
 //        });
 
-        $httpProvider.interceptors.push(function($rootScope, $q) {
+        $httpProvider.interceptors.push(function ($rootScope, $q) {
 
             return {
-                'request': function(config) {
+                'request': function (config) {
                     // console.log('request:' + config);
                     return config || $q.when(config);
                 },
-                'requestError': function(rejection) {
+                'requestError': function (rejection) {
                     // console.log('requestError:' + rejection);
                     return rejection;
                 },
                 //success -> don't intercept
-                'response': function(response) {
+                'response': function (response) {
                     // console.log('response:' + response);
                     return  response || $q.when(response);
                 },
                 //error -> if 401 save the request and broadcast an event
-                'responseError': function(response) {
+                'responseError': function (response) {
                     console.log('responseError:' + response);
                     if (response.status === 401) {
                         var deferred = $q.defer(),
@@ -148,9 +150,9 @@
     });
 
 
-    as.run(function($rootScope, $http, $route, $location, base64) {
+    as.run(function ($rootScope, $http, $route, $location, base64) {
         //make current message accessible to root scope and therefore all scopes
-        $rootScope.message = function() {
+        $rootScope.message = function () {
             return message;
         };
 
@@ -159,7 +161,7 @@
          */
         $rootScope.requests401 = [];
 
-        $rootScope.$on('event:loginRequired', function() {
+        $rootScope.$on('event:loginRequired', function () {
             //$('#login').modal('show');
             $location.path('/login');
         });
@@ -167,11 +169,11 @@
         /**
          * On 'event:loginConfirmed', resend all the 401 requests.
          */
-        $rootScope.$on('event:loginConfirmed', function() {
+        $rootScope.$on('event:loginConfirmed', function () {
             var i,
                     requests = $rootScope.requests401,
-                    retry = function(req) {
-                        $http(req.config).then(function(response) {
+                    retry = function (req) {
+                        $http(req.config).then(function (response) {
                             req.deferred.resolve(response);
                         });
                     };
@@ -181,21 +183,23 @@
             }
             $rootScope.requests401 = [];
 
+
+
             $location.path('/posts');
         });
 
         /**
          * On 'event:loginRequest' send credentials to the server.
          */
-        $rootScope.$on('event:loginRequest', function(event, username, password) {
+        $rootScope.$on('event:loginRequest', function (event, username, password) {
             httpHeaders.common['Authorization'] = 'Basic ' + base64.encode(username + ':' + password);
             console.log('httpHeaders.common[\'Authorization\']@' + httpHeaders.common['Authorization'] + ':::' + username + ':' + password);
-            $http.get('api/user')
-                    .success(function(data) {
+            $http.get('api/self')
+                    .success(function (data) {
                         $rootScope.user = data;
                         $rootScope.$broadcast('event:loginConfirmed');
                     })
-                    .error(function(data) {
+                    .error(function (data) {
                         console.log('login failed...');
                     });
         });
@@ -203,17 +207,17 @@
         /**
          * On 'logoutRequest' invoke logout on the server and broadcast 'event:loginRequired'.
          */
-        $rootScope.$on('event:logoutRequest', function() {
+        $rootScope.$on('event:logoutRequest', function () {
             httpHeaders.common['Authorization'] = null;
         });
 
         var routesOpenToPublic = [];
-        angular.forEach($route.routes, function(route, path) {
+        angular.forEach($route.routes, function (route, path) {
             // push route onto routesOpenToPublic if it has a truthy publicAccess value
             route.publicAccess && (routesOpenToPublic.push(path));
         });
 
-        $rootScope.$on('$routeChangeStart', function(event, nextLoc, currentLoc) {
+        $rootScope.$on('$routeChangeStart', function (event, nextLoc, currentLoc) {
             //console.log('fire event@$routeChangeStart');
             var closedToPublic = (-1 === routesOpenToPublic.indexOf($location.path()));
             if (closedToPublic && !$rootScope.user) {
@@ -221,7 +225,7 @@
                 $rootScope.$broadcast('event:loginRequired');
             } else if (!!$rootScope.user) {
                 //console.log('already logged in...'); 
-                if (nextLoc.templateUrl == 'partials/login.html') {
+                if (!!nextLoc && nextLoc.templateUrl == 'partials/login.html') {
                     console.log('in login.html, go to /user/home...');
                     $location.path('/user/home');
                 } else {
