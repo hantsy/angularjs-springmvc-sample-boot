@@ -17,17 +17,8 @@ public class CommentForm implements Serializable {
      */
     private static final long serialVersionUID = 1L;
 
-    private Long id;
 
     private String content;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getContent() {
         return content;
@@ -39,6 +30,6 @@ public class CommentForm implements Serializable {
 
     @Override
     public String toString() {
-        return "CommentForm{" + "id=" + id + ", content=" + content + '}';
+        return "CommentForm{ content=" + content + '}';
     }
 }

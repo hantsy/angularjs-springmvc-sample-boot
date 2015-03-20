@@ -61,8 +61,8 @@ public class Post implements Serializable {
     @Enumerated
     private Status status = Status.DRAFT;
 
-    @OneToMany(mappedBy = "post", cascade = {CascadeType.ALL})
-    private List<Comment> comments = new ArrayList<>();
+//    @OneToMany(mappedBy = "post", cascade = {CascadeType.ALL})
+//    private List<Comment> comments = new ArrayList<>();
 
     @ManyToOne
     @JoinColumn(name = "created_by")
@@ -116,13 +116,13 @@ public class Post implements Serializable {
         this.status = status;
     }
 
-    public List<Comment> getComments() {
-        return comments;
-    }
-
-    public void setComments(List<Comment> comments) {
-        this.comments = comments;
-    }
+//    public List<Comment> getComments() {
+//        return comments;
+//    }
+//
+//    public void setComments(List<Comment> comments) {
+//        this.comments = comments;
+//    }
 
     public User getCreatedBy() {
         return createdBy;
@@ -158,7 +158,7 @@ public class Post implements Serializable {
 
     @Override
     public String toString() {
-        return "Post{" + "title=" + title + ", content=" + content + ", status=" + status + ", comments=" + comments + ", createdBy=" + createdBy + ", createdDate=" + createdDate + ", lastModifiedBy=" + lastModifiedBy + ", lastModifiedDate=" + lastModifiedDate + '}';
+        return "Post{" + "title=" + title + ", content=" + content + ", status=" + status + ", createdBy=" + createdBy + ", createdDate=" + createdDate + ", lastModifiedBy=" + lastModifiedBy + ", lastModifiedDate=" + lastModifiedDate + '}';
     }
 
 }

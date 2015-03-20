@@ -2,7 +2,7 @@
     <h1>Posts</h1>
 </div>
 
-<div class="row mb-20">
+<div class="row" style="margin-bottom: 20px;">
     <div class="col-md-12">
         <form class="form form-inline">
             <div class="form-group">
@@ -19,7 +19,7 @@
 
             <div class="form-group">
                 <div class="input-group">
-                    <input type="text" class="form-control" ng-model="q" placeholder="{{'filterPostByTitleOrContent'|i18n}}"></input>
+                    <input type="text" class="form-control" ng-model="q" ></input>
                     <span class="input-group-btn">
                         <button class="btn btn-default" ng-click="search()"><span class="fa fa-search"></span></button>    
                     </span>
@@ -41,6 +41,9 @@
                 <msg key="title"></msg>
                 </th>
                 <th>
+                <msg key="status"></msg>
+                </th>
+                <th>
                 <msg key="createdOn"></msg>
                 </th>
                 <th>
@@ -49,6 +52,7 @@
                 </tr>
                 <tr ng-repeat="post in posts|orderBy:-createdOn">
                     <td><a ng-href="#/posts/{{post.id}}">{{post.title}}</a></td>
+                    <td>{{post.status}}</td>
                     <td>{{post.createdDate|date:'short'}}</td>
                     <td>{{post.createdBy.name}}</td>
                 </tr>

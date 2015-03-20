@@ -166,12 +166,13 @@
     });
 
     as.controller('DetailsController', function ($scope, $http, $routeParams, $q) {
-
+        $scope.p = 1;
         var actionUrl = 'api/posts/',
                 loadComments = function () {
                     $http.get(actionUrl + $routeParams.id + '/comments')
                             .success(function (data) {
-                                $scope.comments = data;
+                                $scope.comments = data.content;
+                                $scope.totalItems = data.totalElements;
                             });
                 },
                 load = function () {
@@ -181,7 +182,8 @@
                     ])
                             .then(function (result) {
                                 $scope.post = result[0].data;
-                                $scope.comments = result[1].data;
+                                $scope.comments = result[1].data.content;
+                                $scope.totalItems = result[1].data.totalElements;
                             });
                 };
 
@@ -207,6 +209,10 @@
             $('#commentDialog').modal('show');
         };
 
+        $scope.search = function () {
+            loadComments();
+        };
+
     });
 
     as.controller('PostsController', function ($scope, $http, i18n) {
@@ -214,15 +220,15 @@
         $scope.q = '';
         $scope.statusOpt = {'label': $.i18n.prop('ALL'), 'value': 'ALL'};
         $scope.statusOpts = [
-            {'label': $.i18n.prop('ALL'), 'value': 'ALL'},
-            {'label': $.i18n.prop('DRAFT'), 'value': 'DRAFT'},
-            {'label': $.i18n.prop('PUBLISHED'), 'value': 'PUBLISHED'}
+            {'label': 'ALL', 'value': 'ALL'},
+            {'label': 'DRAFT', 'value': 'DRAFT'},
+            {'label': 'PUBLISHED', 'value': 'PUBLISHED'}
         ];
 
         var actionUrl = 'api/posts/',
                 load = function () {
-                    $http.get(actionUrl + '?q=' + $scope.q 
-                            + '&status=' + ($scope.statusOpt.value == 'ALL' ? '' : $scope.statusOpt.value) 
+                    $http.get(actionUrl + '?q=' + $scope.q
+                            + '&status=' + ($scope.statusOpt.value == 'ALL' ? '' : $scope.statusOpt.value)
                             + '&page=' + ($scope.p - 1))
                             .success(function (data) {
                                 $scope.posts = data.content;

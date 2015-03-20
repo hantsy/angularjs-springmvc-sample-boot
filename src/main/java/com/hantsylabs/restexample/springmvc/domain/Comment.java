@@ -20,79 +20,85 @@ import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 
 /**
- *  
+ *
  * @author hantsy
  *
  */
 @Entity
-@Table(name="comments")
+@Table(name = "comments")
 @JsonIgnoreProperties("post")
 public class Comment implements Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1L;
 
-	@Id()
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id")
-	private Long id;
+    @Id()
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Long id;
 
-	@Column(name = "content")
-	private String content;
-	
-	@JoinColumn(name = "post_id")
-	@ManyToOne()
-	private Post post;
-	
-	@ManyToOne
-	@JoinColumn(name="created_by")
-	@CreatedBy
-	private User createdBy;
-	
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="created_on")
-	@CreatedDate
-	private Date createdOn;
-	
-	public Long getId() {
-		return id;
-	}
+    @Column(name = "content")
+    private String content;
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    @JoinColumn(name = "post_id")
+    @ManyToOne()
+    private Post post;
 
-	public String getContent() {
-		return content;
-	}
+    @ManyToOne
+    @JoinColumn(name = "created_by")
+    @CreatedBy
+    private User createdBy;
 
-	public void setContent(String content) {
-		this.content = content;
-	}
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "created_on")
+    @CreatedDate
+    private Date createdDate;
 
-	public Post getPost() {
-		return post;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public void setPost(Post post) {
-		this.post = post;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public User getCreatedBy() {
-		return createdBy;
-	}
+    public String getContent() {
+        return content;
+    }
 
-	public void setCreatedBy(User createdBy) {
-		this.createdBy = createdBy;
-	}
+    public void setContent(String content) {
+        this.content = content;
+    }
 
-	public Date getCreatedOn() {
-		return createdOn;
-	}
+    public Post getPost() {
+        return post;
+    }
 
-	public void setCreatedOn(Date createdOn) {
-		this.createdOn = createdOn;
-	}	
+    public void setPost(Post post) {
+        this.post = post;
+    }
+
+    public User getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(User createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public Date getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    @Override
+    public String toString() {
+        return "Comment{" + "id=" + id + ", content=" + content + ", post=" + post + ", createdBy=" + createdBy + ", createdDate=" + createdDate + '}';
+    }
+
 }
