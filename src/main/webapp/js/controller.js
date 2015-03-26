@@ -104,10 +104,12 @@
 
 
     as.controller('UserAdminController', function ($scope, $http, i18n) {
-        var actionUrl = 'api/users/',
+        $scope.p = 1;
+        var actionUrl = 'api/mgt/users/',
                 load = function () {
-                    $http.get(actionUrl).success(function (data) {
-                        $scope.users = data;
+                    $http.get(actionUrl + '?page=' + ($scope.p - 1)).success(function (data) {
+                        $scope.users = data.content;
+                        $scope.totalItems=data.totalElements;
                     });
                 };
 
@@ -115,6 +117,10 @@
 
         $scope.roleOpts = ['USER', 'ADMIN'];
         $scope.user = {};
+        
+        $scope.search=function(){
+            load();
+        };
 
         $scope.delete = function (idx) {
             console.log('delete index @' + idx + ', id is@' + $scope.users[idx].id);
@@ -129,7 +135,7 @@
         $scope.initAdd = function () {
             $scope.user = {};
             $('#userDialog').modal('show');
-        }
+        };
 
         $scope.save = function () {
             $http.post(actionUrl, $scope.user).success(function () {

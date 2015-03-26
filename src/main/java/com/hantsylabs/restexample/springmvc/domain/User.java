@@ -3,6 +3,7 @@ package com.hantsylabs.restexample.springmvc.domain;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import org.springframework.data.annotation.CreatedDate;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -37,12 +39,16 @@ public class User implements UserDetails, Serializable {
 
     @Column(name = "name")
     private String name;
-    
+
     @Column(name = "email")
     private String email;
-    
+
     @Column(name = "role")
     private String role;
+
+    @Column(name = "created_date")
+    @CreatedDate
+    private Date createdDate;
 
     public User() {
     }
@@ -53,6 +59,14 @@ public class User implements UserDetails, Serializable {
         this.password = password;
         this.name = name;
         this.role = role;
+    }
+
+    public Date getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
     }
 
     public Long getId() {
@@ -97,10 +111,10 @@ public class User implements UserDetails, Serializable {
     public void setEmail(String email) {
         this.email = email;
     }
-    
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Arrays.asList(new SimpleGrantedAuthority(this.role));
+        return Arrays.asList(new SimpleGrantedAuthority("ROLE_" + this.role));
     }
 
     @Override

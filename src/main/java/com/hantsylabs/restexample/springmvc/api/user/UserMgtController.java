@@ -38,8 +38,8 @@ public class UserMgtController {
     @RequestMapping(value = "", method = RequestMethod.GET)
     @ResponseBody
     public Page<UserDetails> allUsers(
-            @RequestParam() String q,
-            @RequestParam() String role,
+            @RequestParam(required = false, value = "q") String q,
+            @RequestParam(required = false, value = "role") String role,
             @PageableDefault(page = 0, size = 10, sort = "createdDate", direction = Sort.Direction.DESC) Pageable page) {
         if (log.isDebugEnabled()) {
             log.debug("fetch all users...@" + q + ", role @" + role);
@@ -72,7 +72,7 @@ public class UserMgtController {
         if (log.isDebugEnabled()) {
             log.debug("delete user data @" + id);
         }
-        
+
         userService.deleteUser(id);
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
