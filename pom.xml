@@ -19,7 +19,7 @@
         <querydsl.version>3.6.0</querydsl.version>
         <spring-security.version>4.0.0.RELEASE</spring-security.version>
         <hibernate.version>4.3.8.Final</hibernate.version>
-        <jackson.version>2.4.4</jackson.version>
+        <jackson.version>2.4.5</jackson.version>
         <modelmapper.version>0.7.3</modelmapper.version>
     </properties>
     <repositories>
@@ -67,7 +67,7 @@
             <dependency>
                 <groupId>io.spring.platform</groupId>
                 <artifactId>platform-bom</artifactId>
-                <version>1.1.1.RELEASE</version>
+                <version>1.1.2.RELEASE</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
