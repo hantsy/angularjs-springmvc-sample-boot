@@ -69,16 +69,9 @@ public class WebConfig extends SpringDataWebConfiguration {
         registry.jsp("classpath:/resources/", ".jsp");
     }
 
-//    @Bean
-//    public InternalResourceViewResolver getInternalResourceViewResolver() {
-//        InternalResourceViewResolver resolver = new InternalResourceViewResolver();
-//        resolver.setPrefix("classpath:/resources/");
-//        resolver.setSuffix(".jsp");
-//        return resolver;
-//    }
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
-        // super.addViewControllers(registry);
+
     }
 
     @Override

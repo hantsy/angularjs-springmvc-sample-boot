@@ -19,8 +19,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 
 @Configuration
-//@EnableJpaRepositories(basePackages = {"com.hantsylabs.restexample.springmvc"})
-//@EnableJpaAuditing(auditorAwareRef = "auditor")
 @EnableTransactionManagement(mode = AdviceMode.ASPECTJ)
 public class JpaConfig {
 
