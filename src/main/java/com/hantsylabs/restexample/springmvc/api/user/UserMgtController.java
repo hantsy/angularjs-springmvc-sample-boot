@@ -19,10 +19,13 @@ import com.hantsylabs.restexample.springmvc.Constants;
 import com.hantsylabs.restexample.springmvc.model.UserDetails;
 import com.hantsylabs.restexample.springmvc.model.UserForm;
 import com.hantsylabs.restexample.springmvc.service.UserService;
+import com.hantsylabs.restexample.springmvc.exception.InvalidRequestException;
+import javax.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
@@ -30,7 +33,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class UserMgtController {
 
     private static final Logger log = LoggerFactory
-            .getLogger(UserMgtController.class);
+        .getLogger(UserMgtController.class);
 
     @Inject
     private UserService userService;
@@ -38,9 +41,9 @@ public class UserMgtController {
     @RequestMapping(value = "", method = RequestMethod.GET)
     @ResponseBody
     public Page<UserDetails> allUsers(
-            @RequestParam(required = false, value = "q") String q,
-            @RequestParam(required = false, value = "role") String role,
-            @PageableDefault(page = 0, size = 10, sort = "createdDate", direction = Sort.Direction.DESC) Pageable page) {
+        @RequestParam(required = false, value = "q") String q,
+        @RequestParam(required = false, value = "role") String role,
+        @PageableDefault(page = 0, size = 10, sort = "createdDate", direction = Sort.Direction.DESC) Pageable page) {
         if (log.isDebugEnabled()) {
             log.debug("fetch all users...@" + q + ", role @" + role);
         }
@@ -56,9 +59,13 @@ public class UserMgtController {
 
     @RequestMapping(value = "", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseEntity<ResponseMessage> saveUser(@RequestBody UserForm form) {
+    public ResponseEntity<ResponseMessage> saveUser(@RequestBody @Valid UserForm form, BindingResult errors) {
         if (log.isDebugEnabled()) {
             log.debug("save user data @" + form);
+        }
+
+        if (errors.hasErrors()) {
+            throw new InvalidRequestException(errors);
         }
 
         userService.saveUser(form);

@@ -5,10 +5,14 @@
  */
 package com.hantsylabs.restexample.springmvc.service;
 
+import com.hantsylabs.restexample.springmvc.exception.ResourceNotFoundException;
+import com.hantsylabs.restexample.springmvc.exception.PasswordMismatchedException;
+import com.hantsylabs.restexample.springmvc.exception.UsernameExistedException;
 import com.hantsylabs.restexample.springmvc.DTOUtils;
 import com.hantsylabs.restexample.springmvc.domain.User;
 import com.hantsylabs.restexample.springmvc.model.PasswordForm;
 import com.hantsylabs.restexample.springmvc.model.ProfileForm;
+import com.hantsylabs.restexample.springmvc.model.SignupForm;
 import com.hantsylabs.restexample.springmvc.model.UserDetails;
 import com.hantsylabs.restexample.springmvc.model.UserForm;
 import com.hantsylabs.restexample.springmvc.repository.UserRepository;
@@ -45,9 +49,30 @@ public class UserService {
             log.debug("findAll by keyword@" + q + ", role:" + role);
         }
 
-        Page<User> users= userRepository.findAll(UserSpecifications.filterUsersByKeyword(q, role), page);
-        
+        Page<User> users = userRepository.findAll(UserSpecifications.filterUsersByKeyword(q, role), page);
+
         return DTOUtils.mapPage(users, UserDetails.class);
+    }
+
+    public UserDetails registerUser(SignupForm form) {
+        Assert.notNull(form, " @@ SignupForm is null");
+
+        if (log.isDebugEnabled()) {
+            log.debug("saving user@" + form);
+        }
+
+        if (userRepository.findByUsername(form.getUsername()) != null) {
+            throw new UsernameExistedException(form.getUsername());
+        }
+
+        User user = DTOUtils.map(form, User.class);
+        user.setPassword(passwordEncoder.encode(form.getPassword()));
+
+        User saved = userRepository.save(user);
+        
+        //TODO sending an activation email.
+
+        return DTOUtils.map(saved, UserDetails.class);
     }
 
     public UserDetails saveUser(UserForm form) {
