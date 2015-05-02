@@ -17,7 +17,7 @@
         <slf4j.version>1.7.9</slf4j.version>
         <log4j.version>1.2.17</log4j.version>
         <querydsl.version>3.6.0</querydsl.version>
-        <spring-security.version>4.0.0.RELEASE</spring-security.version>
+        <spring-security.version>4.0.1.RELEASE</spring-security.version>
         <hibernate.version>4.3.9.Final</hibernate.version>
         <jackson.version>2.4.5</jackson.version>
         <modelmapper.version>0.7.3</modelmapper.version>
