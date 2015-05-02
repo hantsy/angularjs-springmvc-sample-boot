@@ -1,10 +1,8 @@
 package com.hantsylabs.restexample.springmvc.config;
 
 import java.util.Properties;
-
 import javax.inject.Inject;
 import javax.sql.DataSource;
-
 import org.hibernate.jpa.HibernatePersistenceProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

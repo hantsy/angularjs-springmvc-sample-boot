@@ -5,15 +5,14 @@
  */
 package com.moxian.ng.api.user;
 
-import com.hantsylabs.restexample.springmvc.exception.InvalidRequestException;
 import com.hantsylabs.restexample.springmvc.Constants;
+import com.hantsylabs.restexample.springmvc.exception.InvalidRequestException;
 import com.hantsylabs.restexample.springmvc.model.SignupForm;
 import com.hantsylabs.restexample.springmvc.model.UserDetails;
 import com.hantsylabs.restexample.springmvc.service.UserService;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;

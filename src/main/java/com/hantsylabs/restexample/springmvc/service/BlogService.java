@@ -5,10 +5,10 @@
  */
 package com.hantsylabs.restexample.springmvc.service;
 
-import com.hantsylabs.restexample.springmvc.exception.ResourceNotFoundException;
 import com.hantsylabs.restexample.springmvc.DTOUtils;
 import com.hantsylabs.restexample.springmvc.domain.Comment;
 import com.hantsylabs.restexample.springmvc.domain.Post;
+import com.hantsylabs.restexample.springmvc.exception.ResourceNotFoundException;
 import com.hantsylabs.restexample.springmvc.model.CommentDetails;
 import com.hantsylabs.restexample.springmvc.model.CommentForm;
 import com.hantsylabs.restexample.springmvc.model.PostDetails;

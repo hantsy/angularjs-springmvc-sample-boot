@@ -1,10 +1,13 @@
 package com.hantsylabs.restexample.springmvc.api.user;
 
-import com.hantsylabs.restexample.springmvc.model.ResponseMessage;
+import com.hantsylabs.restexample.springmvc.Constants;
+import com.hantsylabs.restexample.springmvc.domain.User;
 import com.hantsylabs.restexample.springmvc.model.PasswordForm;
-
+import com.hantsylabs.restexample.springmvc.model.ProfileForm;
+import com.hantsylabs.restexample.springmvc.model.UserDetails;
+import com.hantsylabs.restexample.springmvc.security.CurrentUser;
+import com.hantsylabs.restexample.springmvc.service.UserService;
 import javax.inject.Inject;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -14,14 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.hantsylabs.restexample.springmvc.Constants;
-import com.hantsylabs.restexample.springmvc.model.ResponseMessage.Type;
-import com.hantsylabs.restexample.springmvc.domain.User;
-import com.hantsylabs.restexample.springmvc.model.ProfileForm;
-import com.hantsylabs.restexample.springmvc.model.UserDetails;
-import com.hantsylabs.restexample.springmvc.security.CurrentUser;
-import com.hantsylabs.restexample.springmvc.service.UserService;
 
 @RestController
 @RequestMapping(value = Constants.URI_API + Constants.URI_SELF)

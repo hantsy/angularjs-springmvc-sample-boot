@@ -2,7 +2,6 @@ package com.hantsylabs.restexample.springmvc.config;
 
 import javax.inject.Inject;
 import javax.sql.DataSource;
-
 import org.apache.commons.dbcp.BasicDataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -1,16 +1,12 @@
 package com.hantsylabs.restexample.springmvc.security;
 
-import javax.inject.Inject;
-import javax.inject.Named;
-
+import com.hantsylabs.restexample.springmvc.domain.User;
+import com.hantsylabs.restexample.springmvc.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-
-import com.hantsylabs.restexample.springmvc.domain.User;
-import com.hantsylabs.restexample.springmvc.repository.UserRepository;
 
 //@Named
 public class SimpleUserDetailsServiceImpl implements UserDetailsService {

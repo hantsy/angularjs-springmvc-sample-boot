@@ -1,17 +1,16 @@
 package com.hantsylabs.restexample.springmvc.api;
 
 import com.hantsylabs.restexample.springmvc.ApiErrors;
-import com.hantsylabs.restexample.springmvc.model.ResponseMessage;
+import com.hantsylabs.restexample.springmvc.exception.InvalidRequestException;
 import com.hantsylabs.restexample.springmvc.exception.ResourceNotFoundException;
 import com.hantsylabs.restexample.springmvc.exception.UsernameExistedException;
-import com.hantsylabs.restexample.springmvc.exception.InvalidRequestException;
+import com.hantsylabs.restexample.springmvc.model.ResponseMessage;
 import java.util.List;
 import javax.inject.Inject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
-
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;

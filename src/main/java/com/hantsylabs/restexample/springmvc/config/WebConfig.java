@@ -1,11 +1,11 @@
 package com.hantsylabs.restexample.springmvc.config;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.hantsylabs.restexample.springmvc.Constants;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
 import javax.inject.Inject;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
@@ -17,6 +17,7 @@ import org.springframework.data.web.config.SpringDataWebConfiguration;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.HandlerExceptionResolver;
@@ -25,27 +26,23 @@ import org.springframework.web.servlet.config.annotation.DefaultServletHandlerCo
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
-import org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.hantsylabs.restexample.springmvc.Constants;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
+import org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver;
 
 @Configuration
 @EnableWebMvc
 @ComponentScan(
-        basePackageClasses = {Constants.class},
-        useDefaultFilters = false,
-        includeFilters = {
-            @Filter(
-                    type = FilterType.ANNOTATION,
-                    value = {
-                        Controller.class,
-                        RestController.class,
-                        ControllerAdvice.class
-                    })
-        }
+    basePackageClasses = {Constants.class},
+    useDefaultFilters = false,
+    includeFilters = {
+        @Filter(
+            type = FilterType.ANNOTATION,
+            value = {
+                Controller.class,
+                RestController.class,
+                ControllerAdvice.class
+            })
+    }
 )
 public class WebConfig extends SpringDataWebConfiguration {
 
@@ -57,11 +54,11 @@ public class WebConfig extends SpringDataWebConfiguration {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("css/", "images/", "lib/", "swagger-ui.js")//
-                .addResourceLocations("classpath:META-INF/resources/")//
-                .setCachePeriod(0);
+            .addResourceLocations("classpath:META-INF/resources/")//
+            .setCachePeriod(0);
 
         registry.addResourceHandler("webjars/**")
-                .addResourceLocations("classpath:META-INF/resources/webjars/");
+            .addResourceLocations("classpath:META-INF/resources/webjars/");
     }
 
     @Override
