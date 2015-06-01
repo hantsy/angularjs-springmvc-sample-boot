@@ -50,9 +50,9 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @ExceptionHandler(value = {ResourceNotFoundException.class})
+    @ExceptionHandler(value = {UsernameExistedException.class})
     @ResponseBody
-    public ResponseEntity<ResponseMessage> handleResourceNotFoundException(UsernameExistedException ex, WebRequest request) {
+    public ResponseEntity<ResponseMessage> handleUsernameExistedException(UsernameExistedException ex, WebRequest request) {
         if (log.isDebugEnabled()) {
             log.debug("handling UsernameExistedException...");
         }
