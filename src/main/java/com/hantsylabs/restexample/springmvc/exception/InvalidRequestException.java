@@ -9,7 +9,7 @@ import org.springframework.validation.BindingResult;
 
 /**
  *
- * @author Hantsy Bai<hantsy@gmail.com>
+ * @author Hantsy Bai<hantsy@gmail.com> Bai<hantsy@gmail.com>
  */
 public class InvalidRequestException extends RuntimeException {
 

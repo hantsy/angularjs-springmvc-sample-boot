@@ -18,7 +18,7 @@ import org.springframework.data.annotation.CreatedDate;
 
 /**
  *
- * @author hantsy
+ * @author Hantsy Bai<hantsy@gmail.com>
  *
  */
 @Entity

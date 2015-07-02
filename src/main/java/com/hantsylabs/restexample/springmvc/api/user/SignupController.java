@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.moxian.ng.api.user;
+package com.hantsylabs.restexample.springmvc.api.user;
 
 import com.hantsylabs.restexample.springmvc.Constants;
 import com.hantsylabs.restexample.springmvc.exception.InvalidRequestException;
@@ -28,7 +28,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 /**
  *
- * @author hantsy<hantsy@gmail.com>
+ * @author Hantsy Bai<hantsy@gmail.com><hantsy@gmail.com>
  */
 @RequestMapping(value = Constants.URI_API)
 @RestController

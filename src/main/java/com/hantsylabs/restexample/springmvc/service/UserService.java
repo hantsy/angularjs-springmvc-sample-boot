@@ -29,7 +29,7 @@ import org.springframework.util.Assert;
 
 /**
  *
- * @author hantsy
+ * @author Hantsy Bai<hantsy@gmail.com>
  */
 @Service
 @Transactional

@@ -14,7 +14,7 @@ import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 
 /**
  *
- * @author hansy
+ * @author Hantsy Bai<hantsy@gmail.com>
  */
 @Configuration
 public class Jackson2ObjectMapperConfig {

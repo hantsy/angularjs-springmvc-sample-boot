@@ -10,7 +10,7 @@ import java.util.Date;
 
 /**
  *
- * @author hantsy
+ * @author Hantsy Bai<hantsy@gmail.com>
  */
 public class UserDetails implements Serializable {
     private static final long serialVersionUID = 1L;

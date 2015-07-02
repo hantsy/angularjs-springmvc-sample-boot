@@ -7,7 +7,7 @@ import java.util.Date;
 
 /**
  *
- * @author hantsy
+ * @author Hantsy Bai<hantsy@gmail.com>
  *
  */
 public class CommentDetails implements Serializable {

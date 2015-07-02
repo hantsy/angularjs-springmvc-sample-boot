@@ -18,7 +18,7 @@ import org.springframework.jndi.JndiObjectFactoryBean;
  *
  * In production, container managed DataSource is highly recommended.
  *
- * @author hantsy
+ * @author Hantsy Bai<hantsy@gmail.com>
  *
  */
 @Configuration

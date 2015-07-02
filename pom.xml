@@ -21,6 +21,7 @@
         <hibernate.version>4.3.9.Final</hibernate.version>
         <jackson.version>2.4.5</jackson.version>
         <modelmapper.version>0.7.3</modelmapper.version>
+        <springfox.version>2.0.3</springfox.version>
     </properties>
     <repositories>
 
@@ -266,17 +267,24 @@
             <version>${jackson.version}</version>
         </dependency>
 
-        <!-- Swagger Spring MVC -->
+        <!-- SpringFox Swagger UI -->
         <dependency>
-            <groupId>com.mangofactory</groupId>
-            <artifactId>swagger-springmvc</artifactId>
-            <version>0.9.5</version>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+            <version>${springfox.version}</version>
         </dependency>
-
+            
         <dependency>
-            <groupId>org.ajar</groupId>
-            <artifactId>swagger-spring-mvc-ui</artifactId>
-            <version>0.4</version>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
+            <version>${springfox.version}</version>
+        </dependency>
+            
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-staticdocs</artifactId>
+            <version>${springfox.version}</version>
+            <scope>test</scope>
         </dependency>
         
         <!--mdoelmapper-->

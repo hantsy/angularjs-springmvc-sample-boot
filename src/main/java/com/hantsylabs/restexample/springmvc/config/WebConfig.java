@@ -53,18 +53,10 @@ public class WebConfig extends SpringDataWebConfiguration {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("css/", "images/", "lib/", "swagger-ui.js")//
-            .addResourceLocations("classpath:META-INF/resources/")//
-            .setCachePeriod(0);
-
-        registry.addResourceHandler("webjars/**")
-            .addResourceLocations("classpath:META-INF/resources/webjars/");
+        registry.addResourceHandler("/**")
+            .addResourceLocations("classpath:META-INF/resources/");
     }
 
-    @Override
-    public void configureViewResolvers(ViewResolverRegistry registry) {
-        registry.jsp("classpath:/resources/", ".jsp");
-    }
 
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {

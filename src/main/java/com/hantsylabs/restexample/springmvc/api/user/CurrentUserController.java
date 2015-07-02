@@ -44,7 +44,7 @@ public class CurrentUserController {
         return details;
     }
 
-    @RequestMapping(value = "", method = RequestMethod.PUT, params = "aciton=CHANGE_PWD")
+    @RequestMapping(value = "", method = RequestMethod.PUT, params = "action=CHANGE_PWD")
     @ResponseBody
     public ResponseEntity<Void> changePassword(
             @CurrentUser User user,

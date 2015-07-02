@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * Used to transport messages back to the client.
  *
- * @author hantsy
+ * @author Hantsy Bai<hantsy@gmail.com>
  */
 public class ResponseMessage {
 

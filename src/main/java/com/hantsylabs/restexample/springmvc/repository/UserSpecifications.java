@@ -13,7 +13,7 @@ import org.springframework.util.StringUtils;
 
 /**
  *
- * @author hantsy
+ * @author Hantsy Bai<hantsy@gmail.com>
  *
  */
 public class UserSpecifications {

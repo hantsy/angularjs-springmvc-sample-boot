@@ -14,7 +14,7 @@ import org.springframework.data.domain.PageRequest;
 
 /**
  *
- * @author hantsy
+ * @author Hantsy Bai<hantsy@gmail.com>
  */
 public class DTOUtils {
 

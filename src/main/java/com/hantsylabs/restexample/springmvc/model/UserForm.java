@@ -11,7 +11,7 @@ import org.hibernate.validator.constraints.Email;
 
 /**
  *
- * @author hantsy
+ * @author Hantsy Bai<hantsy@gmail.com>
  */
 public class UserForm implements Serializable {
 

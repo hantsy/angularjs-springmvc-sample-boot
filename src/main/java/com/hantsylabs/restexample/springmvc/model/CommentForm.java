@@ -6,7 +6,7 @@ import java.io.Serializable;
 
 /**
  *
- * @author hantsy
+ * @author Hantsy Bai<hantsy@gmail.com>
  *
  */
 public class CommentForm implements Serializable {
