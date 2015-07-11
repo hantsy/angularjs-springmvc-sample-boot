@@ -52,7 +52,7 @@ public class User implements UserDetails, Serializable {
     }
 
     public User(String username, String password, String name,
-            String role) {
+        String role) {
         this.username = username;
         this.password = password;
         this.name = name;
@@ -141,15 +141,51 @@ public class User implements UserDetails, Serializable {
     }
 
     @Override
+
     public boolean isEnabled() {
         return true;
     }
 
     @Override
     public String toString() {
-        return "User [id=" + id + ", username=" + username + ", password="
-                + password + ", name=" + name + ", role=" + role
-                + "]";
+        return "User{" + "id=" + id + ", username=" + username + ", password=" + password + ", name=" + name + ", email=" + email + ", role=" + role + ", createdDate=" + createdDate + '}';
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public static class Builder {
+
+        private final User user = new User();
+
+        public Builder() {
+        }
+
+        public Builder username(String username) {
+            this.user.setUsername(username);
+            return this;
+        }
+
+        public Builder password(String password) {
+            this.user.setPassword(password);
+            return this;
+        }
+
+        public Builder name(String name) {
+            this.user.setName(name);
+            return this;
+        }
+
+        public Builder role(String role) {
+            this.user.setRole(role);
+            return this;
+        }
+
+        public User build() {
+            return this.user;
+        }
+
     }
 
 }

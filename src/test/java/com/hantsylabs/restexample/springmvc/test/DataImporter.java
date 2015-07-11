@@ -1,4 +1,4 @@
-package com.hantsylabs.restexample.springmvc.service;
+package com.hantsylabs.restexample.springmvc.test;
 
 import com.hantsylabs.restexample.springmvc.domain.User;
 import com.hantsylabs.restexample.springmvc.repository.UserRepository;
@@ -10,11 +10,11 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-@Named
+//@Named
 public class DataImporter implements ApplicationListener<ContextRefreshedEvent> {
 
     private static final Logger log = LoggerFactory
-            .getLogger(DataImporter.class);
+        .getLogger(DataImporter.class);
 
     @Inject
     private UserRepository userRepository;
@@ -33,14 +33,25 @@ public class DataImporter implements ApplicationListener<ContextRefreshedEvent> 
             if (log.isDebugEnabled()) {
                 log.debug("import users data into database...");
             }
-            userRepository.save(new User("admin",
-                    passwordEncoder.encode("test123"), "Administrator", "ADMIN"));
-            userRepository.save(new User("testuser", passwordEncoder
-                    .encode("test123"), "Test User 1", "USER"));
+            userRepository.save(
+                new User().builder()
+                .username("admin")
+                .password(passwordEncoder.encode("test123"))
+                .name("Administrator")
+                .role("ADMIN")
+                .build()
+            );
+            userRepository.save(
+                 new User().builder()
+                .username("testuser")
+                .password(passwordEncoder.encode("test123"))
+                .name("Test User")
+                .role("USER")
+                .build()
+            );
 
         }
 
     }
 
- 
 }
