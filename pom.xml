@@ -7,20 +7,31 @@
     <artifactId>angularjs-springmvc-sample</artifactId>
     <version>1.0-SNAPSHOT</version>
 
-    <packaging>war</packaging>
+    <packaging>jar</packaging>
     <name>${project.artifactId}</name>
+    <description>AngularJS SpringMVC Sample(Spring Boot branch)</description>
+    
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>1.3.0.M2</version>
+        <relativePath/>
+    </parent>    
 
-    <properties>
-        <aspectj.version>1.8.4</aspectj.version>
+    <properties>  
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <start-class>com.hantsylabs.restexample.springmvc.Application</start-class>
+        
+        <aspectj.version>1.8.6</aspectj.version>
         <slf4j.version>1.7.9</slf4j.version>
         <log4j.version>1.2.17</log4j.version>
         <querydsl.version>3.6.0</querydsl.version>
         <spring-security.version>4.0.1.RELEASE</spring-security.version>
-        <hibernate.version>4.3.9.Final</hibernate.version>
-        <jackson.version>2.4.5</jackson.version>
-        <modelmapper.version>0.7.3</modelmapper.version>
+        <hibernate.version>5.0.0.CR2</hibernate.version>
+        <hibernate-validator.version>5.2.0.CR1</hibernate-validator.version>
+        <jackson.version>2.6.0-rc3</jackson.version>
+        <modelmapper.version>0.7.4</modelmapper.version>
         <springfox.version>2.0.3</springfox.version>
     </properties>
     <repositories>
@@ -40,6 +51,11 @@
             <url>http://repo.spring.io/milestone/</url>
         </repository>
 
+        <repository>
+            <id>io.spring.repo.maven.snapshot</id>
+            <url>http://repo.spring.io/snapshot/</url>
+        </repository>
+        
         <repository>
             <id>oss-jfrog-artifactory</id>
             <name>oss-jfrog-artifactory-releases</name>
@@ -61,6 +77,10 @@
             <id>io.spring.repo.maven.milestone</id>
             <url>http://repo.spring.io/milestone/</url>
         </pluginRepository>
+        <pluginRepository>
+            <id>io.spring.repo.maven.snapshot</id>
+            <url>http://repo.spring.io/snapshot/</url>
+        </pluginRepository>
     </pluginRepositories>
     <dependencyManagement>
         <dependencies>
@@ -68,15 +88,57 @@
             <dependency>
                 <groupId>io.spring.platform</groupId>
                 <artifactId>platform-bom</artifactId>
-                <version>1.1.2.RELEASE</version>
+                <version>2.0.0.BUILD-SNAPSHOT</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
         </dependencies>
+        
     </dependencyManagement>
 
     <dependencies>
-        <!-- Spring BOM -->
+        
+        <!--Spring Boot-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-logging</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-log4j</artifactId>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+          
+        <dependency>
+            <groupId>org.springframework.security.oauth</groupId>
+            <artifactId>spring-security-oauth2</artifactId>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-jwt</artifactId>
+        </dependency>
+        
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-core</artifactId>
@@ -126,6 +188,7 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-websocket</artifactId>
         </dependency>
+        
         <!-- Spring security -->
         <dependency>
             <groupId>org.springframework.security</groupId>
@@ -158,13 +221,10 @@
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
-            <version>3.1.0</version>
-            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>javax.transaction</groupId>
             <artifactId>javax.transaction-api</artifactId>
-            <version>1.2</version>
         </dependency>
 
         <!--java persistence API 2.1 -->
@@ -176,6 +236,22 @@
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
+            <version>${hibernate.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-ehcache</artifactId>
+            <version>${hibernate.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>net.sf.ehcache</groupId>
+                    <artifactId>ehcache-core</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-java8</artifactId>
             <version>${hibernate.version}</version>
         </dependency>
         <dependency>
@@ -198,12 +274,32 @@
                 </exclusion>
             </exclusions>
         </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-hikaricp</artifactId>
+            <version>${hibernate.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>net.sf.ehcache</groupId>
+            <artifactId>ehcache-core</artifactId>
+            <version>2.6.11</version>
+        </dependency>      
+        <dependency>
+            <groupId>com.zaxxer</groupId>
+            <artifactId>HikariCP</artifactId>
+            <exclusions>
+                <exclusion>
+                    <artifactId>tools</artifactId>
+                    <groupId>com.sun</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
 
         <!--bean validation -->
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-validator</artifactId>
-            <version>5.1.3.Final</version>
+            <version>${hibernate-validator.version}</version>
         </dependency>
         <dependency>
             <groupId>javax.validation</groupId>
@@ -233,13 +329,6 @@
             <groupId>javax.activation</groupId>
             <artifactId>activation</artifactId>
             <version>1.1.1</version>
-        </dependency>
-
-        <!-- Jodatime -->
-        <dependency>
-            <groupId>joda-time</groupId>
-            <artifactId>joda-time</artifactId>
-            <version>2.5</version>
         </dependency>
 
         <!--jackson -->
@@ -298,43 +387,34 @@
         <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
-            <version>${log4j.version}</version>
-            <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
-            <version>${slf4j.version}</version>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>jcl-over-slf4j</artifactId>
-            <version>${slf4j.version}</version>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-log4j12</artifactId>
-            <version>${slf4j.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
-            <version>3.3.2</version>
         </dependency>
         <dependency>
             <groupId>commons-codec</groupId>
             <artifactId>commons-codec</artifactId>
-            <version>1.10</version>
         </dependency>
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
-            <version>2.4</version>
         </dependency>
         <dependency>
             <groupId>commons-dbcp</groupId>
             <artifactId>commons-dbcp</artifactId>
-            <version>1.4</version>
             <exclusions>
                 <exclusion>
                     <groupId>commons-logging</groupId>
@@ -350,12 +430,10 @@
         <dependency>
             <groupId>org.aspectj</groupId>
             <artifactId>aspectjrt</artifactId>
-            <version>${aspectj.version}</version>
         </dependency>
         <dependency>
             <groupId>org.aspectj</groupId>
             <artifactId>aspectjweaver</artifactId>
-            <version>${aspectj.version}</version>
         </dependency>
         
         <!--webjars resources-->
@@ -409,26 +487,28 @@
         <resources>
             <resource>
                 <directory>src/main/resources</directory>
-                <excludes>
-                    <exclude>**/*.xls</exclude>
-                </excludes>
+                <includes>
+                    <include>**/*.properties</include>
+                </includes>
                 <filtering>true</filtering>
             </resource>
             <resource>
                 <directory>src/main/resources</directory>
-                <includes>
-                    <include>**/*.xls</include>
-                </includes>
-                <filtering>false</filtering>
+                <excludes>
+                    <exclude>**/*.properties</exclude>
+                </excludes>
+                <filtering>false</filtering>               
             </resource>
         </resources>
         <plugins>
-            <!-- <plugin> <groupId>com.mysema.maven</groupId> <artifactId>apt-maven-plugin</artifactId> 
-            <version>1.0.9</version> <executions> <execution> <goals> <goal>process</goal> 
-            </goals> <configuration> <outputDirectory>target/generated-sources/java</outputDirectory> 
-            <processors> <processor>org.springframework.data.mongojdbc.repository.support.MongoAnnotationProcessor</processor> 
-            <processor>com.mysema.query.apt.jpa.JPAAnnotationProcessor</processor> </processors> 
-            </configuration> </execution> </executions> </plugin> -->
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <addResources>false</addResources>
+                </configuration>
+            </plugin>
+
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>build-helper-maven-plugin</artifactId>
@@ -450,7 +530,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
-                <version>2.2</version>
+                <version>2.6</version>
                 <configuration>
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                 </configuration>
@@ -458,7 +538,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>2.5.1</version>
+                <version>3.3</version>
                 <configuration>
                     <source>${java.version}</source>
                     <target>${java.version}</target>
@@ -469,7 +549,7 @@
             <plugin>
                 <groupId>org.bsc.maven</groupId>
                 <artifactId>maven-processor-plugin</artifactId>
-                <version>2.0.5</version>
+                <version>3.1.0-beta1</version>
                 <executions>
                     <execution>
                         <id>process</id>
@@ -489,14 +569,14 @@
                     <dependency>
                         <groupId>org.hibernate</groupId>
                         <artifactId>hibernate-jpamodelgen</artifactId>
-                        <version>1.2.0.Final</version>
+                        <version>${hibernate.version}</version>
                     </dependency>
                 </dependencies>
             </plugin>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>aspectj-maven-plugin</artifactId>
-                <version>1.5</version>
+                <version>1.7</version>
                 <!-- NB: do not use 1.3 or 1.3.x due to MASPECTJ-90 and do not use 1.4 
                 due to declare parents issue -->
                 <dependencies>
@@ -540,7 +620,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-resources-plugin</artifactId>
-                <version>2.6</version>
+                <version>2.7</version>
                 <configuration>
                     <encoding>${project.build.sourceEncoding}</encoding>
                 </configuration>
@@ -548,7 +628,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.12</version>
+                <version>2.18.1</version>
                 <configuration>
                     <printSummary>false</printSummary>
                     <redirectTestOutputToFile>true</redirectTestOutputToFile>
@@ -610,24 +690,8 @@
                     <dependenciesAsLibraries>true</dependenciesAsLibraries>
                 </configuration>
             </plugin>
-            <plugin>
-                <groupId>org.apache.tomcat.maven</groupId>
-                <artifactId>tomcat7-maven-plugin</artifactId>
-                <version>2.2</version>
-            </plugin>
         </plugins>
     </build>
-    <reporting>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-checkstyle-plugin</artifactId>
-                <configuration>
-                    <configLocation>config/sun_checks.xml</configLocation>
-                </configuration>
-            </plugin>
-        </plugins>
-    </reporting>
     <profiles>
         <profile>
             <id>dev</id>
@@ -635,16 +699,8 @@
                 <activeByDefault>true</activeByDefault>
             </activation>
             <properties>
-
-                <log4j.level>DEBUG</log4j.level>
-
                 <spring.profiles.active>dev</spring.profiles.active>
-                <!-- hibernate -->
-                <hibernate.hbm2ddl.auto>create</hibernate.hbm2ddl.auto>
-                <hibernate.show_sql>true</hibernate.show_sql>
-                <hibernate.format_sql>true</hibernate.format_sql>
-
-                <!-- mail config -->
+                <log4j.level>DEBUG</log4j.level>
             </properties>
             <build>
                 <resources>
@@ -658,20 +714,8 @@
         <profile>
             <id>staging</id>
             <properties>
-                <jdbc.url><![CDATA[jdbc:mysql://localhost:3306/app]]>
-                </jdbc.url>
-                <jdbc.username>root</jdbc.username>
-                <jdbc.password></jdbc.password>
-
-                <log4j.level>INFO</log4j.level>
-
                 <spring.profiles.active>staging</spring.profiles.active>
-
-                <hibernate.hbm2ddl.auto>update</hibernate.hbm2ddl.auto>
-                <hibernate.show_sql>false</hibernate.show_sql>
-                <hibernate.format_sql>false</hibernate.format_sql>
-                <hibernate.dialect>org.hibernate.dialect.MySQL5Dialect</hibernate.dialect>
-
+                <log4j.level>INFO</log4j.level>
             </properties>
             <dependencies>
                 <dependency>
@@ -686,24 +730,14 @@
                         <filtering>true</filtering>
                     </resource>
                 </resources>
+
             </build>
         </profile>
         <profile>
             <id>prod</id>
             <properties>
-                <jdbc.url><![CDATA[jdbc:mysql://localhost:3306/app]]>
-                </jdbc.url>
-                <jdbc.username>root</jdbc.username>
-                <jdbc.password></jdbc.password>
-
-                <log4j.level>INFO</log4j.level>
-
                 <spring.profiles.active>prod</spring.profiles.active>
-
-                <hibernate.hbm2ddl.auto>none</hibernate.hbm2ddl.auto>
-                <hibernate.show_sql>false</hibernate.show_sql>
-                <hibernate.format_sql>false</hibernate.format_sql>
-                <hibernate.dialect>org.hibernate.dialect.MySQL5Dialect</hibernate.dialect>
+                <log4j.level>INFO</log4j.level>
             </properties>
             <dependencies>
                 <dependency>
@@ -718,6 +752,7 @@
                         <filtering>true</filtering>
                     </resource>
                 </resources>
+
             </build>
         </profile>
     </profiles>
