@@ -5,3 +5,6 @@
 .idea/
 
 /angularjs-springmvc-sample.iml
+*.log*
+nb-*.xml
+*.txt
