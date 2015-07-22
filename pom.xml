@@ -87,15 +87,14 @@
     <dependencyManagement>
         <dependencies>
             <!-- Spring BOM -->
-            <dependency>
+<!--            <dependency>
                 <groupId>io.spring.platform</groupId>
                 <artifactId>platform-bom</artifactId>
                 <version>2.0.0.BUILD-SNAPSHOT</version>
                 <type>pom</type>
                 <scope>import</scope>
-            </dependency>
-        </dependencies>
-        
+            </dependency>-->
+        </dependencies>   
     </dependencyManagement>
 
     <dependencies>
@@ -310,7 +309,7 @@
         </dependency>
         
         <!--Lombok-->
-<!--        <dependency>
+        <!--        <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>${lombok.version}</version>
@@ -412,14 +411,17 @@
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
+            <version>3.4</version>
         </dependency>
         <dependency>
             <groupId>commons-codec</groupId>
             <artifactId>commons-codec</artifactId>
+            <version>1.10</version>
         </dependency>
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
+            <version>2.4</version>
         </dependency>
         <dependency>
             <groupId>commons-dbcp</groupId>
