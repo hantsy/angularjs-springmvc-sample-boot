@@ -3,6 +3,8 @@ angularjs-springmvc-sample
 
 An example application using AnguarJS/Bootstrap as frontend and Spring MVC as REST API producer.
 
+**This is a Spring Boot version of the original application.**
+
 
 ##Requirements
 
@@ -26,13 +28,13 @@ An example application using AnguarJS/Bootstrap as frontend and Spring MVC as RE
     git clone https://github.com/hantsy/angularjs-springmvc-sample
     </pre>
   
-   2. And enter the root folder, run `mvn tomcat7:run` to start up an embedded tomcat7 to serve this application.
+   2. Instead of running this project via `mvn tomcat7:run` command, using `mvn spring-boot:run` here.
   
     <pre>
-    mvn tomcat7:run
+    mvn spring-boot:run
     </pre>
 
-   3. Go to [http://localhost:8080/angularjs-springmvc-sample/](http://localhost:8080/angularjs-springmvc-sample/) to test it. If you want to explore the REST API docs online, there is a *Swagger UI* configured for visualizing the REST APIs, just go to [http://localhost:8080/angularjs-springmvc-sample/swagger-ui.html](http://localhost:8080/angularjs-springmvc-sample/swagger-ui.html).
+   3. Go to [http://localhost:9000](http://localhost:9000) to test it. If you want to explore the REST API docs online, there is a *Swagger UI* configured for visualizing the REST APIs, just go to [http://localhost:9000/swagger-ui.html](http://localhost:9000/swagger-ui.html).
 
 
 
