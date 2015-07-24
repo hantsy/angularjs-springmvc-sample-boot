@@ -1,9 +1,8 @@
 package com.hantsylabs.restexample.springmvc.model;
 
-
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Date;
-
 
 /**
  *
@@ -23,7 +22,7 @@ public class CommentDetails implements Serializable {
 
     private SimpleUserDetails createdBy;
 
-    private Date createdDate;
+    private LocalDateTime createdDate;
 
     public Long getId() {
         return id;
@@ -41,11 +40,11 @@ public class CommentDetails implements Serializable {
         this.content = content;
     }
 
-    public Date getCreatedDate() {
+    public LocalDateTime getCreatedDate() {
         return createdDate;
     }
 
-    public void setCreatedDate(Date createdDate) {
+    public void setCreatedDate(LocalDateTime createdDate) {
         this.createdDate = createdDate;
     }
 

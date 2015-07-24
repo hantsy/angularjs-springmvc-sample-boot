@@ -2,6 +2,7 @@
 package com.hantsylabs.restexample.springmvc.model;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 /**
@@ -21,15 +22,7 @@ public class UserDetails implements Serializable {
 
     private String role;
     
-    private Date createdDate;
-
-    public Date getCreatedDate() {
-        return createdDate;
-    }
-
-    public void setCreatedDate(Date createdDate) {
-        this.createdDate = createdDate;
-    }
+    private LocalDateTime createdDate;
 
     
     public String getName() {
@@ -72,8 +65,14 @@ public class UserDetails implements Serializable {
         this.id = id;
     }
 
-    
-    
+    public LocalDateTime getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(LocalDateTime createdDate) {
+        this.createdDate = createdDate;
+    }
+   
     @Override
     public String toString() {
         return "UserDetails{" + "username=" + username + ", name=" + name + ", email=" + email + ", role=" + role + '}';

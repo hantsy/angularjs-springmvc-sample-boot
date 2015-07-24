@@ -1,6 +1,7 @@
 package com.hantsylabs.restexample.springmvc.domain;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -61,20 +62,18 @@ public class Post implements Serializable {
     @CreatedBy
     private User createdBy;
 
-    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "created_date")
     @CreatedDate
-    private Date createdDate;
+    private LocalDateTime createdDate;
 
     @ManyToOne
     @JoinColumn(name = "last_modified_by")
     @CreatedBy
     private User lastModifiedBy;
 
-    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "last_modified_date")
     @CreatedDate
-    private Date lastModifiedDate;
+    private LocalDateTime lastModifiedDate;
 
     public Long getId() {
         return id;
@@ -108,28 +107,12 @@ public class Post implements Serializable {
         this.status = status;
     }
 
-//    public List<Comment> getComments() {
-//        return comments;
-//    }
-//
-//    public void setComments(List<Comment> comments) {
-//        this.comments = comments;
-//    }
-
     public User getCreatedBy() {
         return createdBy;
     }
 
     public void setCreatedBy(User createdBy) {
         this.createdBy = createdBy;
-    }
-
-    public Date getCreatedDate() {
-        return createdDate;
-    }
-
-    public void setCreatedDate(Date createdDate) {
-        this.createdDate = createdDate;
     }
 
     public User getLastModifiedBy() {
@@ -140,11 +123,19 @@ public class Post implements Serializable {
         this.lastModifiedBy = lastModifiedBy;
     }
 
-    public Date getLastModifiedDate() {
+    public LocalDateTime getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(LocalDateTime createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public LocalDateTime getLastModifiedDate() {
         return lastModifiedDate;
     }
 
-    public void setLastModifiedDate(Date lastModifiedDate) {
+    public void setLastModifiedDate(LocalDateTime lastModifiedDate) {
         this.lastModifiedDate = lastModifiedDate;
     }
 

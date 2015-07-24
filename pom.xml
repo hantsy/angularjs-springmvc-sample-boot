@@ -30,7 +30,7 @@
         <spring-security.version>4.0.1.RELEASE</spring-security.version>
         <hibernate.version>5.0.0.CR2</hibernate.version>
         <hibernate-validator.version>5.2.0.CR1</hibernate-validator.version>
-        <jackson.version>2.6.0-rc3</jackson.version>
+        <jackson.version>2.6.0</jackson.version>
         <modelmapper.version>0.7.4</modelmapper.version>
         <springfox.version>2.0.3</springfox.version>
         <lombok.version>1.16.4</lombok.version>
@@ -354,7 +354,7 @@
 
         <dependency>
             <groupId>com.fasterxml.jackson.datatype</groupId>
-            <artifactId>jackson-datatype-joda</artifactId>
+            <artifactId>jackson-datatype-jsr310</artifactId>
             <version>${jackson.version}</version>
         </dependency>
 

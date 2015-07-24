@@ -221,7 +221,7 @@
 
     });
 
-    as.controller('PostsController', function ($scope, $http, i18n) {
+    as.controller('PostsController', function ($scope, $http, $location, i18n) {
         $scope.p = 1;
         $scope.q = '';
         $scope.statusOpt = {'label': $.i18n.prop('ALL'), 'value': 'ALL'};
@@ -250,6 +250,11 @@
 
         $scope.toggleStatus = function (r) {
             $scope.statusOpt = r;
+            load();
+        };
+        
+        $scope.add = function () {
+             $location.path('/posts/new');
         };
 
         $scope.delPost = function (idx) {

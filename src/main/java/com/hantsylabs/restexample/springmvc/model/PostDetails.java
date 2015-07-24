@@ -1,6 +1,7 @@
 package com.hantsylabs.restexample.springmvc.model;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 /**
@@ -20,14 +21,16 @@ public class PostDetails implements Serializable {
     private String title;
 
     private String content;
+    
+    private String status;
 
     private SimpleUserDetails createdBy;
 
-    private Date createdDate;
+    private LocalDateTime createdDate;
 
     private SimpleUserDetails lastModifiedBy;
 
-    private Date lastModifiedDate;
+    private LocalDateTime lastModifiedDate;
 
     public Long getId() {
         return id;
@@ -45,6 +48,14 @@ public class PostDetails implements Serializable {
         this.title = title;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+    
     public String getContent() {
         return content;
     }
@@ -61,14 +72,6 @@ public class PostDetails implements Serializable {
         this.createdBy = createdBy;
     }
 
-    public Date getCreatedDate() {
-        return createdDate;
-    }
-
-    public void setCreatedDate(Date createdDate) {
-        this.createdDate = createdDate;
-    }
-
     public SimpleUserDetails getLastModifiedBy() {
         return lastModifiedBy;
     }
@@ -77,13 +80,22 @@ public class PostDetails implements Serializable {
         this.lastModifiedBy = lastModifiedBy;
     }
 
-    public Date getLastModifiedDate() {
+    public LocalDateTime getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(LocalDateTime createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public LocalDateTime getLastModifiedDate() {
         return lastModifiedDate;
     }
 
-    public void setLastModifiedDate(Date lastModifiedDate) {
+    public void setLastModifiedDate(LocalDateTime lastModifiedDate) {
         this.lastModifiedDate = lastModifiedDate;
     }
+
 
     @Override
     public String toString() {

@@ -2,6 +2,7 @@ package com.hantsylabs.restexample.springmvc.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -48,10 +49,9 @@ public class Comment implements Serializable {
     @CreatedBy
     private User createdBy;
 
-    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "created_on")
     @CreatedDate
-    private Date createdDate;
+    private LocalDateTime createdDate;
 
     public Long getId() {
         return id;
@@ -85,11 +85,11 @@ public class Comment implements Serializable {
         this.createdBy = createdBy;
     }
 
-    public Date getCreatedDate() {
+    public LocalDateTime getCreatedDate() {
         return createdDate;
     }
 
-    public void setCreatedDate(Date createdDate) {
+    public void setCreatedDate(LocalDateTime createdDate) {
         this.createdDate = createdDate;
     }
 

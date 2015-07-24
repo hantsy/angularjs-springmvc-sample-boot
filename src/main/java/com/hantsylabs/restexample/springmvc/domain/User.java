@@ -1,6 +1,7 @@
 package com.hantsylabs.restexample.springmvc.domain;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
@@ -46,7 +47,7 @@ public class User implements UserDetails, Serializable {
 
     @Column(name = "created_date")
     @CreatedDate
-    private Date createdDate;
+    private LocalDateTime createdDate;
 
     public User() {
     }
@@ -59,13 +60,7 @@ public class User implements UserDetails, Serializable {
         this.role = role;
     }
 
-    public Date getCreatedDate() {
-        return createdDate;
-    }
 
-    public void setCreatedDate(Date createdDate) {
-        this.createdDate = createdDate;
-    }
 
     public Long getId() {
         return id;
@@ -110,6 +105,14 @@ public class User implements UserDetails, Serializable {
         this.email = email;
     }
 
+    public LocalDateTime getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(LocalDateTime createdDate) {
+        this.createdDate = createdDate;
+    }
+    
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return Arrays.asList(new SimpleGrantedAuthority("ROLE_" + this.role));

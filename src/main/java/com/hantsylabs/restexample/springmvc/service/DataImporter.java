@@ -1,4 +1,4 @@
-package com.hantsylabs.restexample.springmvc.test;
+package com.hantsylabs.restexample.springmvc.service;
 
 import com.hantsylabs.restexample.springmvc.domain.User;
 import com.hantsylabs.restexample.springmvc.repository.UserRepository;
@@ -10,7 +10,7 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-//@Named
+@Named
 public class DataImporter implements ApplicationListener<ContextRefreshedEvent> {
 
     private static final Logger log = LoggerFactory
