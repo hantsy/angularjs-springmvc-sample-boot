@@ -1,0 +1,64 @@
+<div class="page-header">
+    <h1>Posts</h1>
+</div>
+
+<div class="row" style="margin-bottom: 20px;">
+    <div class="col-md-12">
+        <form class="form form-inline">
+            <div class="form-group">
+                <div class="btn-group">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">{{statusOpt.label}} <span class="caret"></span></button>
+                    <ul class="dropdown-menu" role="menu">
+
+                        <li ng-repeat="r in statusOpts">
+                            <a ng-click="toggleStatus(r)">{{r.label}}</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="input-group">
+                    <input type="text" class="form-control" ng-model="q" ></input>
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" ng-click="search()"><span class="fa fa-search"></span></button>    
+                    </span>
+                </div>
+            </div>
+            <div class="form-group  pull-right">
+                <button class="btn btn-success btn-block" ng-click="add()" style="min-width: 120px"><i class="fa fa-plus-circle"></i><msg key="add"></msg></button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="table-responsive">
+            <table class="table table-striped table-hover">
+                <tr>
+                    <th>
+                <msg key="title"></msg>
+                </th>
+                <th>
+                <msg key="status"></msg>
+                </th>
+                <th>
+                <msg key="createdOn"></msg>
+                </th>
+                <th>
+                <msg key="createdBy"></msg>
+                </th>
+                </tr>
+                <tr ng-repeat="post in posts|orderBy:-createdOn">
+                    <td><a ng-href="#/posts/{{post.id}}">{{post.title}}</a></td>
+                    <td>{{post.status}}</td>
+                    <td>{{post.createdDate}}</td>
+                    <td>{{post.createdBy.name}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div> 
+<pagination boundary-links="true" total-items="totalItems" items-per-page="10" ng-model="p" ng-change="search()" class="pagination" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>
+

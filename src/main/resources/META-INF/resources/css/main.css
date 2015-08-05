@@ -1,0 +1,16 @@
+body {
+    padding-top: 70px;
+}
+
+.page{
+    min-height: 400px;
+}
+
+footer{
+    margin-top:50px;
+    padding-top:50px;
+}
+
+.toolbar{
+    margin:10px;
+}
