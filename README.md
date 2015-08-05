@@ -5,6 +5,12 @@ An example application using AnguarJS/Bootstrap as frontend and Spring MVC as RE
 
 **This is a Spring Boot version of the original application.** If you are not ready for Spring Boot at the moment, please go to [angularjs-springmvc-sample](https://github.com/hantsy/angularjs-springmvc-sample) to get the original version.
 
+In fact, this is an improved version which includes more features.
+
+* Database based security config instead of the InMemory solution.
+* Spring Data auditing is enabled.
+* The new Java 8 DateTime(JSR310) is supported.
+* Administration UI is included in this version which had been removed in the original version.
 
 ##Requirements
 
