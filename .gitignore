@@ -1,6 +1,5 @@
 *.log*
-/nb-configuration.xml
-/licenseheader.txt
+nb-*.xml
 *.txt
 
 # Created by https://www.gitignore.io
