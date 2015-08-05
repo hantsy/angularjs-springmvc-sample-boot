@@ -18,7 +18,15 @@ package com.hantsylabs.restexample.springmvc.test;
 import com.hantsylabs.restexample.springmvc.Application;
 import com.hantsylabs.restexample.springmvc.domain.User;
 import com.hantsylabs.restexample.springmvc.repository.UserRepository;
-import org.junit.*;
+import java.util.List;
+import java.util.Random;
+import javax.inject.Inject;
+import org.junit.After;
+import org.junit.AfterClass;
+import static org.junit.Assert.assertTrue;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,12 +34,6 @@ import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
-
-import javax.inject.Inject;
-import java.util.List;
-import java.util.Random;
-
-import static org.junit.Assert.assertTrue;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = Application.class)

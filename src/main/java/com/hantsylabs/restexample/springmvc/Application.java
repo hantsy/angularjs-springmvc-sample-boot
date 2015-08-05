@@ -34,7 +34,6 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.AuthorizationScopeBuilder;
 import static springfox.documentation.builders.PathSelectors.regex;
@@ -52,7 +51,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EntityScan(basePackageClasses ={ User.class, Jsr310JpaConverters.class})
 @EnableSpringDataWebSupport()
 @EnableJpaAuditing(auditorAwareRef = "auditor")
-public class Application extends WebMvcConfigurerAdapter {
+public class Application{
 
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
@@ -138,12 +137,7 @@ public class Application extends WebMvcConfigurerAdapter {
         }
 
         private Predicate<String> userOnlyEndpoints() {
-            return new Predicate<String>() {
-                @Override
-                public boolean apply(String input) {
-                    return input.contains("user");
-                }
-            };
+            return (String input) -> input.contains("user");
         }
 
         private ApiInfo apiInfo() {
