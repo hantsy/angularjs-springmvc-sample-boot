@@ -31,7 +31,7 @@ In fact, this is an improved version which includes more features.
    1. Clone the codes.
 
     <pre>
-    git clone https://github.com/hantsy/angularjs-springmvc-sample
+    git clone https://github.com/hantsy/angularjs-springmvc-sample-boot
     </pre>
   
    2. Instead of running this project via `mvn tomcat7:run` command, using `mvn spring-boot:run` here.
