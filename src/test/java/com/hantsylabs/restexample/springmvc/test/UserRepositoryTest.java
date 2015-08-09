@@ -69,6 +69,6 @@ public class UserRepositoryTest {
     public void getAllUsers() {
         List<User> users = userRepository.findAll();
         logger.debug("users @" + users);
-        assertTrue("user's size is 5", users.size() == 5);
+        assertTrue("user's size is 3", users.size() == 3);
     }
 }
