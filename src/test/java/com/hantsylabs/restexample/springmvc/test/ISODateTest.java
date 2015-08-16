@@ -61,12 +61,23 @@ public class ISODateTest {
         JsonNode rootNode = objectMapper.readTree(json);
 
         JsonNode localDateNode = rootNode.get("localDate");
-        assertEquals("local date should be equals", date.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME), localDateNode.textValue());
-
         JsonNode offsetDateNode = rootNode.get("offsetDate");
-        assertEquals("offsetDate date should be equals", offsetDate.format(DateTimeFormatter.ISO_OFFSET_DATE_TIME), offsetDateNode.textValue());
-
         JsonNode zonedDateNode = rootNode.get("zonedDate");
+
+        log.debug("LocalDateTime format(DateTimeFormatter.ISO_LOCAL_DATE_TIME)@" + date.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME));
+        log.debug("LocalDateTime toString                                     @" + date.toString());
+        log.debug("LocalDateTime serialized json node text                    @" + localDateNode.textValue());
+
+        log.debug("OffsetDateTime format(DateTimeFormatter.ISO_OFFSET_DATE_TIME)@" + offsetDate.format(DateTimeFormatter.ISO_OFFSET_DATE_TIME));
+        log.debug("OffsetDateTime toString                                      @" + offsetDate.toString());
+        log.debug("OffsetDateTime serialized json node text                     @" + offsetDateNode.textValue());
+
+        log.debug("ZonedDateTime format(DateTimeFormatter.ISO_ZONED_DATE_TIME)@" + zonedDate.format(DateTimeFormatter.ISO_ZONED_DATE_TIME));
+        log.debug("ZonedDateTime toString                                     @" + zonedDate.toString());
+        log.debug("ZonedDateTime serialized json node text                    @" + zonedDateNode.textValue());
+
+        assertEquals("local date should be equals", date.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME), localDateNode.textValue());
+        assertEquals("offsetDate date should be equals", offsetDate.format(DateTimeFormatter.ISO_OFFSET_DATE_TIME), offsetDateNode.textValue());
         assertEquals("zonedDate date should be equals", zonedDate.format(DateTimeFormatter.ISO_ZONED_DATE_TIME), zonedDateNode.textValue());
 
     }
