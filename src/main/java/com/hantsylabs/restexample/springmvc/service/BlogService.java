@@ -1,4 +1,3 @@
-
 package com.hantsylabs.restexample.springmvc.service;
 
 import com.hantsylabs.restexample.springmvc.DTOUtils;
@@ -38,9 +37,8 @@ public class BlogService {
     private CommentRepository commentRepository;
 
     public Page<PostDetails> searchPostsByCriteria(String q, Post.Status status, Pageable page) {
-        if (log.isDebugEnabled()) {
-            log.debug("search posts by keyword@" + q + ", page @" + page);
-        }
+
+        log.debug("search posts by keyword@" + q + ", page @" + page);
 
         Page<Post> posts = postRepository.findAll(PostSpecifications.filterByKeywordAndStatus(q, status),
                 page);
@@ -53,45 +51,38 @@ public class BlogService {
     }
 
     public PostDetails savePost(PostForm form) {
-        if (log.isDebugEnabled()) {
-            log.debug("save post @" + form);
-        }
+
+        log.debug("save post @" + form);
 
         Post post = DTOUtils.map(form, Post.class);
 
         Post saved = postRepository.save(post);
 
-        if (log.isDebugEnabled()) {
-            log.debug("saved post id is @" + saved);
-        }
+        log.debug("saved post id is @" + saved);
 
-        return DTOUtils.map(post, PostDetails.class);
+        return DTOUtils.map(saved, PostDetails.class);
 
     }
 
-    public void updatePost(Long id, PostForm form) {
+    public PostDetails updatePost(Long id, PostForm form) {
         Assert.notNull(id, "post id can not be null");
 
-        if (log.isDebugEnabled()) {
-            log.debug("update post @" + form);
-        }
+        log.debug("updating post of @" + id + ", posst content @" + form);
 
         Post post = postRepository.findOne(id);
         DTOUtils.mapTo(form, post);
 
         Post saved = postRepository.save(post);
 
-        if (log.isDebugEnabled()) {
-            log.debug("updated post@" + saved);
-        }
+        log.debug("updated post@" + saved);
+
+        return DTOUtils.map(saved, PostDetails.class);
     }
 
     public PostDetails findPostById(Long id) {
         Assert.notNull(id, "post id can not be null");
 
-        if (log.isDebugEnabled()) {
-            log.debug("find post by id@" + id);
-        }
+        log.debug("find post by id@" + id);
 
         Post post = postRepository.findOne(id);
 
@@ -103,9 +94,8 @@ public class BlogService {
     }
 
     public Page<CommentDetails> findCommentsByPostId(Long id, Pageable page) {
-        if (log.isDebugEnabled()) {
-            log.debug("find comments by post id@" + id);
-        }
+
+        log.debug("find comments by post id@" + id);
 
         Page<Comment> comments = commentRepository.findByPostId(id, page);
 
@@ -119,9 +109,7 @@ public class BlogService {
     public CommentDetails saveCommentOfPost(Long id, CommentForm fm) {
         Assert.notNull(id, "post id can not be null");
 
-        if (log.isDebugEnabled()) {
-            log.debug("find post by id@" + id);
-        }
+        log.debug("find post by id@" + id);
 
         Post post = postRepository.findOne(id);
 
@@ -145,9 +133,7 @@ public class BlogService {
     public void deletePostById(Long id) {
         Assert.notNull(id, "post id can not be null");
 
-        if (log.isDebugEnabled()) {
-            log.debug("find post by id@" + id);
-        }
+        log.debug("find post by id@" + id);
 
         Post post = postRepository.findOne(id);
 

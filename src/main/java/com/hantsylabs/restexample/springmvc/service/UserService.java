@@ -1,4 +1,3 @@
-
 package com.hantsylabs.restexample.springmvc.service;
 
 import com.hantsylabs.restexample.springmvc.DTOUtils;
@@ -40,9 +39,8 @@ public class UserService {
     private UserRepository userRepository;
 
     public Page<UserDetails> findAll(String q, String role, Pageable page) {
-        if (log.isDebugEnabled()) {
-            log.debug("findAll by keyword@" + q + ", role:" + role);
-        }
+
+        log.debug("find all users by keyword@" + q + ", role:" + role);
 
         Page<User> users = userRepository.findAll(UserSpecifications.filterUsersByKeyword(q, role), page);
 
@@ -52,9 +50,7 @@ public class UserService {
     public UserDetails registerUser(SignupForm form) {
         Assert.notNull(form, " @@ SignupForm is null");
 
-        if (log.isDebugEnabled()) {
-            log.debug("saving user@" + form);
-        }
+        log.debug("saving user@" + form);
 
         if (userRepository.findByUsername(form.getUsername()) != null) {
             throw new UsernameExistedException(form.getUsername());
@@ -64,18 +60,15 @@ public class UserService {
         user.setPassword(passwordEncoder.encode(form.getPassword()));
 
         User saved = userRepository.save(user);
-        
-        //TODO sending an activation email.
 
+        //TODO sending an activation email.
         return DTOUtils.map(saved, UserDetails.class);
     }
 
     public UserDetails saveUser(UserForm form) {
         Assert.notNull(form, " @@ UserForm is null");
 
-        if (log.isDebugEnabled()) {
-            log.debug("saving user@" + form);
-        }
+        log.debug("saving user@" + form);
 
         if (userRepository.findByUsername(form.getUsername()) != null) {
             throw new UsernameExistedException(form.getUsername());
@@ -92,9 +85,7 @@ public class UserService {
     public void updateUser(Long id, UserForm form) {
         Assert.notNull(id, "user id can not be null");
 
-        if (log.isDebugEnabled()) {
-            log.debug("find user by id @" + id);
-        }
+        log.debug("update user by id @" + id);
 
         User user = userRepository.findOne(id);
 
@@ -113,9 +104,8 @@ public class UserService {
 
     public void updatePassword(Long id, PasswordForm form) {
         Assert.notNull(id, "user id can not be null");
-        if (log.isDebugEnabled()) {
-            log.debug("find user by id @" + id);
-        }
+
+        log.debug("update user password by id @" + id);
 
         User user = userRepository.findOne(id);
 
@@ -135,9 +125,7 @@ public class UserService {
     public void updateProfile(Long id, ProfileForm form) {
         Assert.notNull(id, "user id can not be null");
 
-        if (log.isDebugEnabled()) {
-            log.debug("update profile for user @" + id + ", profile form@" + form);
-        }
+        log.debug("update profile for user @" + id + ", profile form@" + form);
 
         User user = userRepository.findOne(id);
 
@@ -152,9 +140,8 @@ public class UserService {
 
     public UserDetails findUserById(Long id) {
         Assert.notNull(id, "user id can not be null");
-        if (log.isDebugEnabled()) {
-            log.debug("find user by id @" + id);
-        }
+
+        log.debug("find user by id @" + id);
 
         User user = userRepository.findOne(id);
 
@@ -167,9 +154,8 @@ public class UserService {
 
     public void deleteUser(Long id) {
         Assert.notNull(id, "user id can not be null");
-        if (log.isDebugEnabled()) {
-            log.debug("find user by id @" + id);
-        }
+
+        log.debug("delete user by id @" + id);
 
         userRepository.delete(id);
     }
