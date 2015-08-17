@@ -1,3 +1,4 @@
 licenseheader.txt
 nb-configuration.xml
 /target/
+*.log*
