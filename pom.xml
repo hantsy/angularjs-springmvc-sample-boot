@@ -14,7 +14,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>1.3.0.M2</version>
+        <version>1.3.0.M4</version>
         <relativePath/>
     </parent>    
 
@@ -26,11 +26,11 @@
         <aspectj.version>1.8.6</aspectj.version>
         <slf4j.version>1.7.9</slf4j.version>
         <log4j.version>1.2.17</log4j.version>
-        <querydsl.version>3.6.0</querydsl.version>
-        <spring-security.version>4.0.1.RELEASE</spring-security.version>
-        <hibernate.version>5.0.0.CR2</hibernate.version>
-        <hibernate-validator.version>5.2.0.CR1</hibernate-validator.version>
-        <jackson.version>2.6.0</jackson.version>
+        <querydsl.version>3.6.3</querydsl.version>
+        <spring-security.version>4.0.2.RELEASE</spring-security.version>
+        <hibernate.version>5.0.0.Final</hibernate.version>
+        <hibernate-validator.version>5.2.1.Final</hibernate-validator.version>
+        <jackson.version>2.6.1</jackson.version>
         <modelmapper.version>0.7.4</modelmapper.version>
         <springfox.version>2.0.3</springfox.version>
         <lombok.version>1.16.4</lombok.version>
