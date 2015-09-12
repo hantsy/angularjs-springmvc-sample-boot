@@ -44,7 +44,7 @@ public class CurrentUserController {
         return details;
     }
 
-    @RequestMapping(value = "", method = RequestMethod.PUT, params = "action=CHANGE_PWD")
+    @RequestMapping(value = "/password", method = RequestMethod.PUT)
     @ResponseBody
     public ResponseEntity<Void> changePassword(
             @CurrentUser User user,
@@ -58,7 +58,7 @@ public class CurrentUserController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @RequestMapping(value = "", method = RequestMethod.PUT, params = "action=UPDATE_PROFILE")
+    @RequestMapping(value = "/profile", method = RequestMethod.PUT)
     @ResponseBody
     public ResponseEntity<Void> updateProfile(
             @CurrentUser User user,

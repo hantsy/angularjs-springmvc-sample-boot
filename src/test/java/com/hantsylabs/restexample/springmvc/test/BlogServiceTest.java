@@ -2,6 +2,9 @@ package com.hantsylabs.restexample.springmvc.test;
 
 import com.hantsylabs.restexample.springmvc.Application;
 import com.hantsylabs.restexample.springmvc.domain.Post;
+import com.hantsylabs.restexample.springmvc.exception.ResourceNotFoundException;
+import com.hantsylabs.restexample.springmvc.model.CommentDetails;
+import com.hantsylabs.restexample.springmvc.model.CommentForm;
 import com.hantsylabs.restexample.springmvc.model.PostDetails;
 import com.hantsylabs.restexample.springmvc.model.PostForm;
 import com.hantsylabs.restexample.springmvc.repository.PostRepository;
@@ -50,11 +53,11 @@ public class BlogServiceTest {
     }
 
     private Post newPost() {
-        Post post = new Post();
-        post.setTitle("test post title");
-        post.setTitle("test post content@" + new Random().nextInt());
+        Post _post = new Post();
+        _post.setTitle("test post title");
+        _post.setContent("test post content@" + new Random().nextInt());
 
-        return post;
+        return _post;
     }
 
     private Post post;
@@ -75,6 +78,13 @@ public class BlogServiceTest {
         Page<PostDetails> pagedPosts = blogService.searchPostsByCriteria("", Post.Status.DRAFT, pr);
         logger.debug("posts @" + pagedPosts.getContent());
         assertTrue("posts's size is 1", pagedPosts.getTotalElements() == 1);
+
+        PostDetails details = pagedPosts.getContent().get(0);
+
+        logger.debug("paged poast details #1 @" + details);
+
+        assertTrue(details.getTitle().equals("test post title"));
+        assertTrue(details.getContent().startsWith("test post content@"));
     }
 
     @Test
@@ -97,9 +107,27 @@ public class BlogServiceTest {
         PostDetails details = blogService.updatePost(post.getId(), form);
 
         assertNotNull("saved post id should not be null@", details.getId());
-        
+
         assertEquals("post is should not be changed", post.getId(), details.getId());
         assertEquals("updating title", details.getTitle());
         assertEquals("updating content", details.getContent());
     }
+
+    @Test(expected = ResourceNotFoundException.class)
+    public void testDeletePost() {
+
+        blogService.deletePostById(post.getId());
+        PostDetails findPostById = blogService.findPostById(post.getId());
+    }
+
+    @Test()
+    public void testAddCommentPost() {
+        CommentForm form = new CommentForm();
+        form.setContent("test comment");
+        CommentDetails commentDetails = blogService.saveCommentOfPost(post.getId(), form);
+
+        assertTrue(commentDetails.getId() != null);
+        assertTrue("test comment".equals(commentDetails.getContent()));
+    }
+
 }

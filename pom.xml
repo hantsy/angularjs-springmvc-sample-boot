@@ -87,7 +87,7 @@
     <dependencyManagement>
         <dependencies>
             <!-- Spring BOM -->
-<!--            <dependency>
+            <!--            <dependency>
                 <groupId>io.spring.platform</groupId>
                 <artifactId>platform-bom</artifactId>
                 <version>2.0.0.BUILD-SNAPSHOT</version>
@@ -451,9 +451,9 @@
         <dependency>
             <groupId>org.webjars</groupId>
             <artifactId>bootstrap</artifactId>
-            <version>3.3.1</version>
+            <version>3.3.5</version>
         </dependency>
-        
+            
         <dependency>
             <groupId>org.webjars</groupId>
             <artifactId>angularjs</artifactId>
@@ -463,7 +463,7 @@
         <dependency>
             <groupId>org.webjars</groupId>
             <artifactId>angular-ui-bootstrap</artifactId>
-            <version>0.12.1-1</version>
+            <version>0.13.3</version>
         </dependency>
         
         <dependency>

@@ -45,7 +45,7 @@
     });
 
     as.controller('PasswordController', function ($scope, $rootScope, $http, base64, $location) {
-        var actionUrl = 'api/self?action=CHANGE_PWD';
+        var actionUrl = 'api/me/password';
         $scope.data = {};
 
         $scope.changePwd = function () {
@@ -64,16 +64,16 @@
                         console.log(data);
                     });
 
-        }
+        };
 
         $scope.cancel = function () {
             $location.url('/user/home');
-        }
+        };
 
     });
 
     as.controller('ProfileController', function ($scope, $rootScope, $http, base64, $location) {
-        var actionUrl = 'api/self?action=UPDATE_PROFILE',
+        var actionUrl = 'api/me/profile',
                 load = function () {
                     $scope.data = {};
                     $scope.data.displayName = $rootScope.user.displayName;

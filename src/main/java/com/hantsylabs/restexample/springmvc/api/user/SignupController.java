@@ -24,7 +24,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 /**
  *
- * @author Hantsy Bai<hantsy@gmail.com><hantsy@gmail.com>
+ * @author Hantsy Bai<hantsy@gmail.com>
  */
 @RequestMapping(value = Constants.URI_API)
 @RestController

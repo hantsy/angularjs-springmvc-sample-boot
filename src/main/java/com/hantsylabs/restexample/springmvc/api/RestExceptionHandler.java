@@ -19,22 +19,21 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.WebRequest;
-import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 /**
  * Called when an exception occurs during request processing. Transforms exception message into JSON format.
  */
-@ControllerAdvice(annotations = RestController.class)
-public class RestExceptionHandler extends ResponseEntityExceptionHandler {
+@ControllerAdvice()
+public class RestExceptionHandler {
 
     private static final Logger log = LoggerFactory.getLogger(RestExceptionHandler.class);
 
     @Inject
     private MessageSource messageSource;
 
-    @ExceptionHandler(value = {Exception.class})
+    @ExceptionHandler(value = {Exception.class, RuntimeException.class})
     @ResponseBody
-    public ResponseEntity<ResponseMessage> handleAuthenticationException(Exception ex, WebRequest request) {
+    public ResponseEntity<ResponseMessage> handleGenericException(Exception ex, WebRequest request) {
         if (log.isDebugEnabled()) {
             log.debug("handling exception...");
         }
@@ -62,15 +61,16 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler(value = {InvalidRequestException.class})
+    @ResponseBody
     public ResponseEntity<ResponseMessage> handleInvalidRequestException(InvalidRequestException ex, WebRequest req) {
         if (log.isDebugEnabled()) {
             log.debug("handling InvalidRequestException...");
         }
 
         ResponseMessage alert = new ResponseMessage(
-            ResponseMessage.Type.danger,
-            ApiErrors.INVALID_REQUEST,
-            messageSource.getMessage(ApiErrors.INVALID_REQUEST, new String[]{}, null));
+                ResponseMessage.Type.danger,
+                ApiErrors.INVALID_REQUEST,
+                messageSource.getMessage(ApiErrors.INVALID_REQUEST, new String[]{}, null));
 
         BindingResult result = ex.getErrors();
 

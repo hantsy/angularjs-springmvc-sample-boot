@@ -38,6 +38,8 @@ spring:
         
     freemarker:
         check-template-location: false
+    messages:
+        basename: messages
 
 logging.level:
     org.springframework.web: DEBUG

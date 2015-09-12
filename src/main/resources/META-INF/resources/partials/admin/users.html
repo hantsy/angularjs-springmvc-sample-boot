@@ -18,7 +18,7 @@
                     <th width="50px">#</th>
                     <th ng-click="orderBy('username')"><msg key="username" /> <span
                     ng-class="orderIcon('username')"></span></th>
-                <th ng-click="orderBy('name')"><msg key="name" /> <span
+                <th ng-click="orderBy('name')"><msg key="displayName" /> <span
                     ng-class="orderIcon('displayName')"></span></th>
                 <th ng-click="orderBy('role')"><msg key="role" /> <span
                     ng-class="orderIcon('role')"></span></th>
@@ -68,9 +68,17 @@
                                        ng-model="user.password" ng-required="true" />
                             </div>
                         </div>
+                         <div class="form-group">
+                            <label class="control-label col-md-3" for="email"><msg
+                                    key="email"></msg></label>
+                            <div class="col-md-6">
+                                <input class="form-control" type="text" id="name"
+                                       ng-model="user.email" ng-required="true" />
+                            </div>
+                        </div>
                         <div class="form-group">
                             <label class="control-label col-md-3" for="name"><msg
-                                    key="name"></msg></label>
+                                    key="displayName"></msg></label>
                             <div class="col-md-6">
                                 <input class="form-control" type="text" id="name"
                                        ng-model="user.name" ng-required="true" />
@@ -80,18 +88,18 @@
                             <label class="control-label col-md-3" for="role"><msg
                                     key="role"></msg></label>
                             <div class="col-md-6">
-                                <select class="form-control" id="role"
-                                        ng-options="c for c in roleOpts" ng-model="user.role"
-                                        ng-required="true" />
+                                <div class="btn-group btn-group-sm">
+                                    <label class="btn btn-default" ng-class="{'btn-primary':user.role==c}"  ng-repeat="c in roleOpts" ng-model="user.role" btn-radio="c">{{c}}</label>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" ng-click="save()" class="btn btn-primary">
+                    <button type="button" ng-click="save()" class="btn btn-primary btn-lg">
                         <msg key="save"></msg>
                     </button>
-                    <button type="button" class="btn btn-default" data-dismiss="modal">
+                    <button type="button" class="btn btn-default btn-lg" data-dismiss="modal">
                         <msg key="cancel"></msg>
                     </button>
                 </div>
