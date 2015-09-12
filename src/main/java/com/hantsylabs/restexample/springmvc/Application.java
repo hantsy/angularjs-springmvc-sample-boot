@@ -25,6 +25,7 @@ import org.springframework.core.annotation.Order;
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -82,26 +83,6 @@ public class Application{
     public static class SwaggerConfig {
 
         @Bean
-        public Docket publicApi() {
-            return new Docket(DocumentationType.SWAGGER_2)
-                .groupName("public-api")
-                .apiInfo(apiInfo())
-                .select()
-                .paths(publicPaths())
-                .build();
-        }
-
-        @Bean
-        public Docket managementApi() {
-            return new Docket(DocumentationType.SWAGGER_2)
-                .groupName("management-api")
-                .apiInfo(apiInfo())
-                .select()
-                .paths(managementPaths())
-                .build();
-        }
-
-        @Bean
         public Docket userApi() {
             AuthorizationScope[] authScopes = new AuthorizationScope[1];
             authScopes[0] = new AuthorizationScopeBuilder()
@@ -113,32 +94,32 @@ public class Application{
                 .scopes(authScopes)
                 .build();
 
-            ArrayList<SecurityContext> securityContexts = newArrayList(SecurityContext.builder().securityReferences(newArrayList(securityReference)).build());
+            ArrayList<SecurityContext> securityContexts = newArrayList(
+                    SecurityContext
+                            .builder()
+                            .securityReferences(newArrayList(securityReference))
+                            .build()
+            );
             return new Docket(DocumentationType.SWAGGER_2)
                 .securitySchemes(newArrayList(new BasicAuth("test")))
                 .securityContexts(securityContexts)
-                .groupName("user-api")
                 .apiInfo(apiInfo())
                 .select()
-                .paths(userOnlyEndpoints())
+                .paths(apiPaths())
                 .build();
         }
 
-        private Predicate<String> publicPaths() {
+
+
+        private Predicate<String> apiPaths() {
             return or(
-                regex("/api/public.*")
+                regex("/api/.*")
             );
         }
 
-        private Predicate<String> managementPaths() {
-            return or(
-                regex("/api/mgt.*")
-            );
-        }
-
-        private Predicate<String> userOnlyEndpoints() {
-            return (String input) -> input.contains("user");
-        }
+//        private Predicate<String> userOnlyEndpoints() {
+//            return (String input) -> input.contains("user");
+//        }
 
         private ApiInfo apiInfo() {
             return new ApiInfoBuilder()
@@ -179,10 +160,18 @@ public class Application{
         protected void configure(HttpSecurity http) throws Exception {
             
             http
-                .authorizeRequests().antMatchers("/api/public/**").permitAll()
+                .authorizeRequests()
+                    .antMatchers("/api/signup")
+                    .permitAll()
                 .and()
                     .authorizeRequests()
-                    .antMatchers("/api/mgt/**")
+                    .antMatchers(HttpMethod.GET, "^/api/users/[\\d]*(\\/)?$")
+                    .authenticated()
+                    .antMatchers(HttpMethod.GET, "^/api/users(\\/)?(\\?.+)?$")
+                    .hasRole("ADMIN")
+                    .antMatchers(HttpMethod.DELETE, "^/api/users/[\\d]*(\\/)?$")
+                    .hasRole("ADMIN")
+                    .regexMatchers(HttpMethod.POST, "^/api/users(\\/)?$")
                     .hasRole("ADMIN")
                 .and()
                     .authorizeRequests()

@@ -7,8 +7,6 @@ public class Constants {
      */
     public static final String URI_API = "/api";
 
-    public static final String URI_API_MGT = "/api/mgt";
-
     public static final String URI_SELF = "/me";
 
     public static final String URI_USERS = "/users";
@@ -16,6 +14,4 @@ public class Constants {
     public static final String URI_POSTS = "/posts";
 
     public static final String URI_COMMENTS = "/comments";
-
-    public static final String URI_API_PUBLIC = "/api/public";
 }

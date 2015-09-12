@@ -105,7 +105,7 @@
 
     as.controller('UserAdminController', function ($scope, $http, i18n) {
         $scope.p = 1;
-        var actionUrl = 'api/mgt/users/',
+        var actionUrl = 'api/users/',
                 load = function () {
                     $http.get(actionUrl + '?page=' + ($scope.p - 1)).success(function (data) {
                         $scope.users = data.content;

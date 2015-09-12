@@ -31,9 +31,8 @@ public class CurrentUserController {
     @RequestMapping(value = "", method = RequestMethod.GET)
     @ResponseBody
     public UserDetails currentUser(@CurrentUser User user) {
-        if (log.isDebugEnabled()) {
-            log.debug("get current user info");
-        }
+
+        log.debug("get current user info");
 
         UserDetails details = userService.findUserById(user.getId());
 
@@ -49,9 +48,8 @@ public class CurrentUserController {
     public ResponseEntity<Void> changePassword(
             @CurrentUser User user,
             @RequestBody PasswordForm fm) {
-        if (log.isDebugEnabled()) {
-            log.debug("change password of user@" + fm);
-        }
+
+        log.debug("change password of user@" + fm);
 
         userService.updatePassword(user.getId(), fm);
 
@@ -63,9 +61,8 @@ public class CurrentUserController {
     public ResponseEntity<Void> updateProfile(
             @CurrentUser User user,
             @RequestBody ProfileForm fm) {
-        if (log.isDebugEnabled()) {
-            log.debug("update user profile data @" + fm);
-        }
+
+        log.debug("update user profile data @" + fm);
 
         userService.updateProfile(user.getId(), fm);
 

@@ -1,4 +1,3 @@
-
 package com.hantsylabs.restexample.springmvc.api.user;
 
 import com.hantsylabs.restexample.springmvc.Constants;
@@ -38,12 +37,10 @@ public class SignupController {
     @RequestMapping(value = {"/signup"}, method = RequestMethod.POST)
     @ResponseBody
     public ResponseEntity<Void> signup(
-        @RequestBody @Valid SignupForm form,
-        BindingResult errors,
-        HttpServletRequest req) {
-        if (log.isDebugEnabled()) {
-            log.debug("signup data@" + form);
-        }
+            @RequestBody @Valid SignupForm form,
+            BindingResult errors,
+            HttpServletRequest req) {
+        log.debug("signup data@" + form);
 
         if (errors.hasErrors()) {
             throw new InvalidRequestException(errors);
@@ -53,10 +50,10 @@ public class SignupController {
 
         HttpHeaders headers = new HttpHeaders();
         headers.setLocation(
-            ServletUriComponentsBuilder
-            .fromContextPath(req)
-            .path(Constants.URI_API_PUBLIC + Constants.URI_USERS + "/{id}")
-            .buildAndExpand(saved.getId()).toUri()
+                ServletUriComponentsBuilder
+                .fromContextPath(req)
+                .path(Constants.URI_API + Constants.URI_USERS + "/{id}")
+                .buildAndExpand(saved.getId()).toUri()
         );
 
         return new ResponseEntity<>(headers, HttpStatus.CREATED);
