@@ -27,7 +27,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(value = Constants.URI_API + Constants.URI_USERS)
+@RequestMapping(value = Constants.URI_API_PREFIX + Constants.URI_USERS)
 public class UserController {
 
     private static final Logger log = LoggerFactory

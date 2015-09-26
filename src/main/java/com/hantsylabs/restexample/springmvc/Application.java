@@ -79,7 +79,7 @@ public class Application{
 
     @Configuration
     @EnableSwagger2
-    @Profile(value = {"dev", "staging"})// Loads the spring beans required by the framework
+    @Profile(value = {"dev", "test", "staging"})// Loads the spring beans required by the framework
     public static class SwaggerConfig {
 
         @Bean
@@ -123,8 +123,8 @@ public class Application{
 
         private ApiInfo apiInfo() {
             return new ApiInfoBuilder()
-                .title("SpringMVC Example API")
-                .description("SpringMVC Example API reference for developers")
+                .title("AngularJS Spring MVC Example API")
+                .description("The online reference documentation for developers")
                 .termsOfServiceUrl("http://hantsy.blogspot.com")
                 .contact("Hantsy Bai")
                 .license("Apache License Version 2.0")

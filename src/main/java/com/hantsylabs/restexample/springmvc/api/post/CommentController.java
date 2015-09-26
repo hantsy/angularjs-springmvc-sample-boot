@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(value = Constants.URI_API + Constants.URI_COMMENTS)
+@RequestMapping(value = Constants.URI_API_PREFIX + Constants.URI_COMMENTS)
 public class CommentController {
 
     private static final Logger log = LoggerFactory

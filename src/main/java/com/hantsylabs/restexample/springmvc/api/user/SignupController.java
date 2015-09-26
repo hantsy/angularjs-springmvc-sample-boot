@@ -25,7 +25,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
  *
  * @author Hantsy Bai<hantsy@gmail.com>
  */
-@RequestMapping(value = Constants.URI_API)
+@RequestMapping(value = Constants.URI_API_PREFIX)
 @RestController
 public class SignupController {
 
@@ -52,7 +52,7 @@ public class SignupController {
         headers.setLocation(
                 ServletUriComponentsBuilder
                 .fromContextPath(req)
-                .path(Constants.URI_API + Constants.URI_USERS + "/{id}")
+                .path(Constants.URI_API_PREFIX + Constants.URI_USERS + "/{id}")
                 .buildAndExpand(saved.getId()).toUri()
         );
 

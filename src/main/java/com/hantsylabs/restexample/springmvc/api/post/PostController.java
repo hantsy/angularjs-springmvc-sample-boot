@@ -8,6 +8,9 @@ import com.hantsylabs.restexample.springmvc.model.PostDetails;
 import com.hantsylabs.restexample.springmvc.model.PostForm;
 import com.hantsylabs.restexample.springmvc.model.ResponseMessage;
 import com.hantsylabs.restexample.springmvc.service.BlogService;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import javax.inject.Inject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,48 +29,86 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(value = Constants.URI_API + Constants.URI_POSTS)
+@RequestMapping(value = Constants.URI_API_PREFIX + Constants.URI_POSTS)
 public class PostController {
 
-    private static final Logger log = LoggerFactory
-            .getLogger(PostController.class);
+    private static final Logger log = LoggerFactory.getLogger(PostController.class);
 
     @Inject
     private BlogService blogService;
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     @ResponseBody
+    @ApiOperation(value = "Get all posts")
+    @ApiResponses(
+            value = {
+                @ApiResponse(code = 200, message = "return all posts by page")
+            }
+    )
     public ResponseEntity<Page<PostDetails>> getAllPosts(
-            @RequestParam(value="q", required = false) String keyword, //
-            @RequestParam(value="status", required = false) Post.Status status, //
+            @RequestParam(value = "q", required = false) String keyword, //
+            @RequestParam(value = "status", required = false) Post.Status status, //
             @PageableDefault(page = 0, size = 10, sort = "createdDate", direction = Direction.DESC) Pageable page) {
-        if (log.isDebugEnabled()) {
-            log.debug("get all posts of q@" + keyword + ", status @" + status + ", page@" + page);
-        }
+
+        log.debug("get all posts of q@" + keyword + ", status @" + status + ", page@" + page);
 
         Page<PostDetails> posts = blogService.searchPostsByCriteria(keyword, status, page);
 
-        if (log.isDebugEnabled()) {
-            log.debug("get posts size @" + posts.getTotalElements());
-        }
+        log.debug("get posts size @" + posts.getTotalElements());
 
         return new ResponseEntity<>(posts, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     @ResponseBody
+    @ApiOperation(value = "Get a post")
     public ResponseEntity<PostDetails> getPost(@PathVariable("id") Long id) {
-        if (log.isDebugEnabled()) {
-            log.debug("get postsinfo by id @" + id);
-        }
+
+        log.debug("get postsinfo by id @" + id);
 
         PostDetails post = blogService.findPostById(id);
 
-        if (log.isDebugEnabled()) {
-            log.debug("get post @" + post);
-        }
+        log.debug("get post @" + post);
 
         return new ResponseEntity<>(post, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "", method = RequestMethod.POST)
+    @ResponseBody
+    @ApiOperation(value = "Cretae a new post")
+    public ResponseEntity<Void> createPost(@RequestBody PostForm post) {
+
+        log.debug("create a new post@" + post);
+
+        PostDetails saved = blogService.savePost(post);
+
+        log.debug("saved post id is @" + saved.getId());
+
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    @ResponseBody
+    @ApiOperation(value = "Update an existing post")
+    public ResponseEntity<ResponseMessage> updatePost(@PathVariable("id") Long id, @RequestBody PostForm form) {
+
+        log.debug("update post by id @" + id + ", form content@" + form);
+
+        blogService.updatePost(id, form);
+
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    @ResponseBody
+    @ApiOperation(value = "Delete an existing post")
+    public ResponseEntity<ResponseMessage> deletePostById(@PathVariable("id") Long id) {
+
+        log.debug("delete post by id @" + id);
+
+        blogService.deletePostById(id);
+
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @RequestMapping(value = "/{id}/comments", method = RequestMethod.GET)
@@ -75,60 +116,26 @@ public class PostController {
     public ResponseEntity<Page<CommentDetails>> getCommentsOfPost(
             @PathVariable("id") Long id,
             @PageableDefault(page = 0, size = 10, sort = "createdDate", direction = Direction.DESC) Pageable page) {
-        if (log.isDebugEnabled()) {
-            log.debug("get comments of post@" + id + ", page@" + page);
-        }
+
+        log.debug("get comments of post@" + id + ", page@" + page);
 
         Page<CommentDetails> commentsOfPost = blogService.findCommentsByPostId(id, page);
 
-        if (log.isDebugEnabled()) {
-            log.debug("get post comment size @" + commentsOfPost.getTotalElements());
-        }
+        log.debug("get post comment size @" + commentsOfPost.getTotalElements());
 
         return new ResponseEntity<>(commentsOfPost, HttpStatus.OK);
-    }
-
-    @RequestMapping(value = "", method = RequestMethod.POST)
-    @ResponseBody
-    public ResponseEntity<Void> createPost(@RequestBody PostForm post) {
-        if (log.isDebugEnabled()) {
-            log.debug("create a new post");
-        }
-
-        PostDetails saved = blogService.savePost(post);
-
-        if (log.isDebugEnabled()) {
-            log.debug("saved post id is @" + saved.getId());
-        }
-
-        return new ResponseEntity<>(HttpStatus.CREATED);
-    }
-
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    @ResponseBody
-    public ResponseEntity<ResponseMessage> deletePostById(@PathVariable("id") Long id) {
-        if (log.isDebugEnabled()) {
-            log.debug("delete post by id @" + id);
-        }
-
-        blogService.deletePostById(id);
-
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @RequestMapping(value = "/{id}/comments", method = RequestMethod.POST)
     @ResponseBody
     public ResponseEntity<Void> createCommentOfPost(
             @PathVariable("id") Long id, @RequestBody CommentForm comment) {
-        if (log.isDebugEnabled()) {
-            log.debug("new comment of post@" + id +", comment"+ comment);
-        }
+
+        log.debug("new comment of post@" + id + ", comment" + comment);
 
         CommentDetails saved = blogService.saveCommentOfPost(id, comment);
 
-        if (log.isDebugEnabled()) {
-            log.debug("saved comment @" + saved.getId());
-        }
+        log.debug("saved comment @" + saved.getId());
 
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
