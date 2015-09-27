@@ -38,9 +38,9 @@
         <lombok.version>1.16.4</lombok.version>
         
         <!--asciidoc-->
-        <springfox.version>2.0.2</springfox.version>
-        <spring-restdocs.version>1.0.0.M1</spring-restdocs.version>
-        <swagger2markup.version>0.7.0</swagger2markup.version>
+        <springfox.version>2.2.2</springfox.version>
+        <spring-restdocs.version>1.0.0.RC1</spring-restdocs.version>
+        <swagger2markup.version>0.7.1</swagger2markup.version>
         <asciidoctor-maven-plugin.version>1.5.2.1</asciidoctor-maven-plugin.version>
         <jruby.version>1.7.20.1</jruby.version>
         <asciidoctorj-pdf.version>1.5.0-alpha.8</asciidoctorj-pdf.version>
@@ -522,7 +522,7 @@
 
         <dependency>
             <groupId>org.springframework.restdocs</groupId>
-            <artifactId>spring-restdocs</artifactId>
+            <artifactId>spring-restdocs-mockmvc</artifactId>
             <version>${spring-restdocs.version}</version>
             <scope>test</scope>
         </dependency>

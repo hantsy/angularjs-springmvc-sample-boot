@@ -15,6 +15,7 @@ import com.hantsylabs.restexample.springmvc.domain.User;
 import com.hantsylabs.restexample.springmvc.repository.UserRepository;
 import com.hantsylabs.restexample.springmvc.security.SecurityUtil;
 import com.hantsylabs.restexample.springmvc.security.SimpleUserDetailsServiceImpl;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import javax.inject.Inject;
 import org.springframework.boot.SpringApplication;
@@ -23,9 +24,13 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.core.annotation.Order;
 import org.springframework.data.domain.AuditorAware;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -38,6 +43,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.AuthorizationScopeBuilder;
 import static springfox.documentation.builders.PathSelectors.regex;
+import springfox.documentation.schema.AlternateTypeRules;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.AuthorizationScope;
 import springfox.documentation.service.BasicAuth;
@@ -49,10 +55,10 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @SpringBootApplication
 @EnableTransactionManagement(mode = AdviceMode.ASPECTJ)
-@EntityScan(basePackageClasses ={ User.class, Jsr310JpaConverters.class})
+@EntityScan(basePackageClasses = {User.class, Jsr310JpaConverters.class})
 @EnableSpringDataWebSupport()
 @EnableJpaAuditing(auditorAwareRef = "auditor")
-public class Application{
+public class Application {
 
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
@@ -69,9 +75,9 @@ public class Application{
         Jackson2ObjectMapperBuilder builder = new Jackson2ObjectMapperBuilder();
         builder.serializationInclusion(JsonInclude.Include.NON_EMPTY);
         builder.featuresToDisable(
-            SerializationFeature.WRITE_DATES_AS_TIMESTAMPS,
-            DeserializationFeature.FAIL_ON_IGNORED_PROPERTIES,
-            DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
+                SerializationFeature.WRITE_DATES_AS_TIMESTAMPS,
+                DeserializationFeature.FAIL_ON_IGNORED_PROPERTIES,
+                DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
         builder.featuresToEnable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
 
         return builder;
@@ -86,51 +92,50 @@ public class Application{
         public Docket userApi() {
             AuthorizationScope[] authScopes = new AuthorizationScope[1];
             authScopes[0] = new AuthorizationScopeBuilder()
-                .scope("read")
-                .description("read access")
-                .build();
+                    .scope("read")
+                    .description("read access")
+                    .build();
             SecurityReference securityReference = SecurityReference.builder()
-                .reference("test")
-                .scopes(authScopes)
-                .build();
+                    .reference("test")
+                    .scopes(authScopes)
+                    .build();
 
             ArrayList<SecurityContext> securityContexts = newArrayList(
                     SecurityContext
-                            .builder()
-                            .securityReferences(newArrayList(securityReference))
-                            .build()
+                    .builder()
+                    .securityReferences(newArrayList(securityReference))
+                    .build()
             );
             return new Docket(DocumentationType.SWAGGER_2)
-                .securitySchemes(newArrayList(new BasicAuth("test")))
-                .securityContexts(securityContexts)
-                .apiInfo(apiInfo())
-                .select()
-                .paths(apiPaths())
-                .build();
+                    .directModelSubstitute(LocalDateTime.class, String.class)
+                    .ignoredParameterTypes(User.class)
+                    .securitySchemes(newArrayList(new BasicAuth("test")))
+                    .securityContexts(securityContexts)
+                    .apiInfo(apiInfo())
+                    .select()
+                    .paths(apiPaths())
+                    .build();
         }
-
-
 
         private Predicate<String> apiPaths() {
             return or(
-                regex("/api/.*")
+                    regex("/api/.*")
             );
         }
 
 //        private Predicate<String> userOnlyEndpoints() {
 //            return (String input) -> input.contains("user");
 //        }
-
         private ApiInfo apiInfo() {
             return new ApiInfoBuilder()
-                .title("AngularJS Spring MVC Example API")
-                .description("The online reference documentation for developers")
-                .termsOfServiceUrl("http://hantsy.blogspot.com")
-                .contact("Hantsy Bai")
-                .license("Apache License Version 2.0")
-                .licenseUrl("https://github.com/springfox/springfox/blob/master/LICENSE")
-                .version("2.0")
-                .build();
+                    .title("AngularJS Spring MVC Example API")
+                    .description("The online reference documentation for developers")
+                    .termsOfServiceUrl("http://hantsy.blogspot.com")
+                    .contact("Hantsy Bai")
+                    .license("Apache License Version 2.0")
+                    .licenseUrl("https://github.com/springfox/springfox/blob/master/LICENSE")
+                    .version("2.0")
+                    .build();
         }
 
     }
@@ -145,25 +150,25 @@ public class Application{
         @Override
         public void configure(WebSecurity web) throws Exception {
             web
-                .ignoring()
-                .antMatchers("/**/*.html", //
-                    "/css/**", //
-                    "/js/**", //
-                    "/i18n/**",// 
-                    "/libs/**",//
-                    "/img/**", //
-                    "/webjars/**",//
-                    "/ico/**");
+                    .ignoring()
+                    .antMatchers("/**/*.html", //
+                            "/css/**", //
+                            "/js/**", //
+                            "/i18n/**",// 
+                            "/libs/**",//
+                            "/img/**", //
+                            "/webjars/**",//
+                            "/ico/**");
         }
 
         @Override
         protected void configure(HttpSecurity http) throws Exception {
-            
+
             http
-                .authorizeRequests()
+                    .authorizeRequests()
                     .antMatchers("/api/signup")
                     .permitAll()
-                .and()
+                    .and()
                     .authorizeRequests()
                     .antMatchers(HttpMethod.GET, "^/api/users/[\\d]*(\\/)?$")
                     .authenticated()
@@ -173,30 +178,30 @@ public class Application{
                     .hasRole("ADMIN")
                     .regexMatchers(HttpMethod.POST, "^/api/users(\\/)?$")
                     .hasRole("ADMIN")
-                .and()
+                    .and()
                     .authorizeRequests()
                     .antMatchers("/api/**")
                     .authenticated()
-                .and()
+                    .and()
                     .authorizeRequests()
                     .anyRequest()
                     .permitAll()
-                .and()
+                    .and()
                     .sessionManagement()
                     .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
+                    .and()
                     .httpBasic()
-                .and()
+                    .and()
                     .csrf()
                     .disable();
         }
 
         @Override
         protected void configure(AuthenticationManagerBuilder auth)
-            throws Exception {
+                throws Exception {
             auth
-                .userDetailsService(new SimpleUserDetailsServiceImpl(userRepository))
-                .passwordEncoder(passwordEncoder());
+                    .userDetailsService(new SimpleUserDetailsServiceImpl(userRepository))
+                    .passwordEncoder(passwordEncoder());
         }
 
         @Bean

@@ -1,10 +1,6 @@
 package com.hantsylabs.restexample.springmvc.test;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hantsylabs.restexample.springmvc.Application;
-import com.hantsylabs.restexample.springmvc.domain.Post;
-import com.hantsylabs.restexample.springmvc.repository.PostRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,11 +12,12 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.context.WebApplicationContext;
 
 import javax.inject.Inject;
+import org.junit.Rule;
 import org.springframework.boot.test.IntegrationTest;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 
-import static org.springframework.restdocs.RestDocumentation.document;
-import static org.springframework.restdocs.RestDocumentation.documentationConfiguration;
+import org.springframework.restdocs.RestDocumentation;
+import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.documentationConfiguration;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
@@ -45,9 +42,7 @@ public class SwaggerApiDocTest {
 
     @Before
     public void setUp() {
-        this.mockMvc = webAppContextSetup(this.context)
-                .apply(documentationConfiguration())
-                .build();
+        this.mockMvc = webAppContextSetup(this.context).build();
     }
 
     @Test

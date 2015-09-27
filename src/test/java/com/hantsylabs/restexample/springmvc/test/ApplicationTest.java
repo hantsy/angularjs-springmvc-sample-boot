@@ -16,11 +16,12 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.context.WebApplicationContext;
 
 import javax.inject.Inject;
-import org.springframework.boot.test.IntegrationTest;
+import org.junit.Rule;
 import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.restdocs.RestDocumentation;
 
-import static org.springframework.restdocs.RestDocumentation.document;
-import static org.springframework.restdocs.RestDocumentation.documentationConfiguration;
+import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
+import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.documentationConfiguration;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
@@ -34,6 +35,9 @@ public class ApplicationTest {
     final String outputDir = System.getProperty("io.springfox.staticdocs.outputDir");
 
     final String snippetsDir = System.getProperty("org.springframework.restdocs.outputDir");
+
+    @Rule
+    public final RestDocumentation restDocumentation = new RestDocumentation(snippetsDir);
 
     @Inject
     private WebApplicationContext context;
@@ -51,7 +55,7 @@ public class ApplicationTest {
     @Before
     public void setUp() {
         this.mockMvc = webAppContextSetup(this.context)
-                .apply(documentationConfiguration())
+                .apply(documentationConfiguration(this.restDocumentation))
                 .build();
 
         postRepository.deleteAllInBatch();
