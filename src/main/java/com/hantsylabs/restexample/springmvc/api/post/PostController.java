@@ -11,13 +11,17 @@ import com.hantsylabs.restexample.springmvc.service.BlogService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import java.net.URI;
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,6 +31,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 @RestController
 @RequestMapping(value = Constants.URI_API_PREFIX + Constants.URI_POSTS)
@@ -76,21 +81,29 @@ public class PostController {
     @RequestMapping(value = "", method = RequestMethod.POST)
     @ResponseBody
     @ApiOperation(value = "Cretae a new post")
-    public ResponseEntity<Void> createPost(@RequestBody PostForm post) {
+    public ResponseEntity<Void> createPost(@RequestBody @Valid PostForm post, HttpServletRequest request) {
 
         log.debug("create a new post@" + post);
 
         PostDetails saved = blogService.savePost(post);
 
         log.debug("saved post id is @" + saved.getId());
-
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        URI loacationHeader = ServletUriComponentsBuilder
+                .fromContextPath(request)
+                .path("/api/posts/{id}")
+                .buildAndExpand(saved.getId())
+                .toUri();
+        
+        HttpHeaders headers=new HttpHeaders();
+        headers.setLocation(loacationHeader);
+        
+        return new ResponseEntity<>(headers, HttpStatus.CREATED);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     @ResponseBody
     @ApiOperation(value = "Update an existing post")
-    public ResponseEntity<ResponseMessage> updatePost(@PathVariable("id") Long id, @RequestBody PostForm form) {
+    public ResponseEntity<ResponseMessage> updatePost(@PathVariable("id") Long id, @RequestBody @Valid PostForm form) {
 
         log.debug("update post by id @" + id + ", form content@" + form);
 
