@@ -14,23 +14,22 @@ import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
-import static com.jayway.restassured.RestAssured.given;
 import com.jayway.restassured.response.Response;
 import javax.inject.Inject;
 import static org.hamcrest.CoreMatchers.containsString;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.startsWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import static com.jayway.restassured.RestAssured.given;
+import static org.hamcrest.CoreMatchers.is;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = Application.class)
 @WebAppConfiguration
 @IntegrationTest("server.port:0")
-public class ApplicationRestAssuredTest {
+public class RestAssuredApplicationTest {
     
-    private static final Logger log = LoggerFactory.getLogger(ApplicationRestAssuredTest.class);
+    private static final Logger log = LoggerFactory.getLogger(RestAssuredApplicationTest.class);
 
     private static final String USER_NAME = "admin";
 

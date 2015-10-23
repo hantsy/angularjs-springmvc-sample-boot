@@ -17,6 +17,10 @@ spring:
         prepStmtCacheSize: 250
         prepStmtCacheSqlLimit: 2048
         useServerPrepStmts: true
+        pool: HikariPool 
+        maximumPoolSize: 20
+        minimumIdle: 10
+        connectionTestQuery: 'select 1'
 
     jpa:
         database-platform: org.hibernate.dialect.MySQLInnoDBDialect
@@ -31,7 +35,7 @@ spring:
             hibernate.cache.use_second_level_cache: true
             hibernate.cache.use_query_cache: false
             hibernate.generate_statistics: true
-            hibernate.cache.region.factory_class: org.hibernate.cache.internal.NoCachingRegionFactory
+            hibernate.cache.region.factory_class: org.hibernate.cache.ehcache.EhCacheRegionFactory
 
     data:
         jpa.repositories.enabled: true 

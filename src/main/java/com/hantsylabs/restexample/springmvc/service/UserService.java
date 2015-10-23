@@ -4,7 +4,7 @@ import com.hantsylabs.restexample.springmvc.DTOUtils;
 import com.hantsylabs.restexample.springmvc.domain.User;
 import com.hantsylabs.restexample.springmvc.exception.PasswordMismatchedException;
 import com.hantsylabs.restexample.springmvc.exception.ResourceNotFoundException;
-import com.hantsylabs.restexample.springmvc.exception.UsernameExistedException;
+import com.hantsylabs.restexample.springmvc.exception.UsernameAlreadyUsedException;
 import com.hantsylabs.restexample.springmvc.model.PasswordForm;
 import com.hantsylabs.restexample.springmvc.model.ProfileForm;
 import com.hantsylabs.restexample.springmvc.model.SignupForm;
@@ -53,7 +53,7 @@ public class UserService {
         log.debug("saving user@" + form);
 
         if (userRepository.findByUsername(form.getUsername()) != null) {
-            throw new UsernameExistedException(form.getUsername());
+            throw new UsernameAlreadyUsedException(form.getUsername());
         }
 
         User user = DTOUtils.map(form, User.class);
@@ -71,7 +71,7 @@ public class UserService {
         log.debug("saving user@" + form);
 
         if (userRepository.findByUsername(form.getUsername()) != null) {
-            throw new UsernameExistedException(form.getUsername());
+            throw new UsernameAlreadyUsedException(form.getUsername());
         }
 
         User user = DTOUtils.map(form, User.class);

@@ -3,7 +3,7 @@ package com.hantsylabs.restexample.springmvc.api;
 import com.hantsylabs.restexample.springmvc.ApiErrors;
 import com.hantsylabs.restexample.springmvc.exception.InvalidRequestException;
 import com.hantsylabs.restexample.springmvc.exception.ResourceNotFoundException;
-import com.hantsylabs.restexample.springmvc.exception.UsernameExistedException;
+import com.hantsylabs.restexample.springmvc.exception.UsernameAlreadyUsedException;
 import com.hantsylabs.restexample.springmvc.model.ResponseMessage;
 import java.util.List;
 import javax.inject.Inject;
@@ -17,7 +17,6 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.WebRequest;
 
 /**
@@ -49,9 +48,9 @@ public class RestExceptionHandler {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @ExceptionHandler(value = {UsernameExistedException.class})
+    @ExceptionHandler(value = {UsernameAlreadyUsedException.class})
     @ResponseBody
-    public ResponseEntity<ResponseMessage> handleUsernameExistedException(UsernameExistedException ex, WebRequest request) {
+    public ResponseEntity<ResponseMessage> handleUsernameExistedException(UsernameAlreadyUsedException ex, WebRequest request) {
         if (log.isDebugEnabled()) {
             log.debug("handling UsernameExistedException...");
         }

@@ -20,17 +20,17 @@ import org.junit.Rule;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.restdocs.RestDocumentation;
 
-import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.documentationConfiguration;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
+import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 
 @WebAppConfiguration
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = Application.class)
 @ActiveProfiles("test")
-public class ApplicationTest {
+public class MockMvcApplicationTest {
 
     final String outputDir = System.getProperty("io.springfox.staticdocs.outputDir");
 
