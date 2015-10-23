@@ -120,6 +120,7 @@
         var initUser = function () {
             $scope.newUser = {};
             $scope.newUser.role = 'USER';
+            $scope.userCopy = angular.copy($scope.newUser);
         };
 
         $scope.search = function () {
@@ -148,9 +149,9 @@
             });
         };
 
-        $scope.cancel = function () {          
+        $scope.cancel = function () {
+            $scope.newUser = angular.copy($scope.userCopy);
             $scope.form.$setPristine();
-            initUser();
             $('#userDialog').modal('hide');
         };
 
