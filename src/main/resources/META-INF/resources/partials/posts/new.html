@@ -4,26 +4,31 @@
 
 <form role="form" ng-submit="save()" name="postForm" novalidate>
 
-    <div class="form-group" ng-class="{'has-error':postForm.title.$invalid && !postForm.title.$pristine}">
+    <div class="form-group" ng-class="{'has-error':postForm.title.$invalid && postForm.title.$touched}">
         <label class="control-label" for="title"><msg key="title"></msg></label>
 
         <input name="title" class="form-control" type="text"
                placeholder="Post title" ng-model="newPost.title" ng-required="true"></input>
-        <p class="help-block" ng-show="postForm.title.$invalid">Title is required!</p>
+        <div class="help-block" ng-messages="postForm.title.$error" ng-if="postForm.title.$touched">
+            <p ng-message="required">Post title is required.</p>
+        </div>
     </div>
 
-    <div class="form-group" ng-class="{'has-error':postForm.content.$invalid && !postForm.content.$pristine}">
+    <div class="form-group" ng-class="{'has-error':postForm.content.$invalid && postForm.content.$touched}">
         <label class="control-label" for="content"><msg key="content"></msg></label>
         <textarea name="content" class="form-control" type="text"
                   placeholder="Post conent" ng-model="newPost.content" rows="8" ng-required="true" ng-minlength="15"></textarea>
-        <p class="help-block" ng-show="postForm.content.$invalid">At least 15 chars</p>
+        <div class="help-block" ng-messages="postForm.content.$error" ng-if="postForm.content.$touched">
+            <p ng-message="required">Post content is required.</p>
+            <p ng-message="minlength">At least 15 chars.</p>
+        </div>
     </div>
-    
+
     <div class="form-group">
         <button type="submit" ng-disabled="postForm.$invalid" class="btn btn-primary btn-lg">
             <msg key="save"></msg>
         </button>
-        <button type="button" ng-click="cancel()" class="btn btn-default btn-lg" data-dismiss="modal">
+        <button type="button" ng-click="cancel()" class="btn btn-default btn-lg">
             <msg key="cancel"></msg>
         </button>
     </div>

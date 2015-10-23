@@ -109,16 +109,20 @@
                 load = function () {
                     $http.get(actionUrl + '?page=' + ($scope.p - 1)).success(function (data) {
                         $scope.users = data.content;
-                        $scope.totalItems=data.totalElements;
+                        $scope.totalItems = data.totalElements;
                     });
                 };
 
         load();
 
         $scope.roleOpts = ['USER', 'ADMIN'];
-        $scope.user = {};
-        
-        $scope.search=function(){
+
+        var initUser = function () {
+            $scope.newUser = {};
+            $scope.newUser.role = 'USER';
+        };
+
+        $scope.search = function () {
             load();
         };
 
@@ -133,15 +137,21 @@
         };
 
         $scope.initAdd = function () {
-            $scope.user = {};
+            initUser();
             $('#userDialog').modal('show');
         };
 
         $scope.save = function () {
-            $http.post(actionUrl, $scope.user).success(function () {
+            $http.post(actionUrl, $scope.newUser).success(function () {
                 $('#userDialog').modal('hide');
                 load();
             });
+        };
+
+        $scope.cancel = function () {          
+            $scope.form.$setPristine();
+            initUser();
+            $('#userDialog').modal('hide');
         };
 
         $scope.order = '+username';
@@ -252,9 +262,9 @@
             $scope.statusOpt = r;
             load();
         };
-        
+
         $scope.add = function () {
-             $location.path('/posts/new');
+            $location.path('/posts/new');
         };
 
         $scope.delPost = function (idx) {
