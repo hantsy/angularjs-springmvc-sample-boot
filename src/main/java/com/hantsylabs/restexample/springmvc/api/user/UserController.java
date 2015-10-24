@@ -2,12 +2,11 @@ package com.hantsylabs.restexample.springmvc.api.user;
 
 import com.hantsylabs.restexample.springmvc.Constants;
 import com.hantsylabs.restexample.springmvc.exception.InvalidRequestException;
-import com.hantsylabs.restexample.springmvc.exception.ResourceNotFoundException;
-import com.hantsylabs.restexample.springmvc.model.ResponseMessage;
 import com.hantsylabs.restexample.springmvc.model.UserDetails;
 import com.hantsylabs.restexample.springmvc.model.UserForm;
 import com.hantsylabs.restexample.springmvc.service.UserService;
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,6 +14,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 @RestController
 @RequestMapping(value = Constants.URI_API_PREFIX + Constants.URI_USERS)
@@ -39,15 +40,10 @@ public class UserController {
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     @ResponseBody
     public ResponseEntity<UserDetails> getUser(@PathVariable("id") Long id) {
-        if (log.isDebugEnabled()) {
-            log.debug("get user data @" + id);
-        }
+
+        log.debug("get user data @" + id);
 
         UserDetails user = userService.findUserById(id);
-
-        if (user == null) {
-            throw new ResourceNotFoundException(id);
-        }
 
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
@@ -63,16 +59,16 @@ public class UserController {
 
         Page<UserDetails> users = userService.findAll(q, role, page);
 
-        if (log.isDebugEnabled()) {
-            log.debug("count of users @" + users.getTotalElements());
-        }
+        log.debug("count of fetched users @" + users.getTotalElements());
 
         return users;
     }
 
     @RequestMapping(value = "", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseEntity<ResponseMessage> saveUser(@RequestBody @Valid UserForm form, BindingResult errors) {
+    public ResponseEntity<Void> saveUser(@RequestBody @Valid UserForm form,
+            BindingResult errors,
+            HttpServletRequest req) {
 
         log.debug("save user data @" + form);
 
@@ -80,7 +76,17 @@ public class UserController {
             throw new InvalidRequestException(errors);
         }
 
-        userService.saveUser(form);
+        UserDetails userDetails = userService.saveUser(form);
+
+        log.debug("created user@" + userDetails);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setLocation(
+                ServletUriComponentsBuilder
+                .fromContextPath(req)
+                .path(Constants.URI_API_PREFIX + Constants.URI_USERS + "/{id}")
+                .buildAndExpand(userDetails.getId()).toUri()
+        );
 
         return new ResponseEntity<>(HttpStatus.CREATED);
     }

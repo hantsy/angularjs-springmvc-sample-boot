@@ -2,16 +2,19 @@ package com.hantsylabs.restexample.springmvc.api.user;
 
 import com.hantsylabs.restexample.springmvc.Constants;
 import com.hantsylabs.restexample.springmvc.domain.User;
+import com.hantsylabs.restexample.springmvc.exception.InvalidRequestException;
 import com.hantsylabs.restexample.springmvc.model.PasswordForm;
 import com.hantsylabs.restexample.springmvc.model.ProfileForm;
 import com.hantsylabs.restexample.springmvc.model.UserDetails;
 import com.hantsylabs.restexample.springmvc.security.CurrentUser;
 import com.hantsylabs.restexample.springmvc.service.UserService;
 import javax.inject.Inject;
+import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -36,9 +39,7 @@ public class CurrentUserController {
 
         UserDetails details = userService.findUserById(user.getId());
 
-        if (log.isDebugEnabled()) {
-            log.debug("current user value @" + details);
-        }
+        log.debug("current user value @" + details);
 
         return details;
     }
@@ -47,9 +48,14 @@ public class CurrentUserController {
     @ResponseBody
     public ResponseEntity<Void> changePassword(
             @CurrentUser User user,
-            @RequestBody PasswordForm fm) {
+            @RequestBody @Valid PasswordForm fm,
+            BindingResult result) {
 
         log.debug("change password of user@" + fm);
+        
+        if (result.hasErrors()) {
+            throw new InvalidRequestException(result);
+        }
 
         userService.updatePassword(user.getId(), fm);
 
@@ -60,9 +66,14 @@ public class CurrentUserController {
     @ResponseBody
     public ResponseEntity<Void> updateProfile(
             @CurrentUser User user,
-            @RequestBody ProfileForm fm) {
+            @RequestBody @Valid ProfileForm fm,
+            BindingResult result) {
 
         log.debug("update user profile data @" + fm);
+
+        if (result.hasErrors()) {
+            throw new InvalidRequestException(result);
+        }
 
         userService.updateProfile(user.getId(), fm);
 

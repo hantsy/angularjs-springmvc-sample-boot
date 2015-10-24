@@ -15,30 +15,46 @@
         $routeProvider
                 .when('/',
                         {templateUrl: 'partials/home.html',
-                            publicAccess: true})
+                            publicAccess: true}
+                )
                 .when('/home',
                         {templateUrl: 'partials/home.html',
-                            publicAccess: true})
+                            publicAccess: true}
+                )
                 .when('/login',
                         {templateUrl: 'partials/login.html',
-                            publicAccess: true})
+                            publicAccess: true}
+                )
+                .when('/signup',
+                        {
+                            controller: 'SignupController',
+                            templateUrl: 'partials/signup.html',
+                            publicAccess: true}
+                )
                 .when('/posts',
                         {controller: 'PostsController',
-                            templateUrl: 'partials/posts/home.html'})
+                            templateUrl: 'partials/posts/home.html'}
+                )
                 .when('/posts/new',
                         {controller: 'NewPostController',
-                            templateUrl: 'partials/posts/new.html'})
+                            templateUrl: 'partials/posts/new.html'}
+                )
                 .when('/posts/:id',
                         {controller: 'DetailsController',
-                            templateUrl: 'partials/posts/details.html'})
+                            templateUrl: 'partials/posts/details.html'}
+                )
                 .when('/admin/users',
-                        {templateUrl: 'partials/admin/users.html'})
+                        {templateUrl: 'partials/admin/users.html'}
+                )
                 .when('/user/home',
-                        {templateUrl: 'partials/user/home.html'})
+                        {templateUrl: 'partials/user/home.html'}
+                )
                 .when('/user/password',
-                        {templateUrl: 'partials/user/password.html'})
+                        {templateUrl: 'partials/user/password.html'}
+                )
                 .when('/user/profile',
-                        {templateUrl: 'partials/user/profile.html'});
+                        {templateUrl: 'partials/user/profile.html'}
+                );
 
         //configure $http to catch message responses and show them
         $httpProvider.interceptors.push(function ($q) {

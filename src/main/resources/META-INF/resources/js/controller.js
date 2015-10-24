@@ -44,6 +44,30 @@
         };
     });
 
+    as.controller('SignupController', function ($scope, $rootScope, $http, base64, $location) {
+        var actionUrl = 'api/signup';
+        $scope.data = {};
+
+        $scope.signup = function () {
+            console.log('sginup @' +  $scope.newUser);
+            $http.post(actionUrl, $scope.newUser)
+                    .success(function (data) {
+                        console.log(data);
+                        $http.defaults.headers.common['Authorization'] = 'Basic ' + base64.encode($scope.newUser.username + ':' + $scope.newUser.password);
+                        $location.url('/user/home');
+                    })
+                    .error(function (data) {
+                        console.log(data);
+                    });
+
+        };
+
+        $scope.cancel = function () {
+            $location.url('/login');
+        };
+
+    });
+
     as.controller('PasswordController', function ($scope, $rootScope, $http, base64, $location) {
         var actionUrl = 'api/me/password';
         $scope.data = {};
