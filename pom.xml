@@ -114,6 +114,11 @@
         <!--Spring Boot-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
         
@@ -702,6 +707,13 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.springframework</groupId>
+                        <artifactId>springloaded</artifactId>
+                        <version>1.2.4.RELEASE</version>
+                    </dependency>
+                </dependencies>
                 <configuration>
                     <addResources>false</addResources>
                 </configuration>
@@ -910,7 +922,6 @@
                     </additionalBuildcommands>
                     <additionalProjectnatures>
                         <projectnature>org.eclipse.ajdt.ui.ajnature</projectnature>
-                        <!-- <projectnature>com.springsource.sts.roo.core.nature</projectnature> -->
                         <projectnature>org.springframework.ide.eclipse.core.springnature</projectnature>
                     </additionalProjectnatures>
                 </configuration>
