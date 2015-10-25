@@ -91,6 +91,17 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
+    @RequestMapping(value = "/username-check", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity<Boolean> checkUsername(@RequestParam("username") String username) {
+
+        log.debug("check username existance by username @" + username);
+
+        UserDetails userDetails = userService.findUserByUsername(username);
+        boolean found = (userDetails != null);
+        return new ResponseEntity<>(found, HttpStatus.OK);
+    }
+
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     @ResponseBody
     public ResponseEntity<Void> deleteUser(@PathVariable("id") Long id) {

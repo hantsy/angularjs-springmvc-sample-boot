@@ -8,7 +8,7 @@
             message,
             //Define the main module.
             //The module is accessible everywhere using "angular.module('angularspring')", therefore global variables can be avoided totally.
-            as = angular.module('exampleApp', ['ngRoute', 'ngResource', 'ngCookies', 'ui.bootstrap', 'ngMessages', 'exampleApp.i18n', 'exampleApp.services', 'exampleApp.controllers', 'exampleApp.filters']);
+            as = angular.module('exampleApp', ['ngRoute', 'ngResource', 'ngCookies', 'ui.bootstrap', 'ngMessages', 'exampleApp.i18n', 'exampleApp.directives', 'exampleApp.services', 'exampleApp.controllers', 'exampleApp.filters']);
 
     as.config(function ($routeProvider, $httpProvider) {
         //configure the rounting of ng-view

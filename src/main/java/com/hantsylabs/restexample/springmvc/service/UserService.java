@@ -152,6 +152,20 @@ public class UserService {
         return DTOUtils.map(user, UserDetails.class);
     }
 
+    public UserDetails findUserByUsername(String username) {
+        Assert.notNull(username, "user id can not be null");
+
+        log.debug("find user by username @" + username);
+
+        User user = userRepository.findByUsername(username);
+
+        if (user == null) {
+            throw new ResourceNotFoundException(String.format("username %s was not found", username));
+        }
+
+        return DTOUtils.map(user, UserDetails.class);
+    }
+
     public void deleteUser(Long id) {
         Assert.notNull(id, "user id can not be null");
 
