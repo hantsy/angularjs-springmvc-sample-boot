@@ -38,6 +38,15 @@ public class Post implements Serializable {
         PUBLISHED
     }
 
+    public Post(String title, String content) {
+        this.title = title;
+        this.content = content;
+    }
+    
+    public Post() {
+
+    }
+
     @Id()
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")

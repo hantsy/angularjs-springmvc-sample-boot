@@ -41,22 +41,20 @@ public abstract class AbstractSpringJBehaveStory extends JUnitStory {
                 .useParameterControls(parameterControls());
     }
 
+    @Override
+    public InjectableStepsFactory stepsFactory() {
+        return new SpringStepsFactory(configuration(), applicationContext);
+    }
+
     private EmbedderControls embedderControls() {
         return new EmbedderControls()
-                .doIgnoreFailureInView(false)
-                .doIgnoreFailureInStories(false)
-                .doVerboseFailures(true)
+                .doIgnoreFailureInView(true)
                 .useStoryTimeouts(STORY_TIMEOUT_IN_SECONDS);
     }
 
     private ParameterControls parameterControls() {
         return new ParameterControls()
                 .useDelimiterNamedParameters(true);
-    }
-
-    @Override
-    public InjectableStepsFactory stepsFactory() {
-        return new SpringStepsFactory(configuration(), applicationContext);
     }
 
     private StoryPathResolver storyPathResolver() {

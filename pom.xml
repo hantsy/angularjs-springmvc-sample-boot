@@ -601,12 +601,12 @@
             </exclusions>
         </dependency>
 
-        <dependency>
+<!--        <dependency>
             <groupId>org.jbehave</groupId>
             <artifactId>jbehave-rest</artifactId>
             <version>${jbehave.version}</version>
             <scope>test</scope>
-        </dependency>
+        </dependency>-->
 
         <dependency>
             <groupId>org.jbehave.site</groupId>
@@ -714,9 +714,9 @@
                         <version>1.2.4.RELEASE</version>
                     </dependency>
                 </dependencies>
-                <configuration>
+<!--                <configuration>
                     <addResources>false</addResources>
-                </configuration>
+                </configuration>-->
             </plugin>
 
             <plugin>
