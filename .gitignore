@@ -2,3 +2,6 @@ licenseheader.txt
 nb-configuration.xml
 /target/
 *.log*
+.classpath
+.project
+.settings

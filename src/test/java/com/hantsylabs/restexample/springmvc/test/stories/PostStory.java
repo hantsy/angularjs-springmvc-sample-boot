@@ -1,18 +1,15 @@
 package com.hantsylabs.restexample.springmvc.test.stories;
 
-import com.hantsylabs.restexample.springmvc.domain.Post;
 import com.hantsylabs.restexample.springmvc.repository.PostRepository;
 import com.hantsylabs.restexample.springmvc.test.AbstractSpringJBehaveStory;
 import com.hantsylabs.restexample.springmvc.test.AcceptanceTest;
+import com.hantsylabs.restexample.springmvc.test.steps.PostSteps;
 import javax.inject.Inject;
-import org.jbehave.core.annotations.Given;
-import org.jbehave.core.annotations.Named;
-import org.jbehave.core.annotations.Then;
-import org.jbehave.core.annotations.When;
-import static org.junit.Assert.assertTrue;
+import org.junit.Before;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.TestRestTemplate;
-import org.springframework.http.ResponseEntity;
+import org.springframework.boot.test.TestRestTemplate.HttpClientOption;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -22,28 +19,22 @@ public class PostStory extends AbstractSpringJBehaveStory {
     @Inject
     PostRepository postRepository;
 
-    TestRestTemplate restTemplate = new TestRestTemplate();
+    TestRestTemplate restTemplate;
 
-    ResponseEntity<String> reponseEntity;
+    String baseUrl;
 
-    @Given("post title is $title and content is $content")
-    public void savePost(@Named("title") String title, @Named("content") String content) {
-        postRepository.save(new Post(title, content));
+    @Value("${local.server.port}")
+    int port;
+
+    @Before
+    public void setup() {
+        this.baseUrl = "http://localhost:" + port;
+        this.restTemplate = new TestRestTemplate("admin", "test123", new HttpClientOption[]{});
     }
 
-    @When("GET $path")
-    public void getPost(@Named("path") String path) {
-        reponseEntity = restTemplate.getForEntity(path, String.class);
-    }
-
-    @Then("response status is $code")
-    public void responseCode(@Named("code") int code) {
-        assertTrue(reponseEntity.getStatusCode().value() == code);
-    }
-    
-    @Then("response body contains $body")
-    public void responseBody(@Named("body") String body) {
-        assertTrue(reponseEntity.getBody().contains(body));
+    @Override
+    public Object[] getSteps() {
+        return new Object[]{new PostSteps(postRepository, restTemplate, baseUrl)};
     }
 
 }

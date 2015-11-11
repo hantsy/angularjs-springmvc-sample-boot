@@ -16,14 +16,12 @@ import java.util.Arrays;
 
 import static org.jbehave.core.reporters.Format.*;
 import org.jbehave.core.steps.InjectableStepsFactory;
+import org.jbehave.core.steps.InstanceStepsFactory;
 import org.jbehave.core.steps.spring.SpringStepsFactory;
 
 public abstract class AbstractSpringJBehaveStory extends JUnitStory {
 
     private static final String STORY_TIMEOUT_IN_SECONDS = "120";
-
-    @Autowired
-    private ApplicationContext applicationContext;
 
     public AbstractSpringJBehaveStory() {
         Embedder embedder = new Embedder();
@@ -43,12 +41,15 @@ public abstract class AbstractSpringJBehaveStory extends JUnitStory {
 
     @Override
     public InjectableStepsFactory stepsFactory() {
-        return new SpringStepsFactory(configuration(), applicationContext);
+        return new InstanceStepsFactory(configuration(), getSteps());
     }
 
     private EmbedderControls embedderControls() {
         return new EmbedderControls()
-                .doIgnoreFailureInView(true)
+                .doIgnoreFailureInView(false)
+                .doIgnoreFailureInStories(false)
+                .doVerboseFailures(true)
+                .doVerboseFiltering(true)
                 .useStoryTimeouts(STORY_TIMEOUT_IN_SECONDS);
     }
 
@@ -73,4 +74,6 @@ public abstract class AbstractSpringJBehaveStory extends JUnitStory {
                 .withDefaultFormats()
                 .withFormats(IDE_CONSOLE, TXT, HTML);
     }
+
+    public abstract Object[] getSteps();
 }
