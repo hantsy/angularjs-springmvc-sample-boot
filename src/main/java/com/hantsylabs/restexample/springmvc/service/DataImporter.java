@@ -14,7 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class DataImporter implements ApplicationListener<ContextRefreshedEvent> {
 
     private static final Logger log = LoggerFactory
-        .getLogger(DataImporter.class);
+            .getLogger(DataImporter.class);
 
     @Inject
     private UserRepository userRepository;
@@ -34,20 +34,20 @@ public class DataImporter implements ApplicationListener<ContextRefreshedEvent> 
                 log.debug("import users data into database...");
             }
             userRepository.save(
-                new User().builder()
-                .username("admin")
-                .password(passwordEncoder.encode("test123"))
-                .name("Administrator")
-                .role("ADMIN")
-                .build()
+                    User.builder()
+                    .username("admin")
+                    .password(passwordEncoder.encode("test123"))
+                    .name("Administrator")
+                    .role("ADMIN")
+                    .build()
             );
             userRepository.save(
-                 new User().builder()
-                .username("testuser")
-                .password(passwordEncoder.encode("test123"))
-                .name("Test User")
-                .role("USER")
-                .build()
+                    User.builder()
+                    .username("testuser")
+                    .password(passwordEncoder.encode("test123"))
+                    .name("Test User")
+                    .role("USER")
+                    .build()
             );
 
         }

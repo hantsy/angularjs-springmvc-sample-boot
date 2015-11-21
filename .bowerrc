@@ -1,0 +1,6 @@
+{
+    "scripts": {
+        "postinstall": "node_modules/.bin/wiredep -s app/index.html"
+    },
+    "directory": "app/bower_components"
+}

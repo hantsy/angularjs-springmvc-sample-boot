@@ -5,3 +5,10 @@ nb-configuration.xml
 .classpath
 .project
 .settings
+logs/*
+!.gitkeep
+node_modules/
+bower_components/
+tmp
+.DS_Store
+.idea

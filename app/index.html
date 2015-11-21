@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="exampleApp"> 
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>REST EXAMPLE APP</title>
+        <!-- build:css styles/vendor.css -->
+        <!-- bower:css -->
+        <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.css" />
+        <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+        <link rel="stylesheet" href="bower_components/bootstrap-material-design/dist/css/material.css" />
+        <link rel="stylesheet" href="bower_components/bootstrap-material-design/dist/css/ripples.css" />
+        <link rel="stylesheet" href="bower_components/bootstrap-material-design/dist/css/roboto.css" />
+        <!-- endbower -->
+        <!-- endbuild -->
+
+        <!-- build:css styles/app.css -->
+        <link rel="stylesheet" href="styles/app.css">
+        <!-- endbuild -->
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+    </head>
+
+    <body ng-controller="MainController">
+        <!-- Fixed navbar -->
+        <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse"
+                            data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span> <span
+                            class="icon-bar"></span> <span class="icon-bar"></span> <span
+                            class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#/home"><msg key="appName"></msg></a>
+
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav" ng-show="user.username">
+                        <li ng-class="activeWhen(path() == '/posts')"><a
+                                href="#/posts"><msg key="posts"></msg></a></li>
+                        <li ng-class="activeWhen(path() == '/posts/new')"><a
+                                href="#/posts/new"><msg key="newPost"></msg></a></li>
+                        <li class="dropdown"
+                            ng-class="activeWhen(path().substring(0, 6) === '/admin')"
+                            ng-show="user.username && user.role == 'ADMIN'"><a href="javascript:void(0);"
+                                                                           class="dropdown-toggle" data-toggle="dropdown"><msg
+                                    key="administration"></msg> <b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#/admin/users"><msg key="userAdmin"></msg></a></li>
+                            </ul></li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right" ng-show="user.username">
+                        <li class="dropdown"><a href="javascript:void(0);" class="dropdown-toggle"
+                                                data-toggle="dropdown">{{user.name}} <b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#/user/home"><msg key="personalHome"></msg></a></li>
+                                <li><a href="#/user/password"><msg key="changePassword"></msg></a></li>
+                                <li><a href="#/user/profile"><msg key="updateProfile"></msg></a></li>
+                                <li class="divider"></li>
+                                <li><a ng-click="logout()"><msg key="logout"></msg></a></li>
+                            </ul></li>
+                    </ul>
+
+                </div>
+
+
+                <!--/.nav-collapse -->
+
+            </div>
+        </div>
+        <div class="container page">
+
+            <div ng-class="'alert alert-' + message().type"
+                 ng-show="message().show">
+                <button type="button" class="close" ng-click="message().show = false">×</button>
+                <msg key-expr="message().text"></msg>
+            </div>
+
+            <ng-view></ng-view>
+
+        </div>
+        <footer>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="btn-group btn-group-sm">
+                            <a class="btn btn-default"
+                               ng-class="(language() == 'zh_CN') ? 'btn-primary' : ''"
+                               ng-click="setLanguage('zh_CN')">简体中文</a> <a
+                               class="btn btn-default"
+                               ng-class="(language() == 'en') ? 'btn-primary' : ''"
+                               ng-click="setLanguage('en')">English</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="center-block">&copy;2014 HantsyLabs.com, all
+                            rights reserved.</div>
+
+                        <div>Angular seed app: v<span app-version></span></div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+        <!--[if lt IE 9]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+
+
+        <!-- build:js scripts/vendor.js -->
+        <!-- bower:js -->
+        <script src="bower_components/jquery/dist/jquery.js"></script>
+        <script src="bower_components/angular/angular.js"></script>
+        <script src="bower_components/angular-route/angular-route.js"></script>
+        <script src="bower_components/angular-loader/angular-loader.js"></script>
+        <script src="bower_components/angular-mocks/angular-mocks.js"></script>
+        <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="bower_components/bootstrap-material-design/dist/js/material.js"></script>
+        <script src="bower_components/bootstrap-material-design/dist/js/ripples.js"></script>
+        <script src="bower_components/angular-resource/angular-resource.js"></script>
+        <script src="bower_components/angular-messages/angular-messages.js"></script>
+        <script src="bower_components/angular-cookies/angular-cookies.js"></script>
+        <script src="bower_components/angular-aria/angular-aria.js"></script>
+        <script src="bower_components/angular-animate/angular-animate.js"></script>
+        <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+        <!-- endbower -->
+        <script src="scripts/jquery.i18n.properties-min-1.0.9.js"></script>
+        <!-- endbuild -->
+
+        <!-- build:ngjs scripts/app.js -->
+        <script src="scripts/app.js"></script>
+        <script src="scripts/controller.js"></script>
+        <script src="scripts/filter.js"></script>
+        <script src="scripts/directive.js"></script>
+        <script src="scripts/i18n.js"></script>
+        <script src="scripts/base64.js"></script>
+        <script src="views/view1/view1.js"></script>
+        <script src="views/view2/view2.js"></script>
+        <script src="components/version/version.js"></script>
+        <script src="components/version/version-directive.js"></script>
+        <script src="components/version/interpolate-filter.js"></script>
+        <!-- endbuild -->
+
+        <!-- build:tpljs(.tmp) scripts/tpls.js -->
+        <script src="scripts/templates.js"></script>
+        <!-- endbuild -->
+        <script>
+                                           $.material.init();
+        </script>    
+    </body>
+</html>
