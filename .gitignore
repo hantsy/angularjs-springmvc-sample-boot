@@ -5,3 +5,6 @@ nb-configuration.xml
 .classpath
 .project
 .settings
+node_modules
+Vagrantfile
+app
