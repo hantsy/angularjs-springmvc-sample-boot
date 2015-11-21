@@ -12,3 +12,6 @@ bower_components/
 tmp
 .DS_Store
 .idea
+/Vagrantfile
+/dist
+/.tmp

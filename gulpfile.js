@@ -77,24 +77,28 @@ gulp.task('usemin', ['copy'], function () {
             .pipe($.usemin({
                 css: [
                     $.minifyCss(),
-                    'concat'//,
-                            //$.rev()
+                    'concat',
+                    $.rev()
+                ],
+                appcss: [
+                    $.minifyCss(),
+                    $.rev()
                 ],
                 js: [
-                    $.uglify()//,
-                            //$.rev()
+                    $.uglify(),
+                    $.rev()
                 ],
                 ngjs: [
                     $.stripDebug(),
                     $.ngAnnotate(),
-                    'concat'
-                            //$.uglify(),
-                            //$.rev()
+                    //'concat'
+                    $.uglify(),
+                    $.rev()
                 ],
                 tpljs: [
-                    $.ngAnnotate()
-                            //$.uglify(),
-                            //$.rev()
+                    $.ngAnnotate(),
+                    $.uglify(),
+                    $.rev()
                 ]
             }))
             .pipe(gulp.dest('dist/'));
