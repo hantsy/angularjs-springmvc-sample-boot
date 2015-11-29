@@ -1,18 +1,20 @@
 (function () {
     var as = angular.module('exampleApp.controllers', []);
 
-    as.controller('MainController', function ($q, $scope, $rootScope, $http, i18n, $location) {
+    as.controller('MainController', function ($q, $scope, $rootScope, $http, $translate, i18n, $location) {
         var load = function () {
         };
 
         load();
 
         $scope.language = function () {
-            return i18n.language;
+            return $translate.use();
         };
+        
         $scope.setLanguage = function (lang) {
-            i18n.setLanguage(lang);
+            $translate.use(lang);
         };
+        
         $scope.activeWhen = function (value) {
             return value ? 'active' : '';
         };

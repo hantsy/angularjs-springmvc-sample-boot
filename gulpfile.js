@@ -1,4 +1,6 @@
 var gulp = require('gulp');
+var url = require('url');
+var proxy = require('proxy-middleware');
 var templateCache = require('gulp-angular-templatecache');
 var browserSync = require("browser-sync").create();
 
@@ -17,6 +19,8 @@ gulp.task('templates', function () {
 });
 
 gulp.task('serve', ['templates'], function () {
+    var proxyOptions = url.parse('http://localhost:9000/api');
+    proxyOptions.route = '/api';
     browserSync.init({
         notify: false,
         // Customize the Browsersync console logging prefix
@@ -27,7 +31,10 @@ gulp.task('serve', ['templates'], function () {
         // Note: this uses an unsigned certificate which on first access
         //       will present a certificate warning in the browser.
         // https: true,
-        server: ['.tmp', 'app'],
+        server: {
+            baseDir: ['.tmp', 'app'],
+            middleware: [proxy(proxyOptions)]
+        },
         port: 3000
     });
 

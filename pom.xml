@@ -674,6 +674,13 @@
                         <version>1.2.4.RELEASE</version>
                     </dependency>
                 </dependencies>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
                 <!--                <configuration>
                     <addResources>false</addResources>
                 </configuration>-->
@@ -958,6 +965,61 @@
                     </resource>
                 </resources>
 
+            </build>
+        </profile>
+        <profile>
+            <id>static-resources</id>
+            <activation>
+                <property>
+                    <name>static-resources</name>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>exec-maven-plugin</artifactId>
+                        <version>1.4.0</version>
+                        <executions>
+                            <execution>
+                                <id>gulp-build</id>
+                                <phase>generate-resources</phase>
+                                <goals>
+                                    <goal>exec</goal>
+                                </goals>
+                                <configuration>
+                                    <executable>gulp</executable>
+<!--                                    <arguments>
+                                        <argument>-s</argument>                                        
+                                    </arguments>-->
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <artifactId>maven-resources-plugin</artifactId>
+                        <version>2.7</version>
+                        <executions>
+                            <execution>
+                                <id>copy-resources</id>
+                                <!-- here the phase you need -->
+                                <phase>process-resources</phase>
+                                <goals>
+                                    <goal>copy-resources</goal>
+                                </goals>
+                                <configuration>
+                                    <outputDirectory>${basedir}/src/main/resources/static/</outputDirectory>
+                                    <resources>          
+                                        <resource>
+                                            <directory>${basedir}/dist</directory>
+                                            <filtering>false</filtering>
+                                        </resource>
+                                    </resources>              
+                                </configuration>            
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
             </build>
         </profile>
     </profiles>

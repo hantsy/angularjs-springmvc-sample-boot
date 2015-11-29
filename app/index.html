@@ -93,10 +93,12 @@
                         <div class="btn-group btn-group-sm">
                             <a class="btn btn-default"
                                ng-class="(language() == 'zh_CN') ? 'btn-primary' : ''"
-                               ng-click="setLanguage('zh_CN')">简体中文</a> <a
+                               ng-click="setLanguage('zh_CN')">中</a> 
+                            
+                            <a
                                class="btn btn-default"
                                ng-class="(language() == 'en') ? 'btn-primary' : ''"
-                               ng-click="setLanguage('en')">English</a>
+                               ng-click="setLanguage('en')">EN</a>
                         </div>
                     </div>
                 </div>
@@ -132,6 +134,7 @@
         <script src="bower_components/angular-aria/angular-aria.js"></script>
         <script src="bower_components/angular-animate/angular-animate.js"></script>
         <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+        <script src="bower_components/angular-translate/angular-translate.js"></script>
         <!-- endbower -->
         <script src="scripts/jquery.i18n.properties-min-1.0.9.js"></script>
         <!-- endbuild -->

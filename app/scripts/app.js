@@ -10,12 +10,12 @@
             //The module is accessible everywhere using "angular.module('angularspring')", therefore global variables can be avoided totally.
             as = angular
             .module('exampleApp', [
-                
                 'ngRoute',
                 'ngResource',
                 'ngCookies',
                 'ui.bootstrap',
                 'ngMessages',
+                'pascalprecht.translate',
                 'exampleApp.templates',
                 'exampleApp.i18n',
                 'exampleApp.directives',
@@ -27,6 +27,7 @@
                 'exampleApp.version'
             ])
             .config(function ($routeProvider, $httpProvider) {
+
                 //configure the rounting of ng-view
                 $routeProvider
                         .when('/',

@@ -1,5 +1,30 @@
 (function () {
-    var as = angular.module('exampleApp.i18n',[]);
+    var as = angular.module('exampleApp.i18n', [])
+            .factory('customTranslationHandler', function () {
+                return function (translationID) {
+                    // return the following text as a translation 'result' - this will be
+                    // displayed instead of the language key.
+                    return '[' + translationID + ']';
+                };
+            })
+            .config(function ($translateProvider) {
+                $translateProvider.preferredLanguage('en');
+                $translateProvider.useStaticFilesLoader({
+                    prefix: '/i18n/',
+                    suffix: '.json'
+                });
+                
+                 // $translateProvider.useMissingTranslationHandlerLog();
+                $translateProvider.useMissingTranslationHandler('customTranslationHandler');
+               
+//              $translateProvider.useLocalStorage();
+//              $translateProvider.determinePreferredLanguage(function () {
+//              // define a function to determine the language
+//              // and return a language key
+//              });
+            });
+
+
 
     as.service('i18n', function () {
         var self = this;
