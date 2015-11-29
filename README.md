@@ -35,25 +35,25 @@ Clone the codes into your local system.
 
 ## Run the project
 
-### Run the frontend UI and backend respectively
+### Run frontend UI and backend respectively
 
-1. Run the backend API server.
+1. Run the backend API server via Spring Boot.
 
         spring-boot:run
 
   The backend APIs will run on port 9000.
 
-2. Run the frontend UI resources standalone.
+2. Run the frontend UI standalone.
    
         npm install
         bower install
         gulp serve
 
-  By default, the gulp serves the UI static resources on port 3000.
+  By default, gulp serves the frontend UI static resources on port 3000.
 
 3. Go to [http://localhost:3000](http://localhost:3000) to test it.
 
-### Run the project via Spring Boot command
+### Run the project via Spring Boot maven plugin
      
 1. Run the following command to clear the dependencies.
    
