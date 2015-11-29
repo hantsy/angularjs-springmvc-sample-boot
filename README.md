@@ -55,7 +55,7 @@ Clone the codes into your local system.
 
 ### Run the project via Spring Boot maven plugin
      
-1. Run the following command to clear the dependencies.
+1. Run the following command to resovle the dependencies of the frontend static resources.
    
         npm install
         bower install
