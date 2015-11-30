@@ -25,7 +25,11 @@ This version improved the original version, including:
 
 * NodeJS
 
- Install [NodeJS](http://nodejs.org). NodeJS is required to build the frontend static resources. After it is installed, you can verify  via `node` command.
+ NodeJS is required to build the frontend static resources.
+ 
+ Download [NodeJS](http://nodejs.org) and install it into your local system. 
+ 
+ After it is installed, open terminal, and using `node -v` command to confirm.
  
       node -v 
       >v4.2.2
