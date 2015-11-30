@@ -7,7 +7,7 @@ This version improved the original version, including:
 
 * Introduction of Gulp build system to processing the static resources
 * The frontend UI can be run standalone via NodeJS eco-system
-* An option provided for users to package the static resources as part of final jar and run the application as before
+* An option provided and allow you to package the static resources as part of final jar and run the application via `mvn spring-boot:run` directly
 
 ##Requirements
 
