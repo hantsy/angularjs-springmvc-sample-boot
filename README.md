@@ -27,7 +27,7 @@ This version improved the original version, including:
 
  Install [NodeJS](http://nodejs.org). NodeJS is required to build the frontend static resources, and you should also install `bower`.
  
-    npm install -g bower
+      npm install -g bower
  
 ## Get the source codes
 
