@@ -5,8 +5,9 @@ An example application using AnguarJS/Bootstrap as frontend and Spring MVC as RE
 
 This version improved the original version, including:
 
-* Gulp build system for the static resources
-* All user to select package the static resources as part of final jar.
+* Introduction of Gulp build system to processing the static resources
+* The frontend UI can be run standalone via NodeJS eco-system
+* An option provided for users to package the static resources as part of final jar and run the application as before
 
 ##Requirements
 
@@ -24,11 +25,13 @@ This version improved the original version, including:
 
 * NodeJS
 
- Install [NodeJS](http://nodejs.org).
+ Install [NodeJS](http://nodejs.org). NodeJS is required to build the frontend static resources, and you should also install `bower`.
+ 
+    npm install -g bower
  
 ## Get the source codes
 
-Clone the codes into your local system.
+Get a copy of the source codes into your local system.
 
     git clone https://github.com/hantsy/angularjs-springmvc-sample-boot
 
