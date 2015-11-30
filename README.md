@@ -25,9 +25,15 @@ This version improved the original version, including:
 
 * NodeJS
 
- Install [NodeJS](http://nodejs.org). NodeJS is required to build the frontend static resources, and you should also install `bower`.
+ Install [NodeJS](http://nodejs.org). NodeJS is required to build the frontend static resources. After it is installed, you can verify  via `node` command.
+ 
+      node -v 
+      >v4.2.2
+ 
+  `bower` is also requried to install the runtime dependencies, and `gulp` is chosen as our build tools for the statics resources.
  
       npm install -g bower
+      npm install -g gulp
  
 ## Get the source codes
 
