@@ -10,8 +10,7 @@
 <h3>Comments({{comments.length||'0'}})</h3>
 <div class="row">
     <div class="pull-right">
-        <a class="btn btn-default btn-success" ng-click="addComment()"><span class="glyphicon glyphicon-plus-sign"></span> <msg
-                key="addComment"></msg></a>
+        <a class="btn btn-default btn-success" ng-click="addComment()"><span class="glyphicon glyphicon-plus-sign"></span> {{'addComment'|translate}}</a>
     </div>
 </div>
 <ul class="list-unstyled">
@@ -21,12 +20,12 @@
         <p>{{comment.content}}</p>
         <p ng-show="user.id == post.createdBy.id">
             <a class="btn btn-sm btn-default btn-danger"
-               ng-click="delComment($index)"><span class="glyphicon glyphicon-remove-sign"></span> <msg key="delete"></msg></a>
+               ng-click="delComment($index)"><span class="glyphicon glyphicon-remove-sign"></span> {{'delete'|translate}}</a>
         </p>
     </li>
 </ul>
 
-<pagination boundary-links="true" total-items="totalItems" items-per-page="10" ng-model="p" ng-change="search()" class="pagination" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>
+<uib-pagination boundary-links="true" total-items="totalItems" items-per-page="10" ng-model="p" ng-change="search()" class="pagination" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></uib-pagination>
 
 <div class="modal fade" id="commentDialog" tabindex="-1" role="dialog"
      aria-labelledby="commentModalLabel" aria-hidden="true">
@@ -37,7 +36,7 @@
                     <button type="button" class="close" data-dismiss="modal"
                             aria-hidden="true">&times;</button>
                     <h4 class="modal-title" id="commentModalLabel">
-                        <msg key="comment"></msg>
+                        {{'comment'|translate}}
                     </h4>
                 </div>
                 <div class="modal-body"> 
@@ -51,10 +50,10 @@
                 </div>
                 <div class="modal-footer">
                     <button type="submit" ng-disabled="commentForm.$invalid" class="btn btn-primary">
-                        <msg key="save"></msg>
+                        {{'save'|translate}}
                     </button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">
-                        <msg key="cancel"></msg>
+                        {{'cancel'|translate}}
                     </button>
                 </div>
             </form>

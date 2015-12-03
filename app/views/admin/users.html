@@ -1,13 +1,13 @@
 <div ng-controller="UserAdminController">
     <div class="page-header">
         <h1>
-            <msg key="userAdmin" />
+            {{'userAdmin'|translate}}
         </h1>
     </div>
     <div class="row">
         <div class="toolbar pull-right">
             <button ng-click="initAdd()" class="btn btn-success">
-                <span class="glyphicon glyphicon-plus"></span> <msg key="addUser"></msg> 
+                <span class="glyphicon glyphicon-plus"></span> {{'addUser'|translate}} 
             </button>
         </div>
     </div>
@@ -16,13 +16,13 @@
             <table class="table table-hover table-striped">
                 <tr>
                     <th width="50px">#</th>
-                    <th ng-click="orderBy('username')"><msg key="username" /> <span
+                    <th ng-click="orderBy('username')">{{'username'|translate}} <span
                     ng-class="orderIcon('username')"></span></th>
-                <th ng-click="orderBy('name')"><msg key="displayName" /> <span
+                <th ng-click="orderBy('name')">{{'displayName'|translate}} <span
                     ng-class="orderIcon('displayName')"></span></th>
-                <th ng-click="orderBy('role')"><msg key="role" /> <span
+                <th ng-click="orderBy('role')">{{'role'|translate}} <span
                     ng-class="orderIcon('role')"></span></th>
-                <th><msg key="actions" /></th>
+                <th>{{'actions'|translate}}</th>
                 </tr>
                 <tr ng-repeat="u in users|orderBy:order">
                     <td>{{$index + 1}}</td>
@@ -37,7 +37,7 @@
             </table>
         </div>
     </div>
-    <pagination boundary-links="true" total-items="totalItems" items-per-page="10" ng-model="p" ng-change="search()" class="pagination" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>
+    <uib-pagination boundary-links="true" total-items="totalItems" items-per-page="10" ng-model="p" ng-change="search()" class="uib-pagination" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></uib-pagination>
 
     <div class="modal fade" id="userDialog" tabindex="-1" role="dialog"
          aria-labelledby="myModalLabel" aria-hidden="true">
@@ -48,13 +48,12 @@
                         <button type="button" class="close" data-dismiss="modal"
                                 aria-hidden="true">&times;</button>
                         <h4 class="modal-title" id="myModalLabel">
-                            <msg key="addUser"></msg>
+                            {{'addUser'|translate}}
                         </h4>
                     </div>
                     <div class="modal-body">
                         <div class="form-group" ng-class="{'has-error':form.username.$invalid && !form.username.$pristine}">
-                            <label class="control-label col-md-3" for="username"><msg
-                                    key="username"></msg></label>
+                            <label class="control-label col-md-3" for="username">{{'username'|translate}}</label>
                             <div class="col-md-6">
                                 <input class="form-control" id="username" name="username"
                                        ng-model="newUser.username" ng-required="true" ng-minlength="6" ng-maxlength="20" />
@@ -64,8 +63,7 @@
                             </div>
                         </div>
                         <div class="form-group" ng-class="{'has-error':form.password.$invalid && !form.password.$pristine}">
-                            <label for="password" class="control-label col-md-3"><msg
-                                    key="password"></msg></label>
+                            <label for="password" class="control-label col-md-3">{{'password'|translate}}</label>
                             <div class="col-md-6">
                                 <input class="form-control" type="password" id="password" name="password"
                                        ng-model="newUser.password" ng-required="true" ng-minlength="6" ng-maxlength="20"/>
@@ -75,8 +73,7 @@
                             </div>
                         </div>
                         <div class="form-group" ng-class="{'has-error':form.email.$invalid && !form.email.$pristine}">
-                            <label class="control-label col-md-3" for="email"><msg
-                                    key="email"></msg></label>
+                            <label class="control-label col-md-3" for="email">{{'email'|translate}}</label>
                             <div class="col-md-6">
                                 <input class="form-control" type="email" id="email" name="email" maxlength="100"
                                        ng-model="newUser.email" ng-required="true" />
@@ -93,8 +90,7 @@
                             </div>
                         </div>
                         <div class="form-group" ng-class="{'has-error':form.name.$invalid && !form.name.$pristine}">
-                            <label class="control-label col-md-3" for="name"><msg
-                                    key="displayName"></msg></label>
+                            <label class="control-label col-md-3" for="name">{{'displayName'|translate}}</label>
                             <div class="col-md-6">
                                 <input class="form-control" type="text" id="name" name="name"
                                        ng-model="newUser.name" ng-required="true" />
@@ -104,11 +100,10 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-md-3" for="role"><msg
-                                    key="role"></msg></label>
+                            <label class="control-label col-md-3" for="role">{{'role'|translate}}</label>
                             <div class="col-md-6">
                                 <div class="btn-group btn-group-sm">
-                                    <label class="btn btn-default" ng-class="{'btn-primary':newUser.role == c}"  ng-repeat="c in roleOpts" ng-model="newUser.role" btn-radio="c">{{c}}</label>
+                                    <label class="btn btn-default" ng-class="{'btn-primary':newUser.role == c}"  ng-repeat="c in roleOpts" ng-model="newUser.role" uib-btn-radio="c">{{c}}</label>
                                 </div>
                             </div>
                         </div>
@@ -116,10 +111,10 @@
 
                     <div class="modal-footer">
                         <button type="button" ng-click="save()" class="btn btn-primary btn-lg" ng-disabled='!form.$pristine && form.$invalid'>
-                            <msg key="save"></msg>
+                            {{'save'|translate}}
                         </button>
                         <button type="button" class="btn btn-default btn-lg" ng-click="cancel()">
-                            <msg key="cancel"></msg>
+                            {{'cancel'|translate}}
                         </button>
                     </div>
                 </form>

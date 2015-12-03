@@ -38,33 +38,32 @@
                             class="icon-bar"></span> <span class="icon-bar"></span> <span
                             class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#/home"><msg key="appName"></msg></a>
+                    <a class="navbar-brand" href="#/home">{{'appName'|translate}}</a>
 
                 </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav" ng-show="user.username">
                         <li ng-class="activeWhen(path() == '/posts')"><a
-                                href="#/posts"><msg key="posts"></msg></a></li>
+                                href="#/posts">{{'posts'|translate}}</a></li>
                         <li ng-class="activeWhen(path() == '/posts/new')"><a
-                                href="#/posts/new"><msg key="newPost"></msg></a></li>
+                                href="#/posts/new">{{'newPost'|translate}}</a></li>
                         <li class="dropdown"
                             ng-class="activeWhen(path().substring(0, 6) === '/admin')"
                             ng-show="user.username && user.role == 'ADMIN'"><a href="javascript:void(0);"
-                                                                           class="dropdown-toggle" data-toggle="dropdown"><msg
-                                    key="administration"></msg> <b class="caret"></b></a>
+                                                                           class="dropdown-toggle" data-toggle="dropdown">{{'administration'|translate}} <b class="caret"></b></a>
                             <ul class="dropdown-menu">
-                                <li><a href="#/admin/users"><msg key="userAdmin"></msg></a></li>
+                                <li><a href="#/admin/users">{{'userAdmin'|translate}}</a></li>
                             </ul></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right" ng-show="user.username">
                         <li class="dropdown"><a href="javascript:void(0);" class="dropdown-toggle"
                                                 data-toggle="dropdown">{{user.name}} <b class="caret"></b></a>
                             <ul class="dropdown-menu">
-                                <li><a href="#/user/home"><msg key="personalHome"></msg></a></li>
-                                <li><a href="#/user/password"><msg key="changePassword"></msg></a></li>
-                                <li><a href="#/user/profile"><msg key="updateProfile"></msg></a></li>
+                                <li><a href="#/user/home">{{'personalHome'|translate}}</a></li>
+                                <li><a href="#/user/password">{{'changePassword'|translate}}</a></li>
+                                <li><a href="#/user/profile">{{'updateProfile'|translate}}</a></li>
                                 <li class="divider"></li>
-                                <li><a ng-click="logout()"><msg key="logout"></msg></a></li>
+                                <li><a ng-click="logout()">{{'logout'|translate}}</a></li>
                             </ul></li>
                     </ul>
 
@@ -80,7 +79,7 @@
             <div ng-class="'alert alert-' + message().type"
                  ng-show="message().show">
                 <button type="button" class="close" ng-click="message().show = false">×</button>
-                <msg key-expr="message().text"></msg>
+                {{ message().text|translate}}
             </div>
 
             <ng-view></ng-view>
@@ -135,8 +134,14 @@
         <script src="bower_components/angular-animate/angular-animate.js"></script>
         <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
         <script src="bower_components/angular-translate/angular-translate.js"></script>
+        <script src="bower_components/angular-translate-storage-cookie/angular-translate-storage-cookie.js"></script>
+        <script src="bower_components/angular-translate-storage-local/angular-translate-storage-local.js"></script>
+        <script src="bower_components/angular-translate-handler-log/angular-translate-handler-log.js"></script>
+        <script src="bower_components/messageformat/messageformat.js"></script>
+        <script src="bower_components/angular-translate-interpolation-messageformat/angular-translate-interpolation-messageformat.js"></script>
+        <script src="bower_components/angular-translate-loader-url/angular-translate-loader-url.js"></script>
+        <script src="bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.js"></script>
         <!-- endbower -->
-        <script src="scripts/jquery.i18n.properties-min-1.0.9.js"></script>
         <!-- endbuild -->
 
         <!-- build:ngjs scripts/app.js -->

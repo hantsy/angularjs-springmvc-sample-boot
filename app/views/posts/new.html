@@ -5,7 +5,7 @@
 <form role="form" ng-submit="save()" name="postForm" novalidate>
 
     <div class="form-group" ng-class="{'has-error':postForm.title.$invalid && postForm.title.$touched}">
-        <label class="control-label" for="title"><msg key="title"></msg></label>
+        <label class="control-label" for="title">{{'title'|translate}}</label>
 
         <input name="title" class="form-control" type="text"
                placeholder="Post title" ng-model="newPost.title" ng-required="true"></input>
@@ -15,7 +15,7 @@
     </div>
 
     <div class="form-group" ng-class="{'has-error':postForm.content.$invalid && postForm.content.$touched}">
-        <label class="control-label" for="content"><msg key="content"></msg></label>
+        <label class="control-label" for="content">{{'content'|translate}}</label>
         <textarea name="content" class="form-control" type="text"
                   placeholder="Post conent" ng-model="newPost.content" rows="8" ng-required="true" ng-minlength="15"></textarea>
         <div class="help-block" ng-messages="postForm.content.$error" ng-if="postForm.content.$touched">
@@ -26,10 +26,10 @@
 
     <div class="form-group">
         <button type="submit" ng-disabled="postForm.$invalid" class="btn btn-primary btn-lg">
-            <msg key="save"></msg>
+            {{'save'|translate}}
         </button>
         <button type="button" ng-click="cancel()" class="btn btn-default btn-lg">
-            <msg key="cancel"></msg>
+            {{'cancel'|translate}}
         </button>
     </div>
 </form>
