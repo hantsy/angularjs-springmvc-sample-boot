@@ -37,7 +37,7 @@
             </table>
         </div>
     </div>
-    <pagination boundary-links="true" total-items="totalItems" items-per-page="10" ng-model="p" ng-change="search()" class="pagination" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>
+    <uib-pagination boundary-links="true" total-items="totalItems" items-per-page="10" ng-model="p" ng-change="search()" class="uib-pagination" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></uib-pagination>
 
     <div class="modal fade" id="userDialog" tabindex="-1" role="dialog"
          aria-labelledby="myModalLabel" aria-hidden="true">
@@ -108,7 +108,7 @@
                                     key="role"></msg></label>
                             <div class="col-md-6">
                                 <div class="btn-group btn-group-sm">
-                                    <label class="btn btn-default" ng-class="{'btn-primary':newUser.role == c}"  ng-repeat="c in roleOpts" ng-model="newUser.role" btn-radio="c">{{c}}</label>
+                                    <label class="btn btn-default" ng-class="{'btn-primary':newUser.role == c}"  ng-repeat="c in roleOpts" ng-model="newUser.role" uib-btn-radio="c">{{c}}</label>
                                 </div>
                             </div>
                         </div>
