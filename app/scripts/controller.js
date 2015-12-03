@@ -1,7 +1,7 @@
 (function () {
     var as = angular.module('exampleApp.controllers', []);
 
-    as.controller('MainController', function ($q, $scope, $rootScope, $http, $translate, i18n, $location) {
+    as.controller('MainController', function ($q, $scope, $rootScope, $http, $translate, $location) {
         var load = function () {
         };
 
@@ -10,11 +10,11 @@
         $scope.language = function () {
             return $translate.use();
         };
-        
+
         $scope.setLanguage = function (lang) {
             $translate.use(lang);
         };
-        
+
         $scope.activeWhen = function (value) {
             return value ? 'active' : '';
         };
@@ -51,7 +51,7 @@
         $scope.data = {};
 
         $scope.signup = function () {
-            console.log('sginup @' +  $scope.newUser);
+            console.log('sginup @' + $scope.newUser);
             $http.post(actionUrl, $scope.newUser)
                     .success(function (data) {
                         console.log(data);
@@ -129,7 +129,7 @@
     });
 
 
-    as.controller('UserAdminController', function ($scope, $http, i18n) {
+    as.controller('UserAdminController', function ($scope, $http, $translate) {
         $scope.p = 1;
         var actionUrl = 'api/users/',
                 load = function () {
@@ -155,11 +155,14 @@
 
         $scope.delete = function (idx) {
             console.log('delete index @' + idx + ', id is@' + $scope.users[idx].id);
-            if (confirm($.i18n.prop('confirm.delete'))) {
-                $http.delete(actionUrl + $scope.users[idx].id).success(function () {
-                    load();
-                });
-            }
+            $translate('confirm.delete').then(function (translation) {
+                var confirmText = translation;
+                if (confirm(confirmText)) {
+                    $http.delete(actionUrl + $scope.users[idx].id).success(function () {
+                        load();
+                    });
+                }
+            });
 
         };
 
@@ -192,7 +195,7 @@
         };
     });
 
-    as.controller('NewPostController', function ($scope, $http, i18n, $location) {
+    as.controller('NewPostController', function ($scope, $http, $location) {
         var actionUrl = 'api/posts/';
 
         $scope.save = function () {
@@ -258,10 +261,11 @@
 
     });
 
-    as.controller('PostsController', function ($scope, $http, $location, i18n) {
+    as.controller('PostsController', function ($scope, $http, $location, $translate) {
         $scope.p = 1;
         $scope.q = '';
-        $scope.statusOpt = {'label': $.i18n.prop('ALL'), 'value': 'ALL'};
+
+        $scope.statusOpt = {'label': 'ALL', 'value': 'ALL'};
         $scope.statusOpts = [
             {'label': 'ALL', 'value': 'ALL'},
             {'label': 'DRAFT', 'value': 'DRAFT'},
@@ -296,12 +300,16 @@
 
         $scope.delPost = function (idx) {
             console.log('delete index @' + idx + ', id is@' + $scope.users[idx].id);
-            if (confirm($.i18n.prop('confirm.delete'))) {
-                $http.delete(actionUrl + $scope.posts[idx].id)
-                        .success(function () {
-                            $scope.posts.splice(idx, 1);
-                        });
-            }
+            $translate('confirm.delete').then(function (translation) {
+                var confirmText = translation;
+                if (confirm(confirmText)) {
+                    $http.delete(actionUrl + $scope.posts[idx].id)
+                            .success(function () {
+                                $scope.posts.splice(idx, 1);
+                            });
+                }
+            });
+
         };
 
     });
