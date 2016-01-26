@@ -33,13 +33,6 @@ public class UserRepositoryTest {
     public UserRepositoryTest() {
     }
     
-    @BeforeClass
-    public static void setUpClass() {
-    }
-    
-    @AfterClass
-    public static void tearDownClass() {
-    }
     
     private User newUser() {
         User user = new User();

@@ -11,6 +11,7 @@ import com.hantsylabs.restexample.springmvc.repository.PostRepository;
 import com.hantsylabs.restexample.springmvc.service.BlogService;
 import java.util.Random;
 import javax.inject.Inject;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.After;
 import org.junit.AfterClass;
 import static org.junit.Assert.assertEquals;
@@ -20,8 +21,6 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -31,9 +30,8 @@ import org.springframework.test.context.web.WebAppConfiguration;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = Application.class)
 @WebAppConfiguration
+@Slf4j
 public class BlogServiceTest {
-
-    private static final Logger logger = LoggerFactory.getLogger(BlogServiceTest.class);
 
     @Inject
     private PostRepository postRepository;
@@ -76,12 +74,12 @@ public class BlogServiceTest {
     public void testFetchPostsByPage() {
         PageRequest pr = new PageRequest(0, 10);
         Page<PostDetails> pagedPosts = blogService.searchPostsByCriteria("", Post.Status.DRAFT, pr);
-        logger.debug("posts @" + pagedPosts.getContent());
+        log.debug("posts @" + pagedPosts.getContent());
         assertTrue("posts's size is 1", pagedPosts.getTotalElements() == 1);
 
         PostDetails details = pagedPosts.getContent().get(0);
 
-        logger.debug("paged poast details #1 @" + details);
+        log.debug("paged poast details #1 @" + details);
 
         assertTrue(details.getTitle().equals("test post title"));
         assertTrue(details.getContent().startsWith("test post content@"));

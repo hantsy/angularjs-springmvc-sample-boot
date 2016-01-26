@@ -88,7 +88,7 @@ public class UserController {
                 .buildAndExpand(userDetails.getId()).toUri()
         );
 
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        return new ResponseEntity<>(headers, HttpStatus.CREATED);
     }
 
     @RequestMapping(value = "/username-check", method = RequestMethod.GET)

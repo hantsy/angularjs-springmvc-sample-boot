@@ -18,21 +18,21 @@
         <snippetsDirectory>${project.build.directory}/generated-docs/snippets</snippetsDirectory>
         <swaggerDirectory>${project.build.directory}/generated-docs/asciidoc</swaggerDirectory>
         
-        <aspectj.version>1.8.7</aspectj.version>
+        <aspectj.version>1.8.8</aspectj.version>
         <slf4j.version>1.7.9</slf4j.version>
         <log4j.version>1.2.17</log4j.version>
         <querydsl.version>3.6.4</querydsl.version>
-        <spring-boot.version>1.3.1.RELEASE</spring-boot.version>
+        <spring-boot.version>1.3.2.RELEASE</spring-boot.version>
         <spring-security.version>4.0.3.RELEASE</spring-security.version>
         <hibernate.version>5.0.4.Final</hibernate.version>
         <hibernate-validator.version>5.2.2.Final</hibernate-validator.version>
-        <jackson.version>2.6.3</jackson.version>
+        <jackson.version>2.6.5</jackson.version>
         <modelmapper.version>0.7.4</modelmapper.version>
-        <springfox.version>2.0.3</springfox.version>
-        <lombok.version>1.16.4</lombok.version>
+        <springfox.version>2.3.1</springfox.version>
+        <lombok.version>1.16.6 </lombok.version>
         
         <!--asciidoc-->
-        <springfox.version>2.2.2</springfox.version>
+        <springfox.version>2.3.1</springfox.version>
         <spring-restdocs.version>1.0.1.RELEASE</spring-restdocs.version>
         <swagger2markup.version>0.7.1</swagger2markup.version>
         <asciidoctor-maven-plugin.version>1.5.2.1</asciidoctor-maven-plugin.version>
@@ -327,11 +327,11 @@
         </dependency>
         
         <!--Lombok-->
-        <!--        <dependency>
+        <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>${lombok.version}</version>
-        </dependency>-->
+        </dependency>
 
         <!-- dependency injection jsr 330 -->
         <dependency>
@@ -689,6 +689,7 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>build-helper-maven-plugin</artifactId>
+                <version>1.9.1</version>
                 <executions>
                     <execution>
                         <id>add-source</id>
@@ -715,13 +716,26 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.3</version>
+                <version>3.5</version>
                 <configuration>
                     <source>${java.version}</source>
-                    <target>${java.version}</target>
-                    <compilerArgument>-proc:none</compilerArgument>
+                    <target>${java.version}</target>               
                     <encoding>${project.build.sourceEncoding}</encoding>
+<!--                    <compilerArgument>-proc:none</compilerArgument>-->
                 </configuration>
+                <executions>
+                    <execution>
+                        <!-- Modifying output directory of default compile because non-weaved classes must be stored
+                        in separate folder to not confuse ajc by reweaving already woven classes (which leads to
+                        to ajc error message like "bad weaverState.Kind: -115") -->
+                        <id>default-compile</id>
+                        <configuration>
+                            <compilerArguments>
+                                <d>${project.build.directory}/unwoven-classes</d>
+                            </compilerArguments>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
             <plugin>
                 <groupId>org.bsc.maven</groupId>
@@ -751,9 +765,28 @@
                 </dependencies>
             </plugin>
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>createClassesDir</id>
+                        <phase>process-resources</phase>
+                        <configuration>
+                            <tasks>
+                                <mkdir dir="${project.build.directory}/unwoven-classes" />
+                            </tasks>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            
+            <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>aspectj-maven-plugin</artifactId>
-                <version>1.7</version>
+                <version>1.8</version>
                 <!-- NB: do not use 1.3 or 1.3.x due to MASPECTJ-90 and do not use 1.4 
                 due to declare parents issue -->
                 <dependencies>
@@ -775,12 +808,18 @@
                         <phase>process-classes</phase>
                         <goals>
                             <goal>compile</goal>
-                            <goal>test-compile</goal>
+<!--                            <goal>test-compile</goal>-->
                         </goals>
                     </execution>
                 </executions>
                 <configuration>
                     <outxml>true</outxml>
+                    <showWeaveInfo/>
+                    <forceAjcCompile>true</forceAjcCompile>
+                    <sources/>                      
+                    <weaveDirectories>
+                        <weaveDirectory>${project.build.directory}/unwoven-classes</weaveDirectory>
+                    </weaveDirectories>
                     <aspectLibraries>
                         <aspectLibrary>
                             <groupId>org.springframework</groupId>
@@ -792,6 +831,8 @@
                     <complianceLevel>${java.version}</complianceLevel>
                     <source>${java.version}</source>
                     <target>${java.version}</target>
+                    <encoding>UTF-8</encoding>
+                    <verbose>false</verbose>
                 </configuration>
             </plugin>
             <plugin>
@@ -989,7 +1030,7 @@
                                 </goals>
                                 <configuration>
                                     <executable>gulp</executable>
-<!--                                    <arguments>
+                                    <!--                                    <arguments>
                                         <argument>-s</argument>                                        
                                     </arguments>-->
                                 </configuration>

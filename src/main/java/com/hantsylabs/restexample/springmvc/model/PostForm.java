@@ -2,6 +2,10 @@ package com.hantsylabs.restexample.springmvc.model;
 
 import java.io.Serializable;
 import javax.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.NotEmpty;
 
 /**
@@ -9,6 +13,10 @@ import org.hibernate.validator.constraints.NotEmpty;
  * @author Hantsy Bai<hantsy@gmail.com>
  *
  */
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class PostForm implements Serializable {
 
     /**
@@ -23,26 +31,5 @@ public class PostForm implements Serializable {
     @NotNull
     @NotEmpty
     private String content;
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    @Override
-    public String toString() {
-        return "PostForm{" + "title=" + title + ", content=" + content + '}';
-    }
 
 }
