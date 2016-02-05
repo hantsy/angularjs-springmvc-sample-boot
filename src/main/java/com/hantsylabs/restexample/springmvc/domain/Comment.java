@@ -32,7 +32,6 @@ import org.springframework.data.annotation.CreatedDate;
 @AllArgsConstructor
 @Entity
 @Table(name = "comments")
-@JsonIgnoreProperties("post")
 public class Comment implements Serializable {
 
     /**

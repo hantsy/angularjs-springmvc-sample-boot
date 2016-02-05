@@ -67,9 +67,6 @@ public class Post implements Serializable {
     @Enumerated
     private Status status = Status.DRAFT;
 
-//    @OneToMany(mappedBy = "post", cascade = {CascadeType.ALL})
-//    private List<Comment> comments = new ArrayList<>();
-
     @ManyToOne
     @JoinColumn(name = "created_by")
     @CreatedBy

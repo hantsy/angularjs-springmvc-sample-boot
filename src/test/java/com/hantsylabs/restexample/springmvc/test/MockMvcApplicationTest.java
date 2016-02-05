@@ -47,6 +47,8 @@ public class MockMvcApplicationTest {
 
     @Inject
     private PostRepository postRepository;
+    
+    @Inject TestUtils utils;
 
     private MockMvc mockMvc;
 
@@ -58,7 +60,7 @@ public class MockMvcApplicationTest {
                 .apply(documentationConfiguration(this.restDocumentation))
                 .build();
 
-        postRepository.deleteAllInBatch();
+        utils.clearData();
         savedIdentity = postRepository.save(newEntity());
     }
 

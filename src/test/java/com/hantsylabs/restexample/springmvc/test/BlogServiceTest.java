@@ -13,12 +13,10 @@ import java.util.Random;
 import javax.inject.Inject;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.After;
-import org.junit.AfterClass;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.SpringApplicationConfiguration;
@@ -34,20 +32,14 @@ import org.springframework.test.context.web.WebAppConfiguration;
 public class BlogServiceTest {
 
     @Inject
-    private PostRepository postRepository;
+    private TestUtils utils;
+    
+    @Inject PostRepository postRepository;
 
     @Inject
     private BlogService blogService;
 
     public BlogServiceTest() {
-    }
-
-    @BeforeClass
-    public static void setUpClass() {
-    }
-
-    @AfterClass
-    public static void tearDownClass() {
     }
 
     private Post newPost() {
@@ -62,7 +54,7 @@ public class BlogServiceTest {
 
     @Before
     public void setUp() {
-        postRepository.deleteAllInBatch();
+        utils.clearData();
         post = postRepository.save(newPost());
     }
 

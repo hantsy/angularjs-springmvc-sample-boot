@@ -82,7 +82,7 @@ public class UserService {
         return DTOUtils.map(saved, UserDetails.class);
     }
 
-    public void updateUser(Long id, UserForm form) {
+    public UserDetails updateUser(Long id, UserForm form) {
         Assert.notNull(id, "user id can not be null");
 
         log.debug("update user by id @" + id);
@@ -94,12 +94,15 @@ public class UserService {
         }
 
         DTOUtils.mapTo(form, user);
+        user.setPassword(passwordEncoder.encode(form.getPassword()));
 
-        User userSaved = userRepository.save(user);
+        User updated = userRepository.save(user);
 
         if (log.isDebugEnabled()) {
-            log.debug("updated user @" + userSaved);
+            log.debug("updated user @" + updated);
         }
+
+        return DTOUtils.map(updated, UserDetails.class);
     }
 
     public void updatePassword(Long id, PasswordForm form) {
