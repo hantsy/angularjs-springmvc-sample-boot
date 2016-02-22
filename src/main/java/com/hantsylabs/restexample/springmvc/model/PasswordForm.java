@@ -2,8 +2,16 @@ package com.hantsylabs.restexample.springmvc.model;
 
 import java.io.Serializable;
 import javax.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.NotEmpty;
 
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class PasswordForm implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -18,24 +26,6 @@ public class PasswordForm implements Serializable {
 
     public String getOldPassword() {
         return oldPassword;
-    }
-
-    public void setOldPassword(String oldPassword) {
-        this.oldPassword = oldPassword;
-    }
-
-    public String getNewPassword() {
-        return newPassword;
-    }
-
-    public void setNewPassword(String newPassword) {
-        this.newPassword = newPassword;
-    }
-
-    @Override
-    public String toString() {
-        return "PasswordForm [oldPassword=" + oldPassword + ", newPassword="
-                + newPassword + "]";
     }
 
 }

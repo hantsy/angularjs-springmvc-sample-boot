@@ -5,6 +5,14 @@ nb-configuration.xml
 .classpath
 .project
 .settings
-node_modules
-Vagrantfile
-app
+logs/*
+!.gitkeep
+node_modules/
+bower_components/
+tmp
+.DS_Store
+.idea
+/Vagrantfile
+/dist
+/.tmp
+

@@ -1,0 +1,56 @@
+<div class="row" ng-controller="LoginController" style="margin-top: 80px;">
+    <div class="col-md-6">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">{{'signin'|translate}}</h3>
+                </div>
+                <div class="panel-body">
+                    <form class="form form-horizontal" ng-submit="login()">
+                        <div class="form-group">
+                            <label class="control-label col-md-3" for="username">{{'username'|translate}}</label>
+                            <div class="col-md-6">
+                                <input class="form-control" id="username" ng-model="username" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3" for="password">{{'password'|translate}}</label>
+
+                            <div class="col-md-6">
+                                <input class="form-control " type="password" id="password"
+                                       ng-model="password" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-offset-3 col-md-6">
+                                <button type="submit" ng-click="login()" class="btn btn-primary btn-lg">  {{'ok'|translate}}  
+                                </button>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 ">
+            <p class="well-sm bg-info"> Login as: <br/>admin/test123(for ADMIN ROLE)<br/> testuser/test123.</p>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-body">
+
+                <div class="text-center" style="padding-top:50px; padding-bottom: 50px;">
+                    <h2>No account? register now.</h2>
+                </div>
+
+                <div class="text-center"  style="padding-top:50px; padding-bottom: 50px;">
+                    <a class="btn btn-lg btn-success" href="#/signup">
+                        {{'signupforfree'|translate}}
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

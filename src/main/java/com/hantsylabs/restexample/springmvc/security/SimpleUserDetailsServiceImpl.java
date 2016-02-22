@@ -8,16 +8,13 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
-//@Named
 public class SimpleUserDetailsServiceImpl implements UserDetailsService {
 
     private static final Logger log = LoggerFactory.getLogger(SimpleUserDetailsServiceImpl.class);
 
-    //@Inject
     private UserRepository userRepository;
 
     public SimpleUserDetailsServiceImpl(UserRepository userRepository) {
-        super();
         this.userRepository = userRepository;
     }
 
@@ -28,9 +25,7 @@ public class SimpleUserDetailsServiceImpl implements UserDetailsService {
             throw new UsernameNotFoundException("username not found:" + username);
         }
 
-        if (log.isDebugEnabled()) {
-            log.debug("found by username @" + username);
-        }
+        log.debug("found by username @" + username);
 
         return user;
 

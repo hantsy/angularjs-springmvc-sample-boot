@@ -17,26 +17,27 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import com.jayway.restassured.response.Response;
 import javax.inject.Inject;
 import static org.hamcrest.CoreMatchers.containsString;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import static com.jayway.restassured.RestAssured.given;
+import lombok.extern.slf4j.Slf4j;
 import static org.hamcrest.CoreMatchers.is;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = Application.class)
 @WebAppConfiguration
 @IntegrationTest("server.port:0")
+@Slf4j
 public class RestAssuredApplicationTest {
-    
-    private static final Logger log = LoggerFactory.getLogger(RestAssuredApplicationTest.class);
 
     private static final String USER_NAME = "admin";
 
     private final static String PASSWORD = "test123";
-    
+
     @Inject
     PostRepository postRepository;
+
+    @Inject
+    TestUtils utils;
 
     @Value("${local.server.port}")
     protected int port;
@@ -44,38 +45,38 @@ public class RestAssuredApplicationTest {
     @Before
     public void beforeTest() {
         RestAssured.port = port;
-        postRepository.deleteAllInBatch();
+        utils.clearData();
+        utils.initData();
     }
 
     @Test
     public void testDeletePostNotExisted() {
-        String location="/api/posts/1000";
-        
+        String location = "/api/posts/1000";
+
         given()
                 .auth().basic(USER_NAME, PASSWORD)
                 .contentType(ContentType.JSON)
-            .when()
+                .when()
                 .delete(location)
-            .then()
+                .then()
                 .assertThat()
-                    .statusCode(HttpStatus.SC_NOT_FOUND);
+                .statusCode(HttpStatus.SC_NOT_FOUND);
     }
-    
+
     @Test
     public void testGetPostNotExisted() {
-        String location="/api/posts/1000";
-        
+        String location = "/api/posts/1000";
+
         given()
                 .auth().basic(USER_NAME, PASSWORD)
                 .contentType(ContentType.JSON)
-            .when()
+                .when()
                 .get(location)
-            .then()
+                .then()
                 .assertThat()
-                    .statusCode(HttpStatus.SC_NOT_FOUND);
+                .statusCode(HttpStatus.SC_NOT_FOUND);
     }
-    
-    
+
     @Test
     public void testPostFormInValid() {
         PostForm form = new PostForm();
@@ -84,13 +85,13 @@ public class RestAssuredApplicationTest {
                 .auth().basic(USER_NAME, PASSWORD)
                 .body(form)
                 .contentType(ContentType.JSON)
-            .when()
+                .when()
                 .post("/api/posts")
-            .then()
+                .then()
                 .assertThat()
-                    .statusCode(HttpStatus.SC_BAD_REQUEST);
+                .statusCode(HttpStatus.SC_BAD_REQUEST);
     }
-    
+
     @Test
     public void testPostCRUD() {
         PostForm form = new PostForm();
@@ -101,30 +102,28 @@ public class RestAssuredApplicationTest {
                 .auth().basic(USER_NAME, PASSWORD)
                 .body(form)
                 .contentType(ContentType.JSON)
-            .when()
+                .when()
                 .post("/api/posts")
-            .then()
+                .then()
                 .assertThat()
-                    .statusCode(HttpStatus.SC_CREATED)
+                .statusCode(HttpStatus.SC_CREATED)
                 .and()
-                    .header("Location", containsString("/api/posts/"))
-            .extract().response();
-        
+                .header("Location", containsString("/api/posts/"))
+                .extract().response();
+
         String location = response.header("Location");
-        
-        log.debug("header location value @"+ location);
-        
+
+        log.debug("header location value @" + location);
+
         given().auth().basic(USER_NAME, PASSWORD)
                 .contentType(ContentType.JSON)
-            .when()
+                .when()
                 .get(location)
-            .then()
+                .then()
                 .assertThat()
-                    .body("title", is("test title"))
-                    .body("content", is("test content"));
-        
-        
-        
+                .body("title", is("test title"))
+                .body("content", is("test content"));
+
         PostForm updateForm = new PostForm();
         updateForm.setTitle("test udpate title");
         updateForm.setContent("test update content");
@@ -133,40 +132,38 @@ public class RestAssuredApplicationTest {
                 .auth().basic(USER_NAME, PASSWORD)
                 .body(updateForm)
                 .contentType(ContentType.JSON)
-            .when()
+                .when()
                 .put(location)
-            .then()
+                .then()
                 .assertThat()
-                    .statusCode(HttpStatus.SC_NO_CONTENT);
-        
+                .statusCode(HttpStatus.SC_NO_CONTENT);
+
         given().auth().basic(USER_NAME, PASSWORD)
                 .contentType(ContentType.JSON)
-            .when()
+                .when()
                 .get(location)
-            .then()
+                .then()
                 .assertThat()
-                    .body("title", is("test udpate title"))
-                    .body("content", is("test update content"));
-        
-             
+                .body("title", is("test udpate title"))
+                .body("content", is("test update content"));
+
         given()
                 .auth().basic(USER_NAME, PASSWORD)
                 .contentType(ContentType.JSON)
-            .when()
+                .when()
                 .delete(location)
-            .then()
+                .then()
                 .assertThat()
-                    .statusCode(HttpStatus.SC_NO_CONTENT);
-        
+                .statusCode(HttpStatus.SC_NO_CONTENT);
+
         given().auth().basic(USER_NAME, PASSWORD)
                 .contentType(ContentType.JSON)
-            .when()
+                .when()
                 .get(location)
-            .then()
+                .then()
                 .assertThat()
-                    .statusCode(HttpStatus.SC_NOT_FOUND);
-        
-    }
+                .statusCode(HttpStatus.SC_NOT_FOUND);
 
+    }
 
 }

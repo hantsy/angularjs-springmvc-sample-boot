@@ -3,6 +3,7 @@ package com.hantsylabs.restexample.springmvc.test.stories;
 import com.hantsylabs.restexample.springmvc.repository.PostRepository;
 import com.hantsylabs.restexample.springmvc.test.AbstractSpringJBehaveStory;
 import com.hantsylabs.restexample.springmvc.test.AcceptanceTest;
+import com.hantsylabs.restexample.springmvc.test.TestUtils;
 import com.hantsylabs.restexample.springmvc.test.steps.PostSteps;
 import javax.inject.Inject;
 import org.junit.Before;
@@ -19,6 +20,9 @@ public class PostStory extends AbstractSpringJBehaveStory {
     @Inject
     PostRepository postRepository;
 
+    @Inject
+    TestUtils utils;
+
     TestRestTemplate restTemplate;
 
     String baseUrl;
@@ -28,6 +32,8 @@ public class PostStory extends AbstractSpringJBehaveStory {
 
     @Before
     public void setup() {
+        utils.clearData();
+        utils.initData();
         this.baseUrl = "http://localhost:" + port;
         this.restTemplate = new TestRestTemplate("admin", "test123", new HttpClientOption[]{});
     }

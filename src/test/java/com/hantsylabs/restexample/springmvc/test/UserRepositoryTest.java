@@ -7,10 +7,8 @@ import java.util.List;
 import java.util.Random;
 import javax.inject.Inject;
 import org.junit.After;
-import org.junit.AfterClass;
 import static org.junit.Assert.assertTrue;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -27,19 +25,14 @@ public class UserRepositoryTest {
     
     private static final Logger logger = LoggerFactory.getLogger(UserRepositoryTest.class);
     
+    @Inject TestUtils utils;
+    
     @Inject
     private UserRepository userRepository;
     
     public UserRepositoryTest() {
     }
     
-    @BeforeClass
-    public static void setUpClass() {
-    }
-    
-    @AfterClass
-    public static void tearDownClass() {
-    }
     
     private User newUser() {
         User user = new User();
@@ -55,7 +48,7 @@ public class UserRepositoryTest {
     @Before
     @Transactional
     public void setUp() {
-        userRepository.deleteAllInBatch();
+          utils.clearData();
         userRepository.save(newUser());
         userRepository.save(newUser());
         userRepository.save(newUser());
