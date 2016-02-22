@@ -5,16 +5,16 @@ An example application using AnguarJS/Bootstrap as frontend and Spring MVC as RE
 
 **This is a Spring Boot version of the original application.** If you are not ready for Spring Boot at the moment, please go to [angularjs-springmvc-sample](https://github.com/hantsy/angularjs-springmvc-sample) to get the original version.
 
-This repository includes several branches(maybe flatten into folders later). More details, please read the README file in each branch.
+This repository includes several variants. For more details, please read the BUILD.md file very folders.
 
 * boot
 
-  **boot** includes the initial version converted from original source: [angularjs-springmvc-sample](https://github.com/hantsy/angularjs-springmvc-sample).
+  **boot** includes the initial version converted from original source: [angularjs-springmvc-sample](https://github.com/hantsy/angularjs-springmvc-sample) which introduced Spring Boot.
 
 * gulp  
   
-  This branch converted the frontend source to gulp build system, included many improvements.
+  The biggest change in the **gulp** version is frontend ui is moved to the popular NodeJS ecosystem and used **gulp** as build tools.
 
 
-  More features will coming soon.  
+More features will be added in future.  
   

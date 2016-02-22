@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="exampleApp">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <link rel="shortcut icon" href="ico/favicon.ico">
+
+        <title>REST EXAMPLE APP</title>
+
+        <!-- Bootstrap core CSS -->
+        <link href="webjars/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet"
+              media="screen">
+        <!-- Font awesome CSS -->
+        <link href="webjars/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet"
+              media="screen">
+        <!-- Custom styles for this template -->
+        <link href="css/main.css" rel="stylesheet">
+
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+                      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+                      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+                    <![endif]-->
+    </head>
+
+    <body ng-controller="MainController">
+        <!-- Fixed navbar -->
+        <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse"
+                            data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span> <span
+                            class="icon-bar"></span> <span class="icon-bar"></span> <span
+                            class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#/home"><msg key="appName"></msg></a>
+
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav" ng-show="user.username">
+                        <li ng-class="activeWhen(path() == '/posts')"><a
+                                href="#/posts"><msg key="posts"></msg></a></li>
+                        <li ng-class="activeWhen(path() == '/posts/new')"><a
+                                href="#/posts/new"><msg key="newPost"></msg></a></li>
+                        <li class="dropdown"
+                            ng-class="activeWhen(path().substring(0, 6) === '/admin')"
+                            ng-show="user.username && user.role == 'ADMIN'"><a href="javascript:void(0);"
+                                                                           class="dropdown-toggle" data-toggle="dropdown"><msg
+                                    key="administration"></msg> <b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#/admin/users"><msg key="userAdmin"></msg></a></li>
+                            </ul></li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right" ng-show="user.username">
+                        <li class="dropdown"><a href="javascript:void(0);" class="dropdown-toggle"
+                                                data-toggle="dropdown">{{user.name}} <b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#/user/home"><msg key="personalHome"></msg></a></li>
+                                <li><a href="#/user/password"><msg key="changePassword"></msg></a></li>
+                                <li><a href="#/user/profile"><msg key="updateProfile"></msg></a></li>
+                                <li class="divider"></li>
+                                <li><a ng-click="logout()"><msg key="logout"></msg></a></li>
+                            </ul></li>
+                    </ul>
+
+                </div>
+
+
+                <!--/.nav-collapse -->
+
+            </div>
+        </div>
+        <div class="container page">
+
+            <div ng-class="'alert alert-' + message().type"
+                 ng-show="message().show">
+                <button type="button" class="close" ng-click="message().show = false">×</button>
+                <msg key-expr="message().text"></msg>
+            </div>
+
+            <ng-view></ng-view>
+
+        </div>
+        <footer>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="btn-group btn-group-sm">
+                            <a class="btn btn-default"
+                               ng-class="(language() == 'zh_CN')?'btn-primary':''"
+                               ng-click="setLanguage('zh_CN')">简体中文</a> <a
+                               class="btn btn-default"
+                               ng-class="(language() == 'en')?'btn-primary':''"
+                               ng-click="setLanguage('en')">English</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="center-block">&copy;2014 HantsyLabs.com, all
+                            rights reserved.</div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <script type="text/javascript" src="webjars/jquery/2.1.3/jquery.min.js"></script>
+        <script type="text/javascript"
+        src="webjars/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="js/jquery.i18n.properties-min-1.0.9.js"></script>
+        <script type="text/javascript"
+        src="webjars/angularjs/1.4.7/angular.min.js"></script>
+        <script type="text/javascript"
+        src="webjars/angularjs/1.4.7/angular-route.min.js"></script>
+        <script type="text/javascript"
+        src="webjars/angularjs/1.4.7/angular-resource.min.js"></script>
+        <script type="text/javascript"
+        src="webjars/angularjs/1.4.7/angular-cookies.min.js"></script>
+        <script type="text/javascript"
+        src="webjars/angularjs/1.4.7/angular-messages.min.js"></script>
+        <script type="text/javascript"
+        src="webjars/angularjs/1.4.7/angular-animate.min.js"></script>
+        <script type="text/javascript"
+        src="webjars/angularjs/1.4.7/angular-aria.min.js"></script>
+        <script type="text/javascript"
+        src="webjars/angularjs/1.4.7/angular-touch.min.js"></script>
+        
+        <script type="text/javascript"
+        src="webjars/angular-ui-bootstrap/0.13.3/ui-bootstrap-tpls.min.js"></script>
+        
+        <script type="text/javascript" src="js/controller.js"></script>
+        <script type="text/javascript" src="js/filter.js"></script>
+        <script type="text/javascript" src="js/directive.js"></script>
+        <script type="text/javascript" src="js/i18n.js"></script>
+        <script type="text/javascript" src="js/base64.js"></script>
+        <script type="text/javascript" src="js/init.js"></script>
+    </body>
+
+</html>
+

@@ -1,0 +1,49 @@
+server:
+    port: 9000
+    contextPath: 
+
+spring: 
+    profiles:
+        active: staging
+
+    datasource:
+        dataSourceClassName: com.mysql.jdbc.jdbc2.optional.MysqlDataSource
+        url: jdbc:mysql://localhost:3306/app
+        databaseName: 
+        serverName: 
+        username: root
+        password: 
+        cachePrepStmts: true
+        prepStmtCacheSize: 250
+        prepStmtCacheSqlLimit: 2048
+        useServerPrepStmts: true
+
+    jpa:
+        database-platform: org.hibernate.dialect.MySQLInnoDBDialect
+        database: MYSQL
+        openInView: false
+        show_sql: false
+        generate-ddl: false
+        hibernate:
+            ddl-auto: none
+            naming-strategy: org.hibernate.cfg.EJB3NamingStrategy
+        properties:
+            hibernate.cache.use_second_level_cache: true
+            hibernate.cache.use_query_cache: false
+            hibernate.generate_statistics: true
+            hibernate.cache.region.factory_class: org.hibernate.cache.internal.NoCachingRegionFactory
+
+    data:
+        jpa.repositories.enabled: true 
+        
+    freemarker:
+        check-template-location: false
+    
+    messages:
+        basename: messages
+        
+logging.level:
+    org.springframework.web: INFO
+    com.hantsylabs.restexample.springmvc: DEBUG
+
+    

@@ -1,0 +1,39 @@
+
+<div class="page-header">
+	<h1>
+		<msg key="personalHome" />
+	</h1>
+</div>
+<div class="row">
+	<div class="col-md-9 col-lg-9 col-sm-6">
+            
+            <dl>
+                <dt><msg key="username" /></dt>
+                <dd>{{user.username}}</dd>
+                
+                <dt><msg key="displayName" /></dt>
+                <dd>{{user.name}}</dd>
+                
+                <dt><msg key="email" /></dt>
+                <dd>{{user.email}}</dd>
+                
+                <dt><msg key="role" /></dt>
+                <dd>{{user.role}}</dd>
+            </dl>
+	</div>
+	<div class="col-md-3 col-lg-3 col-sm-6">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title">
+					<msg key="availableActions" />
+				</h3>
+			</div>
+			<div class="panel-body">
+				<ul class="list-unstyled">
+					<li><a href="#/user/password"><msg key="changePassword"></msg></a></li>
+					<li><a href="#/user/profile"><msg key="updateProfile"></msg></a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>

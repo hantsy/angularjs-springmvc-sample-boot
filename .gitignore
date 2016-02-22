@@ -1,7 +1,8 @@
 licenseheader.txt
-nb-configuration.xml
-/target/
+nb-*.xml
+target/
 *.log*
+*.log.*
 .classpath
 .project
 .settings
@@ -12,7 +13,7 @@ bower_components/
 tmp
 .DS_Store
 .idea
-/Vagrantfile
-/dist
-/.tmp
+Vagrantfile
+dist
+.tmp
 
