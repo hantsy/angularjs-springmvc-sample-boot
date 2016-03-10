@@ -13,6 +13,7 @@
                 'ngRoute',
                 'ngResource',
                 'ngCookies',
+                'ngSanitize',
                 'ui.bootstrap',
                 'ngMessages',
                 'pascalprecht.translate',

@@ -62,8 +62,12 @@ gulp.task('copy-images', function () {
             .pipe(gulp.dest('dist/images/'));
 });
 
-gulp.task('copy', ['copy-fonts', 'copy-images'], function () {
+gulp.task('copy-i18n', function () {
+    gulp.src(['i18n/**'],{cwd: 'app/'})
+            .pipe(gulp.dest('dist/i18n/'));
 });
+
+gulp.task('copy', ['copy-fonts', 'copy-images', 'copy-i18n'], function () {});
 
 //gulp.task('less', function () {
 //  return gulp.src(['bower_components/bootstrap/less/bootstrap.less', 'bower_components/font-awesome/less/font-awesome.less'])

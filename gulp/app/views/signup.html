@@ -11,7 +11,7 @@
                 <input class="form-control" id="username" name="username"
                        ng-model="newUser.username" ng-required="true" ng-minlength="6" ng-maxlength="20" username-validator ng-model-options="{ debounce: 500 }"/>
                 <div class="help-block" ng-messages="form.username.$error" ng-if="!form.username.$pristine">
-                    <div ng-messages-include="partials/messages.html"></div>
+                    <div ng-messages-include="messages.html"></div>
                     <p ng-message="username">Username is taken.</p>
                 </div>
                 <div class="help-block" ng-if="form.username.$pending">Checking username available.</div>
@@ -23,7 +23,7 @@
                 <input class="form-control" type="password" id="password" name="password"
                        ng-model="newUser.password" ng-required="true" ng-minlength="6" ng-maxlength="20"/>
                 <div class="help-block" ng-messages="form.password.$error"  ng-if="!form.password.$pristine">
-                    <div ng-messages-include="partials/messages.html"></div>
+                    <div ng-messages-include="messages.html"></div>
                 </div>
             </div>
         </div>
@@ -33,7 +33,7 @@
                 <input class="form-control" type="email" id="email" name="email" maxlength="100"
                        ng-model="newUser.email" ng-required="true" />
                 <div class="help-block" ng-messages="form.email.$error" ng-if="!form.email.$pristine">    
-                    <div ng-messages-include="partials/messages.html"></div>
+                    <div ng-messages-include="messages.html"></div>
                 </div>
             </div>
         </div>
@@ -43,7 +43,7 @@
                 <input class="form-control" type="text" id="name" name="name"
                        ng-model="newUser.name" ng-required="true" />
                 <div class="help-block" ng-messages="form.name.$error" ng-if="!form.name.$pristine">
-                    <div ng-messages-include="partials/messages.html"></div>
+                    <div ng-messages-include="messages.html"></div>
                 </div>
             </div>
         </div>

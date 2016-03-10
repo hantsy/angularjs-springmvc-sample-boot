@@ -13,15 +13,19 @@
                     prefix: '/i18n/',
                     suffix: '.json'
                 });
-                
-                 // $translateProvider.useMissingTranslationHandlerLog();
+
+                // $translateProvider.useMissingTranslationHandlerLog();
                 $translateProvider.useMissingTranslationHandler('customTranslationHandler');
-               
+
 //              $translateProvider.useLocalStorage();
 //              $translateProvider.determinePreferredLanguage(function () {
 //              // define a function to determine the language
 //              // and return a language key
 //              });
+
+//
+                // Sanitize security
+                $translateProvider.useSanitizeValueStrategy('sanitize');
             });
 
 
