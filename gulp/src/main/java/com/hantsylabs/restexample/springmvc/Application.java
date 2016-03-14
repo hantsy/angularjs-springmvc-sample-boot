@@ -42,6 +42,7 @@ import static springfox.documentation.builders.PathSelectors.regex;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.AuthorizationScope;
 import springfox.documentation.service.BasicAuth;
+import springfox.documentation.service.Contact;
 import springfox.documentation.service.SecurityReference;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spi.service.contexts.SecurityContext;
@@ -126,7 +127,7 @@ public class Application {
                     .title("AngularJS Spring MVC Example API")
                     .description("The online reference documentation for developers")
                     .termsOfServiceUrl("http://hantsy.blogspot.com")
-                    .contact("Hantsy Bai")
+                    .contact(new Contact("Hantsy Bai", "http://hantsy.blogspot.com", "hantsy@gmail.com"))
                     .license("Apache License Version 2.0")
                     .licenseUrl("https://github.com/springfox/springfox/blob/master/LICENSE")
                     .version("2.0")
