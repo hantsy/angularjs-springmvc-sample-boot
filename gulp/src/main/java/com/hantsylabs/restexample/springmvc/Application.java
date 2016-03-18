@@ -1,8 +1,12 @@
 package com.hantsylabs.restexample.springmvc;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.databind.SerializerProvider;
 import com.google.common.base.Predicate;
 import static com.google.common.base.Predicates.or;
 import static com.google.common.collect.Lists.newArrayList;
@@ -15,7 +19,10 @@ import com.hantsylabs.restexample.springmvc.domain.User;
 import com.hantsylabs.restexample.springmvc.repository.UserRepository;
 import com.hantsylabs.restexample.springmvc.security.SecurityUtil;
 import com.hantsylabs.restexample.springmvc.security.SimpleUserDetailsServiceImpl;
+import java.io.IOException;
 import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import javax.inject.Inject;
 import org.springframework.boot.SpringApplication;
@@ -69,12 +76,21 @@ public class Application {
     public Jackson2ObjectMapperBuilder objectMapperBuilder() {
 
         Jackson2ObjectMapperBuilder builder = new Jackson2ObjectMapperBuilder();
-        builder.serializationInclusion(JsonInclude.Include.NON_EMPTY);
-        builder.featuresToDisable(
-                SerializationFeature.WRITE_DATES_AS_TIMESTAMPS,
-                DeserializationFeature.FAIL_ON_IGNORED_PROPERTIES,
-                DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
-        builder.featuresToEnable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
+        builder
+                .serializerByType(ZonedDateTime.class, new JsonSerializer<ZonedDateTime>() {
+                    @Override
+                    public void serialize(ZonedDateTime zonedDateTime, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException, JsonProcessingException {
+                        jsonGenerator.writeString(DateTimeFormatter.ISO_ZONED_DATE_TIME.format(zonedDateTime));
+                    }
+                })
+                .serializationInclusion(JsonInclude.Include.NON_EMPTY)
+                .featuresToDisable(
+                        SerializationFeature.WRITE_DATES_AS_TIMESTAMPS,
+                        DeserializationFeature.FAIL_ON_IGNORED_PROPERTIES,
+                        DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES
+                )
+                .featuresToEnable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY)
+                .indentOutput(true);
 
         return builder;
     }
@@ -129,7 +145,7 @@ public class Application {
                     .termsOfServiceUrl("http://hantsy.blogspot.com")
                     .contact(new Contact("Hantsy Bai", "http://hantsy.blogspot.com", "hantsy@gmail.com"))
                     .license("Apache License Version 2.0")
-                    .licenseUrl("https://github.com/springfox/springfox/blob/master/LICENSE")
+                    .licenseUrl("https://github.com/hantsy/angularjs-springmvc-sample-boot/blob/master/LICENSE")
                     .version("2.0")
                     .build();
         }

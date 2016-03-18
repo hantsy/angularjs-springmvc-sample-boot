@@ -23,10 +23,12 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import javax.inject.Inject;
 import javax.servlet.ServletException;
 import static org.junit.Assert.assertEquals;
+import org.junit.Ignore;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = Application.class)
 @WebAppConfiguration
+//@Ignore
 public class ISODateTest {
 
     private static final Logger log = LoggerFactory.getLogger(ISODateTest.class);
@@ -76,9 +78,9 @@ public class ISODateTest {
         log.debug("ZonedDateTime toString                                     @" + zonedDate.toString());
         log.debug("ZonedDateTime serialized json node text                    @" + zonedDateNode.textValue());
 
-       // assertEquals("local date should be equals", date.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME), localDateNode.textValue());
-      //  assertEquals("offsetDate date should be equals", offsetDate.format(DateTimeFormatter.ISO_OFFSET_DATE_TIME), offsetDateNode.textValue());
-       // assertEquals("zonedDate date should be equals", zonedDate.format(DateTimeFormatter.ISO_ZONED_DATE_TIME), zonedDateNode.textValue());
+        assertEquals("local date should be equals", date.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME), localDateNode.textValue());
+        assertEquals("offsetDate date should be equals", offsetDate.format(DateTimeFormatter.ISO_OFFSET_DATE_TIME), offsetDateNode.textValue());
+        assertEquals("zonedDate date should be equals", zonedDate.format(DateTimeFormatter.ISO_ZONED_DATE_TIME), zonedDateNode.textValue());
 
     }
 }
