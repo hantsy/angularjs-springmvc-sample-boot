@@ -25,7 +25,7 @@
 
 //
                 // Sanitize security
-                $translateProvider.useSanitizeValueStrategy('sanitize');
+//                $translateProvider.useSanitizeValueStrategy('sanitize');
             });
 
 

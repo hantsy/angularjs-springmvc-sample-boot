@@ -289,10 +289,10 @@
             load();
         };
 
-        $scope.toggleStatus = function (r) {
-            $scope.statusOpt = r;
-            load();
-        };
+//        $scope.toggleStatus = function (r) {
+//            $scope.statusOpt = r;
+//            load();
+//        };
 
         $scope.add = function () {
             $location.path('/posts/new');
