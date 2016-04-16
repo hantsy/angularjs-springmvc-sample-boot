@@ -1,4 +1,4 @@
-package com.hantsylabs.restexample.springmvc.test.steps;
+package com.hantsylabs.restexample.springmvc.test.jbehave.steps;
 
 import com.hantsylabs.restexample.springmvc.domain.Post;
 import com.hantsylabs.restexample.springmvc.repository.PostRepository;

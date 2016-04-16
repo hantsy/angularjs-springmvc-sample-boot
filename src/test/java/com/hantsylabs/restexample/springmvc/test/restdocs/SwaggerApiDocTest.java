@@ -1,23 +1,17 @@
-package com.hantsylabs.restexample.springmvc.test;
+package com.hantsylabs.restexample.springmvc.test.restdocs;
 
-import com.hantsylabs.restexample.springmvc.Application;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.context.WebApplicationContext;
 
 import javax.inject.Inject;
-import org.junit.Rule;
-import org.springframework.boot.test.IntegrationTest;
-import org.springframework.boot.test.SpringApplicationConfiguration;
-
-import org.springframework.restdocs.RestDocumentation;
-import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.documentationConfiguration;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
@@ -25,10 +19,9 @@ import springfox.documentation.staticdocs.Swagger2MarkupResultHandler;
 import springfox.documentation.staticdocs.SwaggerResultHandler;
 
 @WebAppConfiguration
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = Application.class)
+@RunWith(SpringRunner.class)
+@SpringBootTest()
 @ActiveProfiles("test")
-@IntegrationTest
 public class SwaggerApiDocTest {
 
     final String outputDir = System.getProperty("io.springfox.staticdocs.outputDir");

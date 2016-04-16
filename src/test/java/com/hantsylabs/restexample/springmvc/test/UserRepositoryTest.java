@@ -13,27 +13,29 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.boot.test.SpringApplicationConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureTestDatabase;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = Application.class)
+@RunWith(SpringRunner.class)
+//@SpringApplicationConfiguration(classes = Application.class)
 @WebAppConfiguration
+@SpringBootTest(classes=Application.class)
+@AutoConfigureTestDatabase
 public class UserRepositoryTest {
-    
+
     private static final Logger logger = LoggerFactory.getLogger(UserRepositoryTest.class);
-    
+
     @Inject TestUtils utils;
-    
+
     @Inject
     private UserRepository userRepository;
-    
+
     public UserRepositoryTest() {
     }
-    
-    
+
     private User newUser() {
         User user = new User();
         user.setName("test user" + new Random().nextInt(10));
@@ -41,27 +43,27 @@ public class UserRepositoryTest {
         user.setPassword("pwd");
         user.setRole("USER");
         user.setUsername("test");
-        
+
         return user;
     }
-    
+
     @Before
     @Transactional
     public void setUp() {
-          utils.clearData();
+        utils.clearData();
         userRepository.save(newUser());
         userRepository.save(newUser());
         userRepository.save(newUser());
     }
-    
+
     @After
     public void tearDown() {
     }
-    
+
     @Test
     public void getAllUsers() {
         List<User> users = userRepository.findAll();
         logger.debug("users @" + users);
-        assertTrue("user's size is 3", users.size() == 3);   
+        assertTrue("user's size is 3", users.size() == 3);
     }
 }

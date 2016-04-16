@@ -2,7 +2,6 @@ package com.hantsylabs.restexample.springmvc.test;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.hantsylabs.restexample.springmvc.Application;
 import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.time.ZoneId;
@@ -16,19 +15,19 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.boot.test.SpringApplicationConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
 import javax.inject.Inject;
 import javax.servlet.ServletException;
 import static org.junit.Assert.assertEquals;
 import org.junit.Ignore;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = Application.class)
+@RunWith(SpringRunner.class)
+@SpringBootTest()
 @WebAppConfiguration
-//@Ignore
+@Ignore
 public class ISODateTest {
 
     private static final Logger log = LoggerFactory.getLogger(ISODateTest.class);

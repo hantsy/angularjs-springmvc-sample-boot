@@ -1,10 +1,10 @@
-package com.hantsylabs.restexample.springmvc.test.stories;
+package com.hantsylabs.restexample.springmvc.test.jbehave.stories;
 
 import com.hantsylabs.restexample.springmvc.repository.PostRepository;
-import com.hantsylabs.restexample.springmvc.test.AbstractSpringJBehaveStory;
-import com.hantsylabs.restexample.springmvc.test.AcceptanceTest;
+import com.hantsylabs.restexample.springmvc.test.jbehave.AcceptanceTest;
 import com.hantsylabs.restexample.springmvc.test.TestUtils;
-import com.hantsylabs.restexample.springmvc.test.steps.PostSteps;
+import com.hantsylabs.restexample.springmvc.test.jbehave.AbstractSpringJBehaveStory;
+import com.hantsylabs.restexample.springmvc.test.jbehave.steps.PostSteps;
 import javax.inject.Inject;
 import org.junit.Before;
 import org.junit.runner.RunWith;

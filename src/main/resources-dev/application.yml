@@ -38,9 +38,11 @@ spring:
     messages:
         basename: messages
 
-logging.level:
-    root: INFO
-    org.springframework.web: INFO
-    com.hantsylabs.restexample.springmvc: DEBUG
+logging:
+    file: app.log
+    level:
+        root: INFO
+        org.springframework.web: INFO
+        com.hantsylabs.restexample.springmvc: DEBUG
 
     

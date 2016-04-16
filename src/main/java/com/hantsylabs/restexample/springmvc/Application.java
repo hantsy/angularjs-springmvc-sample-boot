@@ -13,7 +13,6 @@ import static com.google.common.collect.Lists.newArrayList;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.orm.jpa.EntityScan;
 import org.springframework.context.annotation.AdviceMode;
-import org.springframework.data.web.config.EnableSpringDataWebSupport;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import com.hantsylabs.restexample.springmvc.domain.User;
 import com.hantsylabs.restexample.springmvc.repository.UserRepository;
@@ -26,6 +25,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import javax.inject.Inject;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.AutoConfigureAfter;
+import org.springframework.boot.autoconfigure.web.WebMvcAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -59,7 +60,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @SpringBootApplication
 @EnableTransactionManagement(mode = AdviceMode.ASPECTJ)
 @EntityScan(basePackageClasses = {User.class, Jsr310JpaConverters.class})
-@EnableSpringDataWebSupport()
+//@EnableSpringDataWebSupport()
 @EnableJpaAuditing(auditorAwareRef = "auditor")
 public class Application {
 
@@ -98,6 +99,7 @@ public class Application {
     @Configuration
     @EnableSwagger2
     @Profile(value = {"dev", "test", "staging"})// Loads the spring beans required by the framework
+    @AutoConfigureAfter(WebMvcAutoConfiguration.class)
     public static class SwaggerConfig {
 
         @Bean

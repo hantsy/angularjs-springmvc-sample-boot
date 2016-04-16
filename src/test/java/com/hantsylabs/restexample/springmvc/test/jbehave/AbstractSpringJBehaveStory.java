@@ -1,4 +1,4 @@
-package com.hantsylabs.restexample.springmvc.test;
+package com.hantsylabs.restexample.springmvc.test.jbehave;
 
 import org.jbehave.core.configuration.Configuration;
 import org.jbehave.core.configuration.MostUsefulConfiguration;
