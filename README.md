@@ -3,18 +3,81 @@ angularjs-springmvc-sample-boot
 
 An example application using AnguarJS/Bootstrap as frontend and Spring MVC as REST API producer.
 
-**This is a Spring Boot version of the original application.** If you are not ready for Spring Boot at the moment, please go to [angularjs-springmvc-sample](https://github.com/hantsy/angularjs-springmvc-sample) to get the original version.
+This version improved the original version, including:
 
-This repository includes several variants. For more details, please read the BUILD.md file very folders.
+* Introduction of Gulp build system to processing the static resources
+* The frontend UI can be run standalone via NodeJS eco-system
+* An option provided and allow you to package the static resources as part of final jar and run the application via `mvn spring-boot:run` directly
 
-* boot
+##Requirements
 
-  **boot** includes the initial version converted from original source: [angularjs-springmvc-sample](https://github.com/hantsy/angularjs-springmvc-sample) which introduced Spring Boot.
+* JDK 8
 
-* gulp  
-  
-  The biggest change in the **gulp** version is frontend ui is moved to the popular NodeJS ecosystem and used **gulp** as build tools.
+ Oracle Java 8 is required, go to [Oracle Java website](http://java.oracle.com) to download it and install into your system. 
+ 
+ Optionally, you can set **JAVA\_HOME** environment variable and add *&lt;JDK installation dir>/bin* in your **PATH** environment variable.
+
+* Apache Maven
+
+ Download the latest Apache Maven from [http://maven.apache.org](http://maven.apache.org), and uncompress it into your local system. 
+
+ Optionally, you can set **M2\_HOME** environment varible, and also do not forget to append *&lt;Maven Installation dir>/bin* your **PATH** environment variable.  
+
+* NodeJS
+
+ NodeJS is required to build the frontend static resources.
+ 
+ Download [NodeJS](http://nodejs.org) and install it into your local system. 
+ 
+ After it is installed, open terminal, and using `node -v` command to confirm.
+ 
+      node -v 
+      >v4.2.2
+ 
+  `bower` is also requried to install the runtime dependencies, and `gulp` is chosen as our build tools for the statics resources.
+ 
+      npm install -g bower
+      npm install -g gulp
+ 
+## Get the source codes
+
+Get a copy of the source codes into your local system.
+
+    git clone https://github.com/hantsy/angularjs-springmvc-sample-boot
 
 
-More features will be added in future.  
-  
+## Run the project
+
+### Run frontend UI and backend respectively
+
+1. Run the backend API server via Spring Boot.
+
+        spring-boot:run
+
+  The backend APIs will run on port 9000.
+
+2. Run the frontend UI standalone.
+   
+        npm install
+        bower install
+        gulp serve
+
+  By default, gulp serves the frontend UI static resources on port 3000.
+
+3. Go to [http://localhost:3000](http://localhost:3000) to test it.
+
+### Run the project via Spring Boot maven plugin
+     
+1. Run the following command to resovle the dependencies of the frontend static resources.
+   
+        npm install
+        bower install
+
+2. Run the backend API server with `spring-boot` command. The parameter `-Dstatic-resources` will copy the static resources and package into the jar archive.
+
+        spring-boot:run -Dstatic-resources
+
+3. Go to [http://localhost:9000](http://localhost:9000) to test it. 
+
+If you want to explore the REST API docs online, there is a *Swagger UI* configured for visualizing the REST APIs, just go to [http://localhost:9000/swagger-ui.html](http://localhost:9000/swagger-ui.html).
+ 
