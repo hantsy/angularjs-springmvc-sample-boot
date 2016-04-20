@@ -46,11 +46,6 @@ public class Post implements Serializable {
         PUBLISHED
     }
 
-    public Post(String title, String content) {
-        this.title = title;
-        this.content = content;
-    }
-    
     @Id()
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -84,5 +79,10 @@ public class Post implements Serializable {
     @Column(name = "last_modified_date")
     @CreatedDate
     private LocalDateTime lastModifiedDate;
+
+    public Post(String title, String content) {
+        this.title = title;
+        this.content = content;
+    }
 
 }

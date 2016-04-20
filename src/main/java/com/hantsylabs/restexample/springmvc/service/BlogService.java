@@ -29,6 +29,8 @@ import org.springframework.util.Assert;
 public class BlogService {
 
     private static final Logger log = LoggerFactory.getLogger(BlogService.class);
+    public static final String POST_ID_CAN_NOT_BE_NULL = "post id can not be null";
+    public static final String FIND_POST_BY_ID = "find post by id@";
 
     @Inject
     private PostRepository postRepository;
@@ -65,7 +67,7 @@ public class BlogService {
     }
 
     public PostDetails updatePost(Long id, PostForm form) {
-        Assert.notNull(id, "post id can not be null");
+        Assert.notNull(id, POST_ID_CAN_NOT_BE_NULL);
 
         log.debug("updating post of @" + id + ", posst content @" + form);
 
@@ -80,9 +82,9 @@ public class BlogService {
     }
 
     public PostDetails findPostById(Long id) {
-        Assert.notNull(id, "post id can not be null");
+        Assert.notNull(id, POST_ID_CAN_NOT_BE_NULL);
 
-        log.debug("find post by id@" + id);
+        log.debug(FIND_POST_BY_ID + id);
 
         Post post = postRepository.findOne(id);
 
@@ -107,9 +109,9 @@ public class BlogService {
     }
 
     public CommentDetails saveCommentOfPost(Long id, CommentForm fm) {
-        Assert.notNull(id, "post id can not be null");
+        Assert.notNull(id, POST_ID_CAN_NOT_BE_NULL);
 
-        log.debug("find post by id@" + id);
+        log.debug(FIND_POST_BY_ID + id);
 
         Post post = postRepository.findOne(id);
 
@@ -131,9 +133,9 @@ public class BlogService {
     }
 
     public void deletePostById(Long id) {
-        Assert.notNull(id, "post id can not be null");
+        Assert.notNull(id, POST_ID_CAN_NOT_BE_NULL);
 
-        log.debug("find post by id@" + id);
+        log.debug(FIND_POST_BY_ID + id);
 
         Post post = postRepository.findOne(id);
 

@@ -158,6 +158,7 @@ public class Application {
     @Order(-10)
     public static class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+        public static final String ADMIN = "ADMIN";
         @Inject
         private UserRepository userRepository;
 
@@ -185,9 +186,9 @@ public class Application {
                     .and()
                         .authorizeRequests()
                         .regexMatchers(HttpMethod.GET, "^/api/users/[\\d]*(\\/)?$").authenticated()
-                        .regexMatchers(HttpMethod.GET, "^/api/users(\\/)?(\\?.+)?$").hasRole("ADMIN")
-                        .regexMatchers(HttpMethod.DELETE, "^/api/users/[\\d]*(\\/)?$").hasRole("ADMIN")
-                        .regexMatchers(HttpMethod.POST, "^/api/users(\\/)?$").hasRole("ADMIN")
+                        .regexMatchers(HttpMethod.GET, "^/api/users(\\/)?(\\?.+)?$").hasRole(ADMIN)
+                        .regexMatchers(HttpMethod.DELETE, "^/api/users/[\\d]*(\\/)?$").hasRole(ADMIN)
+                        .regexMatchers(HttpMethod.POST, "^/api/users(\\/)?$").hasRole(ADMIN)
                     .and()
                         .authorizeRequests()
                         .antMatchers("/api/**").authenticated()
@@ -225,8 +226,7 @@ public class Application {
 
         @Bean
         public BCryptPasswordEncoder passwordEncoder() {
-            BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-            return passwordEncoder;
+            return new BCryptPasswordEncoder();
         }
 
     }
