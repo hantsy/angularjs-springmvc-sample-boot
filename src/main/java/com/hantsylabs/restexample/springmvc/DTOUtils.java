@@ -18,6 +18,8 @@ public class DTOUtils {
 
     private static final ModelMapper INSTANCE = new ModelMapper();
 
+    private DTOUtils() {}
+
     public static <S, T> T map(S source, Class<T> targetClass) {
         return INSTANCE.map(source, targetClass);
     }

@@ -18,6 +18,8 @@ import org.springframework.util.StringUtils;
  */
 public class PostSpecifications {
 
+    private PostSpecifications() {}
+
     public static Specification<Post> filterByKeywordAndStatus(
             final String keyword,//
             final Post.Status status) {
