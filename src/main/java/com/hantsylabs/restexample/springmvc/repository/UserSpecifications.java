@@ -18,6 +18,8 @@ import org.springframework.util.StringUtils;
  */
 public class UserSpecifications {
 
+    private UserSpecifications() {}
+
     public static Specification<User> filterUsersByKeyword(
             final String keyword,//
             final String role //
