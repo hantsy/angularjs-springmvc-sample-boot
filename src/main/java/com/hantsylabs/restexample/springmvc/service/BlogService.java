@@ -30,11 +30,17 @@ public class BlogService {
 
     private static final Logger log = LoggerFactory.getLogger(BlogService.class);
 
-    @Inject
+    //@Inject
     private PostRepository postRepository;
 
-    @Inject
+    //@Inject
     private CommentRepository commentRepository;
+
+    //@Inject //no need in Spring 4.3
+    public BlogService(PostRepository postRepository, CommentRepository commentRepository) {
+        this.postRepository = postRepository;
+        this.commentRepository = commentRepository;
+    }
 
     public Page<PostDetails> searchPostsByCriteria(String q, Post.Status status, Pageable page) {
 

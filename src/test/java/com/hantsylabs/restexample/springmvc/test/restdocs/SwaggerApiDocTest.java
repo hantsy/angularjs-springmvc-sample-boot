@@ -10,6 +10,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.context.WebApplicationContext;
 
 import javax.inject.Inject;
+import org.junit.Ignore;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -22,6 +23,7 @@ import springfox.documentation.staticdocs.SwaggerResultHandler;
 @RunWith(SpringRunner.class)
 @SpringBootTest()
 @ActiveProfiles("test")
+@Ignore
 public class SwaggerApiDocTest {
 
     final String outputDir = System.getProperty("io.springfox.staticdocs.outputDir");

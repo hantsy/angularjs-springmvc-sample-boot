@@ -25,11 +25,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import javax.inject.Inject;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.AutoConfigureAfter;
-import org.springframework.boot.autoconfigure.web.WebMvcAutoConfiguration;
+import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Profile;
 import org.springframework.core.annotation.Order;
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
@@ -39,11 +36,11 @@ import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.AuthorizationScopeBuilder;
 import static springfox.documentation.builders.PathSelectors.regex;
@@ -55,12 +52,10 @@ import springfox.documentation.service.SecurityReference;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spi.service.contexts.SecurityContext;
 import springfox.documentation.spring.web.plugins.Docket;
-import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @SpringBootApplication
 @EnableTransactionManagement(mode = AdviceMode.ASPECTJ)
 @EntityScan(basePackageClasses = {User.class, Jsr310JpaConverters.class})
-//@EnableSpringDataWebSupport()
 @EnableJpaAuditing(auditorAwareRef = "auditor")
 public class Application {
 
@@ -96,10 +91,21 @@ public class Application {
         return builder;
     }
 
-    @Configuration
-    @EnableSwagger2
-    @Profile(value = {"dev", "test", "staging"})// Loads the spring beans required by the framework
-    @AutoConfigureAfter(WebMvcAutoConfiguration.class)
+    @Bean
+    public BCryptPasswordEncoder passwordEncoder() {
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        return passwordEncoder;
+    }
+
+    @Bean
+    public ApplicationSecurity securityConfig(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+        return new ApplicationSecurity(userRepository, passwordEncoder);
+    }
+
+//    @Configuration
+//    @EnableSwagger2
+//    @Profile(value = {"dev", "test", "staging"})// Loads the spring beans required by the framework
+//    @AutoConfigureAfter(WebMvcAutoConfiguration.class)
     public static class SwaggerConfig {
 
         @Bean
@@ -154,53 +160,45 @@ public class Application {
 
     }
 
-    @Configuration
-    @Order(-10)
-    public static class SecurityConfig extends WebSecurityConfigurerAdapter {
+    @Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
+    protected static class ApplicationSecurity extends WebSecurityConfigurerAdapter {
 
-        @Inject
-        private UserRepository userRepository;
+        private final UserRepository userRepository;
+        private final PasswordEncoder passwordEncoder;
 
-        @Override
-        public void configure(WebSecurity web) throws Exception {
-            web
-                    .ignoring()
-                    .antMatchers("/**/*.html", //
-                            "/css/**", //
-                            "/js/**", //
-                            "/i18n/**",// 
-                            "/libs/**",//
-                            "/img/**", //
-                            "/webjars/**",//
-                            "/ico/**");
+        ApplicationSecurity(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+            this.userRepository = userRepository;
+            this.passwordEncoder = passwordEncoder;
         }
 
         @Override
         protected void configure(HttpSecurity http) throws Exception {
-
+        // @formatter:off
             http
+                .authorizeRequests()
+                .antMatchers("/api/signup", "/api/users/username-check")
+                .permitAll()
+                .and()
                     .authorizeRequests()
-                    .antMatchers("/api/signup", "/api/users/username-check")
-                    .permitAll()
-                    .and()
-                        .authorizeRequests()
-                        .regexMatchers(HttpMethod.GET, "^/api/users/[\\d]*(\\/)?$").authenticated()
-                        .regexMatchers(HttpMethod.GET, "^/api/users(\\/)?(\\?.+)?$").hasRole("ADMIN")
-                        .regexMatchers(HttpMethod.DELETE, "^/api/users/[\\d]*(\\/)?$").hasRole("ADMIN")
-                        .regexMatchers(HttpMethod.POST, "^/api/users(\\/)?$").hasRole("ADMIN")
-                    .and()
-                        .authorizeRequests()
-                        .antMatchers("/api/**").authenticated()
-                    .and()
-                        .authorizeRequests()
-                        .anyRequest().permitAll()
-                    .and()
-                        .sessionManagement()
-                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                    .and()
-                        .httpBasic()
-                    .and()
-                        .csrf().disable();
+                    .regexMatchers(HttpMethod.GET, "^/api/users/[\\d]*(\\/)?$").authenticated()
+                    .regexMatchers(HttpMethod.GET, "^/api/users(\\/)?(\\?.+)?$").hasRole("ADMIN")
+                    .regexMatchers(HttpMethod.DELETE, "^/api/users/[\\d]*(\\/)?$").hasRole("ADMIN")
+                    .regexMatchers(HttpMethod.POST, "^/api/users(\\/)?$").hasRole("ADMIN")
+                .and()
+                    .authorizeRequests()
+                    .antMatchers("/api/**").authenticated()
+                .and()
+                    .authorizeRequests()
+                    .anyRequest().permitAll()
+                .and()
+                    .sessionManagement()
+                    .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
+                    .httpBasic()
+                .and()
+                    .csrf()
+                    .disable();
+        // @formatter:on
         }
 
         @Override
@@ -208,7 +206,7 @@ public class Application {
                 throws Exception {
             auth
                     .userDetailsService(new SimpleUserDetailsServiceImpl(userRepository))
-                    .passwordEncoder(passwordEncoder());
+                    .passwordEncoder(passwordEncoder);
         }
 
         @Bean
@@ -221,12 +219,6 @@ public class Application {
         @Override
         public UserDetailsService userDetailsServiceBean() throws Exception {
             return super.userDetailsServiceBean();
-        }
-
-        @Bean
-        public BCryptPasswordEncoder passwordEncoder() {
-            BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-            return passwordEncoder;
         }
 
     }
