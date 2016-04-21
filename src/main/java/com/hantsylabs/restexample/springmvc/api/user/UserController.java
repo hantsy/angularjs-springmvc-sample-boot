@@ -98,7 +98,7 @@ public class UserController {
         log.debug("check username existance by username @" + username);
 
         UserDetails userDetails = userService.findUserByUsername(username);
-        boolean found = (userDetails != null);
+        boolean found = userDetails != null;
         return new ResponseEntity<>(found, HttpStatus.OK);
     }
 

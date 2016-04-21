@@ -18,6 +18,8 @@ public class ResponseMessage {
     private String text;
     private String code;
 
+    private List<Error> errors = new ArrayList<>();
+
     public ResponseMessage(Type type, String text) {
         this.type = type;
         this.text = text;
@@ -56,8 +58,6 @@ public class ResponseMessage {
     public static ResponseMessage info(String text) {
         return new ResponseMessage(Type.info, text);
     }
-
-    private List<Error> errors = new ArrayList<Error>();
 
     public List<Error> getErrors() {
         return errors;

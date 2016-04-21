@@ -31,6 +31,8 @@ import org.springframework.util.Assert;
 public class UserService {
 
     private static final Logger log = LoggerFactory.getLogger(UserService.class);
+    public static final String USER_ID_CAN_NOT_BE_NULL = "user id can not be null";
+    public static final String UPDATED_USER = "updated user @";
 
     @Inject
     private PasswordEncoder passwordEncoder;
@@ -83,7 +85,7 @@ public class UserService {
     }
 
     public UserDetails updateUser(Long id, UserForm form) {
-        Assert.notNull(id, "user id can not be null");
+        Assert.notNull(id, USER_ID_CAN_NOT_BE_NULL);
 
         log.debug("update user by id @" + id);
 
@@ -99,14 +101,14 @@ public class UserService {
         User updated = userRepository.save(user);
 
         if (log.isDebugEnabled()) {
-            log.debug("updated user @" + updated);
+            log.debug(UPDATED_USER + updated);
         }
 
         return DTOUtils.map(updated, UserDetails.class);
     }
 
     public void updatePassword(Long id, PasswordForm form) {
-        Assert.notNull(id, "user id can not be null");
+        Assert.notNull(id, USER_ID_CAN_NOT_BE_NULL);
 
         log.debug("update user password by id @" + id);
 
@@ -121,12 +123,12 @@ public class UserService {
         User saved = userRepository.save(user);
 
         if (log.isDebugEnabled()) {
-            log.debug("updated user @" + saved);
+            log.debug(UPDATED_USER + saved);
         }
     }
 
     public void updateProfile(Long id, ProfileForm form) {
-        Assert.notNull(id, "user id can not be null");
+        Assert.notNull(id, USER_ID_CAN_NOT_BE_NULL);
 
         log.debug("update profile for user @" + id + ", profile form@" + form);
 
@@ -137,12 +139,12 @@ public class UserService {
         User saved = userRepository.save(user);
 
         if (log.isDebugEnabled()) {
-            log.debug("updated user @" + saved);
+            log.debug(UPDATED_USER + saved);
         }
     }
 
     public UserDetails findUserById(Long id) {
-        Assert.notNull(id, "user id can not be null");
+        Assert.notNull(id, USER_ID_CAN_NOT_BE_NULL);
 
         log.debug("find user by id @" + id);
 
@@ -156,7 +158,7 @@ public class UserService {
     }
 
     public UserDetails findUserByUsername(String username) {
-        Assert.notNull(username, "user id can not be null");
+        Assert.notNull(username, USER_ID_CAN_NOT_BE_NULL);
 
         log.debug("find user by username @" + username);
 
@@ -170,7 +172,7 @@ public class UserService {
     }
 
     public void deleteUser(Long id) {
-        Assert.notNull(id, "user id can not be null");
+        Assert.notNull(id, USER_ID_CAN_NOT_BE_NULL);
 
         log.debug("delete user by id @" + id);
 
