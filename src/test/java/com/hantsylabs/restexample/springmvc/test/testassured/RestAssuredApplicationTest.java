@@ -1,8 +1,9 @@
-package com.hantsylabs.restexample.springmvc.test;
+package com.hantsylabs.restexample.springmvc.test.testassured;
 
 import com.hantsylabs.restexample.springmvc.Application;
 import com.hantsylabs.restexample.springmvc.model.PostForm;
 import com.hantsylabs.restexample.springmvc.repository.PostRepository;
+import com.hantsylabs.restexample.springmvc.test.TestUtils;
 import com.jayway.restassured.RestAssured;
 import com.jayway.restassured.http.ContentType;
 import org.apache.http.HttpStatus;
@@ -24,7 +25,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
-//@WebAppConfiguration
+@WebAppConfiguration
 @Slf4j
 public class RestAssuredApplicationTest {
 
