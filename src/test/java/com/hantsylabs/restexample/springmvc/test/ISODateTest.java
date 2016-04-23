@@ -47,7 +47,7 @@ public class ISODateTest {
         offsetDate = OffsetDateTime.of(2015, 8, 15, 11, 40, 10, 100_000_000, ZoneOffset.ofHours(8));
         zonedDate = ZonedDateTime.of(2015, 8, 15, 11, 40, 10, 100_000_000, ZoneId.of("Asia/Shanghai"));
     }
-
+    
     @Test
     public void testDateFormat() throws Exception {
         Map<String, Object> map = new HashMap<>();

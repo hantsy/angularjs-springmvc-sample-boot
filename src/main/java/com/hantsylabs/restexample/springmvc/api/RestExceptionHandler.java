@@ -14,15 +14,15 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 
 /**
  * Called when an exception occurs during request processing. Transforms exception message into JSON format.
  */
-@ControllerAdvice()
+@RestControllerAdvice()
 public class RestExceptionHandler {
 
     private static final Logger log = LoggerFactory.getLogger(RestExceptionHandler.class);
@@ -31,7 +31,7 @@ public class RestExceptionHandler {
     private MessageSource messageSource;
 
     @ExceptionHandler(value = {Exception.class, RuntimeException.class})
-    @ResponseBody
+    //@ResponseBody
     public ResponseEntity<ResponseMessage> handleGenericException(Exception ex, WebRequest request) {
         if (log.isDebugEnabled()) {
             log.debug("handling exception...");
@@ -40,7 +40,7 @@ public class RestExceptionHandler {
     }
 
     @ExceptionHandler(value = {ResourceNotFoundException.class})
-    @ResponseBody
+    //@ResponseBody
     public ResponseEntity<ResponseMessage> handleResourceNotFoundException(ResourceNotFoundException ex, WebRequest request) {
         if (log.isDebugEnabled()) {
             log.debug("handling ResourceNotFoundException...");
@@ -49,7 +49,7 @@ public class RestExceptionHandler {
     }
 
     @ExceptionHandler(value = {UsernameAlreadyUsedException.class})
-    @ResponseBody
+    //@ResponseBody
     public ResponseEntity<ResponseMessage> handleUsernameExistedException(UsernameAlreadyUsedException ex, WebRequest request) {
         if (log.isDebugEnabled()) {
             log.debug("handling UsernameExistedException...");
@@ -60,7 +60,7 @@ public class RestExceptionHandler {
     }
 
     @ExceptionHandler(value = {InvalidRequestException.class})
-    @ResponseBody
+    //@ResponseBody
     public ResponseEntity<ResponseMessage> handleInvalidRequestException(InvalidRequestException ex, WebRequest req) {
         if (log.isDebugEnabled()) {
             log.debug("handling InvalidRequestException...");

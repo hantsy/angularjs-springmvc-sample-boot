@@ -23,10 +23,10 @@ import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import javax.inject.Inject;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
@@ -73,12 +73,12 @@ public class Application {
 
         Jackson2ObjectMapperBuilder builder = new Jackson2ObjectMapperBuilder();
         builder
-                .serializerByType(ZonedDateTime.class, new JsonSerializer<ZonedDateTime>() {
-                    @Override
-                    public void serialize(ZonedDateTime zonedDateTime, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException, JsonProcessingException {
-                        jsonGenerator.writeString(DateTimeFormatter.ISO_ZONED_DATE_TIME.format(zonedDateTime));
-                    }
-                })
+//                .serializerByType(ZonedDateTime.class, new JsonSerializer<ZonedDateTime>() {
+//                    @Override
+//                    public void serialize(ZonedDateTime zonedDateTime, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException, JsonProcessingException {
+//                        jsonGenerator.writeString(DateTimeFormatter.ISO_ZONED_DATE_TIME.format(zonedDateTime));
+//                    }
+//                })
                 .serializationInclusion(JsonInclude.Include.NON_EMPTY)
                 .featuresToDisable(
                         SerializationFeature.WRITE_DATES_AS_TIMESTAMPS,
@@ -97,10 +97,10 @@ public class Application {
         return passwordEncoder;
     }
 
-    @Bean
-    public ApplicationSecurity securityConfig(UserRepository userRepository, PasswordEncoder passwordEncoder) {
-        return new ApplicationSecurity(userRepository, passwordEncoder);
-    }
+
+//    public WebSecurityConfigurerAdapter securityConfig(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+//        return new ApplicationSecurity(userRepository, passwordEncoder) {};
+//    }
 
 //    @Configuration
 //    @EnableSwagger2
@@ -160,6 +160,7 @@ public class Application {
 
     }
 
+    @Configuration
     @Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
     protected static class ApplicationSecurity extends WebSecurityConfigurerAdapter {
 
