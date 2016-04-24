@@ -1,23 +1,23 @@
 package com.hantsylabs.restexample.springmvc.test;
 
-import com.hantsylabs.restexample.springmvc.domain.User;
 import com.hantsylabs.restexample.springmvc.repository.CommentRepository;
 import com.hantsylabs.restexample.springmvc.repository.PostRepository;
 import com.hantsylabs.restexample.springmvc.repository.UserRepository;
+import com.jayway.restassured.RestAssured;
 import javax.inject.Inject;
-import lombok.extern.slf4j.Slf4j;
+import org.junit.Before;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
  * @author hantsy
  */
-@Component
-@Transactional
-@Slf4j
-public class TestUtils {
+public class IntegrationTestBase {
+
+    protected static final String USER_NAME = "admin";
+
+    protected final static String PASSWORD = "test123";
 
     @Inject
     PostRepository posts;
@@ -31,8 +31,12 @@ public class TestUtils {
     @Inject
     PasswordEncoder passwordEncoder;
 
+    @Before
+    public void setup() {
+        clearData();
+    }
+
     public void clearData() {
-        log.debug("clearing data...");
 
         comments.deleteAllInBatch();
         posts.deleteAllInBatch();
@@ -42,13 +46,12 @@ public class TestUtils {
     public void initData() {
 
         users.save(
-                User.builder()
-                .username("admin")
-                .password(passwordEncoder.encode("test123"))
+                com.hantsylabs.restexample.springmvc.domain.User.builder()
+                .username(USER_NAME)
+                .password(passwordEncoder.encode(PASSWORD))
                 .name("Administrator")
                 .role("ADMIN")
                 .build()
         );
     }
-
 }

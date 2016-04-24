@@ -39,8 +39,12 @@ public class PostController {
 
     private static final Logger log = LoggerFactory.getLogger(PostController.class);
 
-    @Inject
-    private BlogService blogService;
+    //@Inject
+    private final BlogService blogService;
+
+    public PostController(BlogService blogService) {
+        this.blogService = blogService;
+    }
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     @ResponseBody
@@ -93,10 +97,10 @@ public class PostController {
                 .path("/api/posts/{id}")
                 .buildAndExpand(saved.getId())
                 .toUri();
-        
-        HttpHeaders headers=new HttpHeaders();
+
+        HttpHeaders headers = new HttpHeaders();
         headers.setLocation(loacationHeader);
-        
+
         return new ResponseEntity<>(headers, HttpStatus.CREATED);
     }
 

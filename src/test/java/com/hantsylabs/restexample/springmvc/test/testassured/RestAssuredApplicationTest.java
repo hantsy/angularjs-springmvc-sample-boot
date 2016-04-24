@@ -2,13 +2,12 @@ package com.hantsylabs.restexample.springmvc.test.testassured;
 
 import com.hantsylabs.restexample.springmvc.model.PostForm;
 import com.hantsylabs.restexample.springmvc.repository.PostRepository;
-import com.hantsylabs.restexample.springmvc.test.TestUtils;
+import com.hantsylabs.restexample.springmvc.test.WebIntegrationTestBase;
 import com.jayway.restassured.RestAssured;
 import com.jayway.restassured.http.ContentType;
 import org.apache.http.HttpStatus;
 import org.junit.Before;
 import org.junit.Test;
-import org.springframework.test.context.web.WebAppConfiguration;
 
 import com.jayway.restassured.response.Response;
 import javax.inject.Inject;
@@ -17,35 +16,23 @@ import static com.jayway.restassured.RestAssured.given;
 import lombok.extern.slf4j.Slf4j;
 import static org.hamcrest.CoreMatchers.is;
 import org.junit.runner.RunWith;
-import org.springframework.boot.context.web.LocalServerPort;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
-//@WebAppConfiguration
 @Slf4j
-public class RestAssuredApplicationTest {
+public class RestAssuredApplicationTest extends WebIntegrationTestBase{
 
-    private static final String USER_NAME = "admin";
-
-    private final static String PASSWORD = "test123";
 
     @Inject
     PostRepository postRepository;
 
-    @Inject
-    TestUtils utils;
-
-   @LocalServerPort
-    protected int port;
-
     @Before
     public void beforeTest() {
+        super.setup();
         RestAssured.port = port;
-        utils.clearData();
-        utils.initData();
     }
 
     @Test

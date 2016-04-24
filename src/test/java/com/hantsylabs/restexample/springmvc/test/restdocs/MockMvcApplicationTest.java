@@ -4,17 +4,17 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hantsylabs.restexample.springmvc.domain.Post;
 import com.hantsylabs.restexample.springmvc.repository.PostRepository;
-import com.hantsylabs.restexample.springmvc.test.TestUtils;
+import com.hantsylabs.restexample.springmvc.test.WebIntegrationTestBase;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.context.WebApplicationContext;
 
 import javax.inject.Inject;
+import org.junit.Ignore;
 import org.junit.Rule;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.restdocs.RestDocumentation;
@@ -29,8 +29,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 @WebAppConfiguration
 @RunWith(SpringRunner.class)
 @SpringBootTest()
-@ActiveProfiles("test")
-public class MockMvcApplicationTest {
+@Ignore
+public class MockMvcApplicationTest extends WebIntegrationTestBase {
 
     final String outputDir = System.getProperty("io.springfox.staticdocs.outputDir");
 
@@ -48,19 +48,17 @@ public class MockMvcApplicationTest {
     @Inject
     private PostRepository postRepository;
     
-    @Inject TestUtils utils;
-
     private MockMvc mockMvc;
 
     private Post savedIdentity;
 
     @Before
     public void setUp() {
+        super.setup();
         this.mockMvc = webAppContextSetup(this.context)
                 .apply(documentationConfiguration(this.restDocumentation))
                 .build();
 
-        utils.clearData();
         savedIdentity = postRepository.save(newEntity());
     }
 

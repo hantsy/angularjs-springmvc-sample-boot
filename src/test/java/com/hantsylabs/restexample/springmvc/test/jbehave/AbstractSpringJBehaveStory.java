@@ -1,5 +1,9 @@
 package com.hantsylabs.restexample.springmvc.test.jbehave;
 
+import com.hantsylabs.restexample.springmvc.domain.User;
+import com.hantsylabs.restexample.springmvc.repository.CommentRepository;
+import com.hantsylabs.restexample.springmvc.repository.PostRepository;
+import com.hantsylabs.restexample.springmvc.repository.UserRepository;
 import org.jbehave.core.configuration.Configuration;
 import org.jbehave.core.configuration.MostUsefulConfiguration;
 import org.jbehave.core.embedder.Embedder;
@@ -9,17 +13,50 @@ import org.jbehave.core.junit.JUnitStory;
 import org.jbehave.core.reporters.FilePrintStreamFactory.ResolveToPackagedName;
 import org.jbehave.core.reporters.StoryReporterBuilder;
 import org.jbehave.core.steps.ParameterControls;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 
 import java.util.Arrays;
+import javax.inject.Inject;
+import lombok.extern.slf4j.Slf4j;
 
 import static org.jbehave.core.reporters.Format.*;
 import org.jbehave.core.steps.InjectableStepsFactory;
 import org.jbehave.core.steps.InstanceStepsFactory;
-import org.jbehave.core.steps.spring.SpringStepsFactory;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
+@Slf4j
 public abstract class AbstractSpringJBehaveStory extends JUnitStory {
+
+    @Inject
+    PostRepository posts;
+
+    @Inject
+    CommentRepository comments;
+
+    @Inject
+    UserRepository users;
+
+    @Inject
+    PasswordEncoder passwordEncoder;
+
+    public void clearData() {
+        log.debug("clearing data...");
+
+        comments.deleteAllInBatch();
+        posts.deleteAllInBatch();
+        users.deleteAllInBatch();
+    }
+
+    public void initData() {
+
+        users.save(
+                User.builder()
+                .username("admin")
+                .password(passwordEncoder.encode("test123"))
+                .name("Administrator")
+                .role("ADMIN")
+                .build()
+        );
+    }
 
     private static final String STORY_TIMEOUT_IN_SECONDS = "120";
 

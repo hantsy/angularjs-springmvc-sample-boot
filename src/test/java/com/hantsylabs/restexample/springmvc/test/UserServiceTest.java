@@ -1,12 +1,10 @@
 package com.hantsylabs.restexample.springmvc.test;
 
-import com.hantsylabs.restexample.springmvc.Application;
 import com.hantsylabs.restexample.springmvc.domain.User;
 import com.hantsylabs.restexample.springmvc.exception.PasswordMismatchedException;
 import com.hantsylabs.restexample.springmvc.exception.ResourceNotFoundException;
 import com.hantsylabs.restexample.springmvc.exception.UsernameAlreadyUsedException;
 import com.hantsylabs.restexample.springmvc.model.UserDetails;
-import com.hantsylabs.restexample.springmvc.repository.PostRepository;
 import com.hantsylabs.restexample.springmvc.repository.UserRepository;
 import com.hantsylabs.restexample.springmvc.service.UserService;
 import javax.inject.Inject;
@@ -18,45 +16,31 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.core.env.Environment;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
 
 /**
  *
  * @author hantsy
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = Application.class)
-@WebAppConfiguration
+@SpringBootTest
 @Slf4j
-public class UserServiceTest {
+public class UserServiceTest extends IntegrationTestBase {
 
     @Inject
     UserRepository userRepository;
 
     @Inject
-    PostRepository blogRepository;
-
-    @Inject
     UserService userService;
-
-    @Inject
-    Environment env;
-
-    @Inject
-    private TestUtils utils;
 
     User user;
 
     @Before
     public void setUp() {
-        log.debug("call setup...");
-        log.debug("env @" + env.getActiveProfiles());
-        utils.clearData();
+        super.setup();
 
         user = userRepository.save(Fixtures.createUser("test", "test"));
-        assertNotNull(user.getId());
+        //assertNotNull(user.getId());
     }
 
     @After
