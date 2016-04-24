@@ -1,12 +1,8 @@
 package com.hantsylabs.restexample.springmvc;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.databind.SerializerProvider;
 import com.google.common.base.Predicate;
 import static com.google.common.base.Predicates.or;
 import static com.google.common.collect.Lists.newArrayList;
@@ -18,13 +14,11 @@ import com.hantsylabs.restexample.springmvc.domain.User;
 import com.hantsylabs.restexample.springmvc.repository.UserRepository;
 import com.hantsylabs.restexample.springmvc.security.SecurityUtil;
 import com.hantsylabs.restexample.springmvc.security.SimpleUserDetailsServiceImpl;
-import java.io.IOException;
 import java.time.LocalDateTime;
-import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
+import org.springframework.boot.jackson.JsonComponentModule;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
@@ -69,7 +63,7 @@ public class Application {
     }
 
     @Bean
-    public Jackson2ObjectMapperBuilder objectMapperBuilder() {
+    public Jackson2ObjectMapperBuilder objectMapperBuilder(JsonComponentModule jsonComponentModule) {
 
         Jackson2ObjectMapperBuilder builder = new Jackson2ObjectMapperBuilder();
         builder
@@ -86,7 +80,8 @@ public class Application {
                         DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES
                 )
                 .featuresToEnable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY)
-                .indentOutput(true);
+                .indentOutput(true)
+                .modulesToInstall(jsonComponentModule);
 
         return builder;
     }

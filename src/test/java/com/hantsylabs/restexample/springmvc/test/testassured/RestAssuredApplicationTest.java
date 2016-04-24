@@ -1,6 +1,5 @@
 package com.hantsylabs.restexample.springmvc.test.testassured;
 
-import com.hantsylabs.restexample.springmvc.Application;
 import com.hantsylabs.restexample.springmvc.model.PostForm;
 import com.hantsylabs.restexample.springmvc.repository.PostRepository;
 import com.hantsylabs.restexample.springmvc.test.TestUtils;
@@ -14,18 +13,18 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import com.jayway.restassured.response.Response;
 import javax.inject.Inject;
 import static org.hamcrest.CoreMatchers.containsString;
-import org.springframework.beans.factory.annotation.Value;
 import static com.jayway.restassured.RestAssured.given;
 import lombok.extern.slf4j.Slf4j;
 import static org.hamcrest.CoreMatchers.is;
 import org.junit.runner.RunWith;
+import org.springframework.boot.context.web.LocalServerPort;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
-@WebAppConfiguration
+//@WebAppConfiguration
 @Slf4j
 public class RestAssuredApplicationTest {
 
@@ -39,7 +38,7 @@ public class RestAssuredApplicationTest {
     @Inject
     TestUtils utils;
 
-    @Value("${local.server.port}")
+   @LocalServerPort
     protected int port;
 
     @Before

@@ -11,7 +11,8 @@ import lombok.extern.slf4j.Slf4j;
 import static org.junit.Assert.assertNotNull;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.boot.test.autoconfigure.json.JsonTest;
+import org.springframework.boot.test.autoconfigure.json.AutoConfigureJsonTesters;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -20,8 +21,9 @@ import org.springframework.test.context.junit4.SpringRunner;
  * @author hantsy
  */
 @RunWith(SpringRunner.class)
-@JsonTest()
-//@SpringBootTest
+//@JsonTest()
+@SpringBootTest
+@AutoConfigureJsonTesters
 @Slf4j
 public class LocalDateTimeJsonComponentTest {
 
@@ -29,7 +31,7 @@ public class LocalDateTimeJsonComponentTest {
     Jackson2ObjectMapperBuilder mapper;
 
     @Test
-    public void testSignupForms() throws Exception {
+    public void testJson() throws Exception {
 
         assertNotNull(mapper);
         LocalDateTime dateTime = LocalDateTime.now();
