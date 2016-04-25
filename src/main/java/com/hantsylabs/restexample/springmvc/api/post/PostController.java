@@ -12,7 +12,6 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import java.net.URI;
-import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import org.slf4j.Logger;
@@ -24,7 +23,11 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -46,8 +49,9 @@ public class PostController {
         this.blogService = blogService;
     }
 
-    @RequestMapping(value = "", method = RequestMethod.GET)
-    @ResponseBody
+//    @RequestMapping(value = "", method = RequestMethod.GET)
+//    @ResponseBody
+    @GetMapping()
     @ApiOperation(value = "Get all posts")
     @ApiResponses(
             value = {
@@ -68,8 +72,9 @@ public class PostController {
         return new ResponseEntity<>(posts, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    @ResponseBody
+//    @RequestMapping(value = "/{id}", method = RequestMethod.GET)   
+//    @ResponseBody
+    @GetMapping(value = "/{id}")
     @ApiOperation(value = "Get a post")
     public ResponseEntity<PostDetails> getPost(@PathVariable("id") Long id) {
 
@@ -82,8 +87,9 @@ public class PostController {
         return new ResponseEntity<>(post, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "", method = RequestMethod.POST)
-    @ResponseBody
+//    @RequestMapping(value = "", method = RequestMethod.POST)
+//    @ResponseBody
+    @PostMapping()
     @ApiOperation(value = "Cretae a new post")
     public ResponseEntity<Void> createPost(@RequestBody @Valid PostForm post, HttpServletRequest request) {
 
@@ -104,8 +110,9 @@ public class PostController {
         return new ResponseEntity<>(headers, HttpStatus.CREATED);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    @ResponseBody
+//    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+//    @ResponseBody
+    @PutMapping(value = "/{id}")
     @ApiOperation(value = "Update an existing post")
     public ResponseEntity<ResponseMessage> updatePost(@PathVariable("id") Long id, @RequestBody @Valid PostForm form) {
 
@@ -116,8 +123,9 @@ public class PostController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    @ResponseBody
+//    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+//    @ResponseBody
+    @DeleteMapping(value="/{id}")
     @ApiOperation(value = "Delete an existing post")
     public ResponseEntity<ResponseMessage> deletePostById(@PathVariable("id") Long id) {
 
@@ -128,8 +136,9 @@ public class PostController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @RequestMapping(value = "/{id}/comments", method = RequestMethod.GET)
-    @ResponseBody
+//    @RequestMapping(value = "/{id}/comments", method = RequestMethod.GET)
+//    @ResponseBody
+    @GetMapping(value="/{id}/comments")
     public ResponseEntity<Page<CommentDetails>> getCommentsOfPost(
             @PathVariable("id") Long id,
             @PageableDefault(page = 0, size = 10, sort = "createdDate", direction = Direction.DESC) Pageable page) {
@@ -143,8 +152,9 @@ public class PostController {
         return new ResponseEntity<>(commentsOfPost, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/{id}/comments", method = RequestMethod.POST)
-    @ResponseBody
+//    @RequestMapping(value = "/{id}/comments", method = RequestMethod.POST)
+//    @ResponseBody
+    @PostMapping(value="/{id}/comments")
     public ResponseEntity<Void> createCommentOfPost(
             @PathVariable("id") Long id, @RequestBody CommentForm comment) {
 
