@@ -7,10 +7,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -23,8 +22,9 @@ public class CommentController {
     @Inject
     private BlogService blogService;
 
-    @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
-    @ResponseBody
+//    @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
+//    @ResponseBody
+    @GetMapping("{id}")
     public ResponseEntity<Void> deleteComment(@PathVariable("id") Long id) {
         if (log.isDebugEnabled()) {
             log.debug("get comments of post id @" + id);

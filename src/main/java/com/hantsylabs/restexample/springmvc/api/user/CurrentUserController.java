@@ -15,10 +15,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -31,8 +31,9 @@ public class CurrentUserController {
     @Inject
     private UserService userService;
 
-    @RequestMapping(value = "", method = RequestMethod.GET)
-    @ResponseBody
+//    @RequestMapping(value = "", method = RequestMethod.GET)
+//    @ResponseBody
+    @PostMapping()
     public UserDetails currentUser(@CurrentUser User user) {
 
         log.debug("get current user info");
@@ -44,8 +45,9 @@ public class CurrentUserController {
         return details;
     }
 
-    @RequestMapping(value = "/password", method = RequestMethod.PUT)
-    @ResponseBody
+//    @RequestMapping(value = "/password", method = RequestMethod.PUT)
+//    @ResponseBody
+    @PutMapping(value="/password")
     public ResponseEntity<Void> changePassword(
             @CurrentUser User user,
             @RequestBody @Valid PasswordForm fm,
@@ -62,8 +64,9 @@ public class CurrentUserController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @RequestMapping(value = "/profile", method = RequestMethod.PUT)
-    @ResponseBody
+//    @RequestMapping(value = "/profile", method = RequestMethod.PUT)
+//    @ResponseBody
+    @PutMapping(value="/profile")
     public ResponseEntity<Void> updateProfile(
             @CurrentUser User user,
             @RequestBody @Valid ProfileForm fm,

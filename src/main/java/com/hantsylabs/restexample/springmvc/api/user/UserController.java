@@ -18,12 +18,13 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -37,8 +38,9 @@ public class UserController {
     @Inject
     private UserService userService;
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    @ResponseBody
+//    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+//    @ResponseBody
+    @GetMapping(value = "/{id}")
     public ResponseEntity<UserDetails> getUser(@PathVariable("id") Long id) {
 
         log.debug("get user data @" + id);
@@ -48,8 +50,9 @@ public class UserController {
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "", method = RequestMethod.GET)
-    @ResponseBody
+//    @RequestMapping(value = "", method = RequestMethod.GET)
+//    @ResponseBody
+     @GetMapping()
     public Page<UserDetails> allUsers(
             @RequestParam(required = false, value = "q") String q,
             @RequestParam(required = false, value = "role") String role,
@@ -64,8 +67,9 @@ public class UserController {
         return users;
     }
 
-    @RequestMapping(value = "", method = RequestMethod.POST)
-    @ResponseBody
+//    @RequestMapping(value = "", method = RequestMethod.POST)
+//    @ResponseBody
+     @PostMapping()
     public ResponseEntity<Void> saveUser(@RequestBody @Valid UserForm form,
             BindingResult errors,
             HttpServletRequest req) {
@@ -91,8 +95,9 @@ public class UserController {
         return new ResponseEntity<>(headers, HttpStatus.CREATED);
     }
 
-    @RequestMapping(value = "/username-check", method = RequestMethod.GET)
-    @ResponseBody
+//    @RequestMapping(value = "/username-check", method = RequestMethod.GET)
+//    @ResponseBody
+     @GetMapping(value = "/username-check")
     public ResponseEntity<Boolean> checkUsername(@RequestParam("username") String username) {
 
         log.debug("check username existance by username @" + username);
@@ -102,8 +107,9 @@ public class UserController {
         return new ResponseEntity<>(found, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    @ResponseBody
+//    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+//    @ResponseBody
+     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> deleteUser(@PathVariable("id") Long id) {
 
         log.debug("delete user by id @" + id);
