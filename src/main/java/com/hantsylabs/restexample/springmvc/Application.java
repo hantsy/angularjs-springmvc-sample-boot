@@ -84,73 +84,7 @@ public class Application {
                 .modulesToInstall(jsonComponentModule);
 
         return builder;
-    }
-
-   
-
-
-//    public WebSecurityConfigurerAdapter securityConfig(UserRepository userRepository, PasswordEncoder passwordEncoder) {
-//        return new ApplicationSecurity(userRepository, passwordEncoder) {};
-//    }
-
-//    @Configuration
-//    @EnableSwagger2
-//    @Profile(value = {"dev", "test", "staging"})// Loads the spring beans required by the framework
-//    @AutoConfigureAfter(WebMvcAutoConfiguration.class)
-    public static class SwaggerConfig {
-
-        @Bean
-        public Docket userApi() {
-            AuthorizationScope[] authScopes = new AuthorizationScope[1];
-            authScopes[0] = new AuthorizationScopeBuilder()
-                    .scope("read")
-                    .description("read access")
-                    .build();
-            SecurityReference securityReference = SecurityReference.builder()
-                    .reference("test")
-                    .scopes(authScopes)
-                    .build();
-
-            ArrayList<SecurityContext> securityContexts = newArrayList(
-                    SecurityContext
-                    .builder()
-                    .securityReferences(newArrayList(securityReference))
-                    .build()
-            );
-            return new Docket(DocumentationType.SWAGGER_2)
-                    .directModelSubstitute(LocalDateTime.class, String.class)
-                    .ignoredParameterTypes(User.class)
-                    .securitySchemes(newArrayList(new BasicAuth("test")))
-                    .securityContexts(securityContexts)
-                    .apiInfo(apiInfo())
-                    .select()
-                    .paths(apiPaths())
-                    .build();
-        }
-
-        private Predicate<String> apiPaths() {
-            return or(
-                    regex("/api/.*")
-            );
-        }
-
-//        private Predicate<String> userOnlyEndpoints() {
-//            return (String input) -> input.contains("user");
-//        }
-        private ApiInfo apiInfo() {
-            return new ApiInfoBuilder()
-                    .title("AngularJS Spring MVC Example API")
-                    .description("The online reference documentation for developers")
-                    .termsOfServiceUrl("http://hantsy.blogspot.com")
-                    .contact(new Contact("Hantsy Bai", "http://hantsy.blogspot.com", "hantsy@gmail.com"))
-                    .license("Apache License Version 2.0")
-                    .licenseUrl("https://github.com/hantsy/angularjs-springmvc-sample-boot/blob/master/LICENSE")
-                    .version("2.0")
-                    .build();
-        }
-
-    }
-    
+    }   
     
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
