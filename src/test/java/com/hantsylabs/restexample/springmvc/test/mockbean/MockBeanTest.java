@@ -3,15 +3,13 @@ package com.hantsylabs.restexample.springmvc.test.mockbean;
 import com.hantsylabs.restexample.springmvc.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.After;
-import static org.junit.Assert.assertNotNull;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 import static org.junit.Assert.assertNotNull;
-import org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureTestDatabase;
+import org.springframework.boot.test.context.SpringBootTest;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest

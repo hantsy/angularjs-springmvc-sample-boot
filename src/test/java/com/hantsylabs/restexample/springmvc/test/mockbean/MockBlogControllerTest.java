@@ -30,7 +30,7 @@ public class MockBlogControllerTest {
     @MockBean
     private BlogService blogService;
 
-    //@Inject
+   // @Inject
     private MockMvc mockMvc;
 
     @Before
