@@ -7,7 +7,7 @@ import com.hantsylabs.restexample.springmvc.test.jbehave.steps.PostSteps;
 import javax.inject.Inject;
 import org.junit.Before;
 import org.junit.runner.RunWith;
-import org.springframework.boot.context.web.LocalServerPort;
+import org.springframework.boot.context.embedded.LocalServerPort;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.client.TestRestTemplate.HttpClientOption;
 

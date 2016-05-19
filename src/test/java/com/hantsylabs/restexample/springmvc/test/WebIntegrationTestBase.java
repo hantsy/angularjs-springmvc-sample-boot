@@ -1,7 +1,7 @@
 package com.hantsylabs.restexample.springmvc.test;
 
 import org.junit.Before;
-import org.springframework.boot.context.web.LocalServerPort;
+import org.springframework.boot.context.embedded.LocalServerPort;
 
 /**
  *
