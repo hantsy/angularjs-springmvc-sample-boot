@@ -11,4 +11,6 @@ public class ApiErrors {
 
     public static final String INVALID_REQUEST = PREFIX + "INVALID_REQUEST";
 
+    private ApiErrors() {}
+
 }
