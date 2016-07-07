@@ -2,9 +2,10 @@ package com.hantsylabs.restexample.springmvc.test.restdocs;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.hantsylabs.restexample.springmvc.Application;
+import com.hantsylabs.restexample.springmvc.SwaggerConfig;
 import com.hantsylabs.restexample.springmvc.domain.Post;
 import com.hantsylabs.restexample.springmvc.repository.PostRepository;
-import com.hantsylabs.restexample.springmvc.test.WebIntegrationTestBase;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -14,30 +15,35 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.context.WebApplicationContext;
 
 import javax.inject.Inject;
-import org.junit.Ignore;
 import org.junit.Rule;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.restdocs.RestDocumentation;
+import org.springframework.restdocs.JUnitRestDocumentation;
 
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.documentationConfiguration;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
+import static org.springframework.restdocs.operation.preprocess.Preprocessors.preprocessResponse;
+import static org.springframework.restdocs.operation.preprocess.Preprocessors.prettyPrint;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.web.servlet.MvcResult;
+import springfox.documentation.staticdocs.Swagger2MarkupResultHandler;
+import springfox.documentation.staticdocs.SwaggerResultHandler;
 
 @WebAppConfiguration
 @RunWith(SpringRunner.class)
-@SpringBootTest()
-@Ignore
-public class MockMvcApplicationTest extends WebIntegrationTestBase {
+@SpringBootTest(classes = {Application.class, SwaggerConfig.class})
+//@ActiveProfiles("test")
+//@Ignore
+public class MockMvcApplicationTest {
 
-    final String outputDir = System.getProperty("io.springfox.staticdocs.outputDir");
-
-    final String snippetsDir = System.getProperty("org.springframework.restdocs.outputDir");
+    String outputDir = System.getProperty("io.springfox.staticdocs.outputDir");
+    String snippetsDir = System.getProperty("io.springfox.staticdocs.snippetsOutputDir");
+    String asciidocOutputDir = System.getProperty("generated.asciidoc.directory");
 
     @Rule
-    public final RestDocumentation restDocumentation = new RestDocumentation(snippetsDir);
+    public final JUnitRestDocumentation restDocumentation = new JUnitRestDocumentation(System.getProperty("io.springfox.staticdocs.snippetsOutputDir"));
 
     @Inject
     private WebApplicationContext context;
@@ -47,14 +53,13 @@ public class MockMvcApplicationTest extends WebIntegrationTestBase {
 
     @Inject
     private PostRepository postRepository;
-    
+
     private MockMvc mockMvc;
 
     private Post savedIdentity;
 
     @Before
     public void setUp() {
-        super.setup();
         this.mockMvc = webAppContextSetup(this.context)
                 .apply(documentationConfiguration(this.restDocumentation))
                 .build();
@@ -63,13 +68,41 @@ public class MockMvcApplicationTest extends WebIntegrationTestBase {
     }
 
     @Test
+    public void createSpringfoxSwaggerJson() throws Exception {
+        //String designFirstSwaggerLocation = Swagger2MarkupTest.class.getResource("/swagger.yaml").getPath();
+
+        MvcResult mvcResult = this.mockMvc.perform(get("/v2/api-docs")
+                .accept(MediaType.APPLICATION_JSON))
+                .andDo(
+                        SwaggerResultHandler.outputDirectory(outputDir)
+                        //.withExamples(snippetsDir)
+                        .build()
+                )
+                .andExpect(status().isOk())
+                .andReturn();
+
+        //String springfoxSwaggerJson = mvcResult.getResponse().getContentAsString();
+        //SwaggerAssertions.assertThat(Swagger20Parser.parse(springfoxSwaggerJson)).isEqualTo(designFirstSwaggerLocation);
+    }
+
+//    @Test
+//    public void convertToAsciiDoc() throws Exception {
+//        this.mockMvc.perform(get("/v2/api-docs")
+//                .accept(MediaType.APPLICATION_JSON))
+//                .andDo(
+//                        Swagger2MarkupResultHandler.outputDirectory("src/docs/asciidoc")
+//                        .withExamples(snippetsDir).build())
+//                .andExpect(status().isOk());
+//    }
+
+    @Test
     public void getAllPosts() throws Exception {
         this.mockMvc
                 .perform(
                         get("/api/posts/{id}", savedIdentity.getId())
                         .accept(MediaType.APPLICATION_JSON)
                 )
-                .andDo(document("get_a_post"))
+                .andDo(document("get_a_post", preprocessResponse(prettyPrint())))
                 .andExpect(status().isOk());
     }
 
