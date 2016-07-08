@@ -24,11 +24,11 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
+import static org.springframework.restdocs.operation.preprocess.Preprocessors.preprocessRequest;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.preprocessResponse;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.prettyPrint;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MvcResult;
-import springfox.documentation.staticdocs.Swagger2MarkupResultHandler;
 import springfox.documentation.staticdocs.SwaggerResultHandler;
 
 @WebAppConfiguration
@@ -62,6 +62,9 @@ public class MockMvcApplicationTest {
     public void setUp() {
         this.mockMvc = webAppContextSetup(this.context)
                 .apply(documentationConfiguration(this.restDocumentation))
+                .alwaysDo(document("{method-name}",
+                        preprocessRequest(prettyPrint()),
+                        preprocessResponse(prettyPrint())))
                 .build();
 
         savedIdentity = postRepository.save(newEntity());
@@ -75,7 +78,6 @@ public class MockMvcApplicationTest {
                 .accept(MediaType.APPLICATION_JSON))
                 .andDo(
                         SwaggerResultHandler.outputDirectory(outputDir)
-                        //.withExamples(snippetsDir)
                         .build()
                 )
                 .andExpect(status().isOk())
@@ -94,7 +96,6 @@ public class MockMvcApplicationTest {
 //                        .withExamples(snippetsDir).build())
 //                .andExpect(status().isOk());
 //    }
-
     @Test
     public void getAllPosts() throws Exception {
         this.mockMvc
@@ -102,7 +103,7 @@ public class MockMvcApplicationTest {
                         get("/api/posts/{id}", savedIdentity.getId())
                         .accept(MediaType.APPLICATION_JSON)
                 )
-                .andDo(document("get_a_post", preprocessResponse(prettyPrint())))
+                //.andDo(document("get_a_post", preprocessResponse(prettyPrint())))
                 .andExpect(status().isOk());
     }
 
@@ -113,7 +114,7 @@ public class MockMvcApplicationTest {
                         get("/api/posts")
                         .accept(MediaType.ALL)
                 )
-                .andDo(document("get_all_posts"))
+                //.andDo(document("get_all_posts"))
                 .andExpect(status().isOk());
     }
 
@@ -125,7 +126,7 @@ public class MockMvcApplicationTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(newEntityAsJson())
                 )
-                .andDo(document("create_a_new_post"))
+                //.andDo(document("create_a_new_post"))
                 .andExpect(status().isCreated());
     }
 
@@ -137,7 +138,7 @@ public class MockMvcApplicationTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(newEntityAsJson())
                 )
-                .andDo(document("update_an_existing_post"))
+                //.andDo(document("update_an_existing_post"))
                 .andExpect(status().isNoContent());
     }
 
@@ -148,7 +149,7 @@ public class MockMvcApplicationTest {
                         delete("/api/posts/{id}", savedIdentity.getId())
                         .contentType(MediaType.APPLICATION_JSON)
                 )
-                .andDo(document("delete_an_existing_post"))
+                //.andDo(document("delete_an_existing_post"))
                 .andExpect(status().isNoContent());
     }
 

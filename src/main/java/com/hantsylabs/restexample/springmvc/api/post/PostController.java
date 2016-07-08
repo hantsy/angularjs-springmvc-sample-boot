@@ -52,7 +52,7 @@ public class PostController {
 //    @RequestMapping(value = "", method = RequestMethod.GET)
 //    @ResponseBody
     @GetMapping()
-    @ApiOperation(value = "Get all posts")
+    @ApiOperation(nickname = "get-all-posts", value = "Get all posts")
     @ApiResponses(
             value = {
                 @ApiResponse(code = 200, message = "return all posts by page")
@@ -75,7 +75,7 @@ public class PostController {
 //    @RequestMapping(value = "/{id}", method = RequestMethod.GET)   
 //    @ResponseBody
     @GetMapping(value = "/{id}")
-    @ApiOperation(value = "Get a post")
+    @ApiOperation(nickname = "get-post", value = "Get a post")
     public ResponseEntity<PostDetails> getPost(@PathVariable("id") Long id) {
 
         log.debug("get postsinfo by id @" + id);
@@ -90,7 +90,7 @@ public class PostController {
 //    @RequestMapping(value = "", method = RequestMethod.POST)
 //    @ResponseBody
     @PostMapping()
-    @ApiOperation(value = "Cretae a new post")
+    @ApiOperation(nickname = "create-post", value = "Cretae a new post")
     public ResponseEntity<Void> createPost(@RequestBody @Valid PostForm post, HttpServletRequest request) {
 
         log.debug("create a new post@" + post);
@@ -113,7 +113,7 @@ public class PostController {
 //    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
 //    @ResponseBody
     @PutMapping(value = "/{id}")
-    @ApiOperation(value = "Update an existing post")
+    @ApiOperation(nickname = "update-post", value = "Update an existing post")
     public ResponseEntity<ResponseMessage> updatePost(@PathVariable("id") Long id, @RequestBody @Valid PostForm form) {
 
         log.debug("update post by id @" + id + ", form content@" + form);
@@ -125,8 +125,8 @@ public class PostController {
 
 //    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 //    @ResponseBody
-    @DeleteMapping(value="/{id}")
-    @ApiOperation(value = "Delete an existing post")
+    @DeleteMapping(value = "/{id}")
+    @ApiOperation(nickname = "deletePostById", value = "Delete an existing post")
     public ResponseEntity<ResponseMessage> deletePostById(@PathVariable("id") Long id) {
 
         log.debug("delete post by id @" + id);
@@ -138,7 +138,7 @@ public class PostController {
 
 //    @RequestMapping(value = "/{id}/comments", method = RequestMethod.GET)
 //    @ResponseBody
-    @GetMapping(value="/{id}/comments")
+    @GetMapping(value = "/{id}/comments")
     public ResponseEntity<Page<CommentDetails>> getCommentsOfPost(
             @PathVariable("id") Long id,
             @PageableDefault(page = 0, size = 10, sort = "createdDate", direction = Direction.DESC) Pageable page) {
@@ -154,7 +154,7 @@ public class PostController {
 
 //    @RequestMapping(value = "/{id}/comments", method = RequestMethod.POST)
 //    @ResponseBody
-    @PostMapping(value="/{id}/comments")
+    @PostMapping(value = "/{id}/comments")
     public ResponseEntity<Void> createCommentOfPost(
             @PathVariable("id") Long id, @RequestBody CommentForm comment) {
 

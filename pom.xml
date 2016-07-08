@@ -21,8 +21,6 @@
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <start-class>com.hantsylabs.restexample.springmvc.Application</start-class>
-        <snippetsDirectory>${project.build.directory}/generated-docs/snippets</snippetsDirectory>
-        <swaggerDirectory>${project.build.directory}/generated-docs/asciidoc</swaggerDirectory>
         
         <aspectj.version>1.8.8</aspectj.version>
         <slf4j.version>1.7.16</slf4j.version>
@@ -35,13 +33,7 @@
         <modelmapper.version>0.7.4</modelmapper.version>
         <lombok.version>1.16.8</lombok.version>
         
-        <!--asciidoc-->
-        <springfox.version>2.5.0</springfox.version>
-        <spring-restdocs.version>1.1.0.RELEASE</spring-restdocs.version>
-        <asciidoctor-maven-plugin.version>1.5.3</asciidoctor-maven-plugin.version>
-        <jruby.version>1.7.21</jruby.version>
-        <asciidoctorj-pdf.version>1.5.0-alpha.11</asciidoctorj-pdf.version>
-        
+                
         <!--test dependencies-->
         <!-- spring-boot-starter-test include mockito, json-path, jsonassert, etc -->
         <rest-assured.version>2.7.0</rest-assured.version>
@@ -49,10 +41,16 @@
         <jbehave.version>4.0.1</jbehave.version>
         <jbehave-site-resources.version>3.3</jbehave-site-resources.version>
         
+        <!--asciidoc-->
+        <springfox.version>2.5.0</springfox.version>
+        <spring-restdocs.version>1.1.0.RELEASE</spring-restdocs.version>
+        <asciidoctor-maven-plugin.version>1.5.3</asciidoctor-maven-plugin.version>
+        <jruby.version>1.7.21</jruby.version>
+        <asciidoctorj-pdf.version>1.5.0-alpha.11</asciidoctorj-pdf.version>
+      
         <!--Swagger docs-->
         <swagger2markup.version>1.0.0</swagger2markup.version>
         <asciidoctor.input.directory>${project.basedir}/src/docs/asciidoc</asciidoctor.input.directory>
-
         <swagger.output.dir>${project.build.directory}/swagger</swagger.output.dir>
         <swagger.snippetOutput.dir>${project.build.directory}/asciidoc/snippets</swagger.snippetOutput.dir>
         <generated.asciidoc.directory>${project.build.directory}/asciidoc/generated</generated.asciidoc.directory>
@@ -852,7 +850,7 @@
                         <swagger2markup.extensions.dynamicSecurity.contentPath>${project.basedir}src/docs/asciidoc/extensions/security/</swagger2markup.extensions.dynamicSecurity.contentPath>
 
                         <swagger2markup.extensions.springRestDocs.snippetBaseUri>${swagger.snippetOutput.dir}</swagger2markup.extensions.springRestDocs.snippetBaseUri>
-                        <swagger2markup.extensions.springRestDocs.defaultSnippets>false</swagger2markup.extensions.springRestDocs.defaultSnippets>
+                        <swagger2markup.extensions.springRestDocs.defaultSnippets>true</swagger2markup.extensions.springRestDocs.defaultSnippets>
                     </config>
                 </configuration>
                 <executions>
