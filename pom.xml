@@ -26,7 +26,7 @@
         <slf4j.version>1.7.16</slf4j.version>
         <spring-boot.version>1.4.0.RC1</spring-boot.version>
         <spring.version>4.3.1.RELEASE</spring.version>
-        <spring-security.version>4.1.0.RELEASE</spring-security.version>
+        <spring-security.version>4.1.1.RELEASE</spring-security.version>
         <hibernate.version>5.2.1.Final</hibernate.version>
         <hibernate-validator.version>5.2.2.Final</hibernate-validator.version>
         <jackson.version>2.7.2</jackson.version>
@@ -532,75 +532,6 @@
             </resource>
         </resources>
         <plugins>        
-            <!--            <plugin>
-                <groupId>org.asciidoctor</groupId>
-                <artifactId>asciidoctor-maven-plugin</artifactId>
-                <version>${asciidoctor-maven-plugin.version}</version>
-                <executions>
-                    <execution>
-                        <id>generate-docs</id>
-                        <phase>test</phase>
-                        <goals>
-                            <goal>process-asciidoc</goal>
-                        </goals>
-                        <configuration>
-                            <backend>html5</backend>
-                            <sourceHighlighter>coderay</sourceHighlighter>
-                            <attributes>
-                                <toclevels>2</toclevels>
-                                <toc>left</toc>
-                                <doctype>book</doctype>
-                                <generated>
-                                    ${project.build.directory}/generated-docs/asciidoc
-                                </generated>
-                            </attributes>
-                            <sourceDocumentName>index.adoc</sourceDocumentName>
-                            <outputDirectory>
-                                ${project.build.directory}/generated-docs/html5
-                            </outputDirectory>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>generate-pdf-doc</id>
-                        <phase>test</phase>
-                        <goals>
-                            <goal>process-asciidoc</goal>
-                        </goals>
-                        <configuration>
-                            <backend>pdf</backend>
-                             Since 1.5.0-alpha.9 PDF back-end can use 'rouge' as well as 'coderay'
-                            source highlighting 
-                            <sourceHighlighter>rouge</sourceHighlighter>
-                            <attributes>
-                                <icons>font</icons>
-                                <pagenums/>
-                                <toc/>
-                                <idprefix/>
-                                <idseparator>-</idseparator>
-                                <generated>
-                                    ${project.build.directory}/generated-docs/asciidoc
-                                </generated>
-                            </attributes>
-                            <sourceDocumentName>index.adoc</sourceDocumentName>
-                            <outputDirectory>
-                                ${project.build.directory}/generated-docs/pdf
-                            </outputDirectory>
-                        </configuration>
-                    </execution>
-                </executions>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.jruby</groupId>
-                        <artifactId>jruby-complete</artifactId>
-                        <version>${jruby.version}</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>org.asciidoctor</groupId>
-                        <artifactId>asciidoctorj-pdf</artifactId>
-                        <version>${asciidoctorj-pdf.version}</version>
-                    </dependency>
-                </dependencies>
-            </plugin>-->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
