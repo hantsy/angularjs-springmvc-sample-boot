@@ -26,43 +26,14 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @SpringBootApplication
-@EnableTransactionManagement(mode = AdviceMode.ASPECTJ)
-@EntityScan(basePackageClasses = {User.class, Jsr310JpaConverters.class})
-@EnableJpaAuditing(auditorAwareRef = "auditor")
 public class Application {
 
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
     }
 
-    @Bean
-    public AuditorAware<User> auditor() {
-        return () -> SecurityUtil.currentUser();
-    }
 
-    @Bean
-    public Jackson2ObjectMapperBuilder objectMapperBuilder(JsonComponentModule jsonComponentModule) {
-   
-        Jackson2ObjectMapperBuilder builder = new Jackson2ObjectMapperBuilder();
-        builder
-//                .serializerByType(ZonedDateTime.class, new JsonSerializer<ZonedDateTime>() {
-//                    @Override
-//                    public void serialize(ZonedDateTime zonedDateTime, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException, JsonProcessingException {
-//                        jsonGenerator.writeString(DateTimeFormatter.ISO_ZONED_DATE_TIME.format(zonedDateTime));
-//                    }
-//                })
-                .serializationInclusion(JsonInclude.Include.NON_EMPTY)
-                .featuresToDisable(
-                        SerializationFeature.WRITE_DATES_AS_TIMESTAMPS,
-                        DeserializationFeature.FAIL_ON_IGNORED_PROPERTIES,
-                        DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES
-                )
-                .featuresToEnable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY)
-                .indentOutput(true)
-                .modulesToInstall(jsonComponentModule);
-    
-        return builder;
-    }   
+  
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
@@ -70,45 +41,12 @@ public class Application {
         return passwordEncoder;
     }
     
-    @Bean
-    public UserDetailsService userDetailsService(UserRepository userRepository){
-        return new SimpleUserDetailsServiceImpl(userRepository);
-    }
+//    @Bean
+//    public UserDetailsService userDetailsService(UserRepository userRepository){
+//        return new SimpleUserDetailsServiceImpl(userRepository);
+//    }
     
-    @Bean
-    public WebSecurityConfigurerAdapter securityConfig(){
-        return new WebSecurityConfigurerAdapter() {
-            @Override
-            protected void configure(HttpSecurity http) throws Exception {
-            // @formatter:off
-                http
-                    .authorizeRequests()
-                    .antMatchers("/api/signup", "/api/users/username-check")
-                    .permitAll()
-                    .and()
-                        .authorizeRequests()
-                        .regexMatchers(HttpMethod.GET, "^/api/users/[\\d]*(\\/)?$").authenticated()
-                        .regexMatchers(HttpMethod.GET, "^/api/users(\\/)?(\\?.+)?$").hasRole("ADMIN")
-                        .regexMatchers(HttpMethod.DELETE, "^/api/users/[\\d]*(\\/)?$").hasRole("ADMIN")
-                        .regexMatchers(HttpMethod.POST, "^/api/users(\\/)?$").hasRole("ADMIN")
-                    .and()
-                        .authorizeRequests()
-                        .antMatchers("/api/**").authenticated()
-                    .and()
-                        .authorizeRequests()
-                        .anyRequest().permitAll()
-                    .and()
-                        .sessionManagement()
-                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                    .and()
-                        .httpBasic()
-                    .and()
-                        .csrf()
-                        .disable();
-            // @formatter:on
-            }
-        };
-    }
+
 
 //    @Configuration
 //    @Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
