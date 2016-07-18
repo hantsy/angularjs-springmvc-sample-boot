@@ -975,10 +975,10 @@
             </build>
         </profile>
         <profile>
-            <id>static-resources</id>
+            <id>static-ui</id>
             <activation>
                 <property>
-                    <name>static-resources</name>
+                    <name>static-ui</name>
                 </property>
             </activation>
             <build>
