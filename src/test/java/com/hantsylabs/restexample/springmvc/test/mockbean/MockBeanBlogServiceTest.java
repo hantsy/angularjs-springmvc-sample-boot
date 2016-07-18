@@ -15,9 +15,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
-import static org.junit.Assert.assertTrue;
-import org.junit.Ignore;
-import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.when;
 import org.mockito.invocation.InvocationOnMock;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -25,12 +22,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Matchers.any;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @Slf4j
-@Ignore
 public class MockBeanBlogServiceTest {
 
     @MockBean
@@ -57,8 +52,8 @@ public class MockBeanBlogServiceTest {
     public void getAllPosts() {
         PageRequest pr = new PageRequest(0, 10);
         Post post = Post.builder().id(1L).title("test post title").content("test post content@").build();
-        when(postRepository.findAll(PostSpecifications.filterByKeywordAndStatus(any(String.class), any(Post.Status.class)), pr))
-                .thenAnswer((InvocationOnMock invocation) -> new PageImpl<Post>(Arrays.asList(post), pr, 1));
+        when(postRepository.findAll(PostSpecifications.filterByKeywordAndStatus("", Post.Status.DRAFT), pr))
+                .thenAnswer((InvocationOnMock invocation) -> new PageImpl<>(Arrays.asList(post), pr, 1));
 
         Page<PostDetails> pagedPosts = blogService.searchPostsByCriteria("", Post.Status.DRAFT, pr);
         log.debug("posts @" + pagedPosts.getContent());

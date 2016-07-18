@@ -1,5 +1,6 @@
 package com.hantsylabs.restexample.springmvc.test.mockbean;
 
+import com.hantsylabs.restexample.springmvc.repository.CommentRepository;
 import com.hantsylabs.restexample.springmvc.repository.PostRepository;
 import com.hantsylabs.restexample.springmvc.test.Fixtures;
 import javax.inject.Inject;
@@ -26,9 +27,14 @@ public class SimpleDataJpaTest {
 
     @Inject
     private PostRepository posts;
+    
+    @Inject
+    private CommentRepository comments;
 
     @Before
     public void setUp() {
+        comments.deleteAllInBatch();
+        posts.deleteAllInBatch();
         em.persist(Fixtures.createPost(null, "title", "content"));
     }
 
