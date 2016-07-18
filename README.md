@@ -75,9 +75,9 @@ Get a copy of the source codes into your local system.
         npm install
         bower install
 
-2. Run the backend API server with `spring-boot` command. The parameter `-Dstatic-resources` will copy the static resources and package into the jar archive.
+2. Run the backend API server with `spring-boot` command. The parameter `-Dstatic-ui` will copy the static resources and package into the jar archive.
 
-        spring-boot:run -Dstatic-resources
+        spring-boot:run -Dstatic-ui
 
 3. Go to [http://localhost:9000](http://localhost:9000) to test it. 
 
