@@ -1,4 +1,4 @@
-package com.hantsylabs.restexample.springmvc.test.mockbean;
+package com.hantsylabs.restexample.springmvc.test.mock;
 
 import com.hantsylabs.restexample.springmvc.domain.Post;
 import com.hantsylabs.restexample.springmvc.model.PostDetails;

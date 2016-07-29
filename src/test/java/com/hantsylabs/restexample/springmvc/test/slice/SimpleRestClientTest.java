@@ -1,7 +1,7 @@
-package com.hantsylabs.restexample.springmvc.test.mockbean;
+package com.hantsylabs.restexample.springmvc.test.slice;
 
 import com.hantsylabs.restexample.springmvc.model.PostDetails;
-import com.hantsylabs.restexample.springmvc.test.mockbean.SimpleRestClientTest.ClientBlogService;
+import com.hantsylabs.restexample.springmvc.test.slice.SimpleRestClientTest.ClientBlogService;
 import javax.inject.Inject;
 import org.junit.Test;
 import org.junit.runner.RunWith;
