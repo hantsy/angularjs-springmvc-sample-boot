@@ -91,6 +91,20 @@
             <name>jvnet-nexus-releases</name>
             <url>https://maven.java.net/content/repositories/releases/</url>
         </repository>
+        
+        <repository>
+            <id>jcentral</id>
+            <name>bintray</name>
+            <url>http://jcenter.bintray.com</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>jcenter-snapshots</id>
+            <name>jcenter</name>
+            <url>http://oss.jfrog.org/artifactory/oss-snapshot-local/</url>
+        </repository>
     </repositories>
     <pluginRepositories>
         <pluginRepository>
@@ -104,6 +118,19 @@
         <pluginRepository>
             <id>io.spring.repo.maven.snapshot</id>
             <url>http://repo.spring.io/snapshot/</url>
+        </pluginRepository>
+        <pluginRepository>
+            <id>jcenter-snapshots</id>
+            <name>jcenter</name>
+            <url>http://oss.jfrog.org/artifactory/oss-snapshot-local/</url>
+        </pluginRepository>
+        <pluginRepository>
+            <id>jcenter-releases</id>
+            <name>jcenter</name>
+            <url>http://jcenter.bintray.com</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
         </pluginRepository>
     </pluginRepositories>
     <!--    <dependencyManagement>
