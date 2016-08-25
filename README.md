@@ -5,6 +5,8 @@ An example application using AnguarJS/Bootstrap as frontend and Spring MVC as RE
 
 **More details about the codes, please read the online GitBook: [Building REST APIs with Spring MVC](https://www.gitbook.com/book/hantsy/build-a-restful-app-with-spring-mvc-and-angularjs/details).**
 
+[![Codewake](https://www.codewake.com/badges/ask_question_flat_square.svg)](https://www.codewake.com/p/angular-spring-restful-sample)
+
 This version improved the original version, including:
 
 * Introduction of Gulp build system to processing the static resources
