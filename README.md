@@ -9,14 +9,18 @@ An example application using AnguarJS/Bootstrap as frontend and Spring MVC as RE
 
 Technology stack:
 
+* Spring Boot
 * Spring MVC
 * Spring Data JPA
-* Hibernate
+* JPA
+* Hibernate 5.2
 * Spring Security
-* Swagger
+* Swagger/Swagger2Markup/Spring Rest Docs
+* Spring Test/JUnit/Mockito/JBehave/RestAssured
 * Lombok
+* ModelMapper
 * AngularJS
-* Boostrap
+* Bootstrap
 
 This version improved the original version, including:
 
