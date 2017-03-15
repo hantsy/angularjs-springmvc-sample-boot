@@ -72,6 +72,8 @@ git clone https://github.com/hantsy/angularjs-springmvc-sample-boot
 
 ## Run the project
 
+You can use one of the following approaches to run this project.
+
 ### Run frontend UI and backend respectively
 
 1. Run the backend API server via Spring Boot.
