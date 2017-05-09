@@ -1,6 +1,8 @@
 angularjs-springmvc-sample-boot
 ===============================
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/hantsy/angularjs-springmvc-sample-boot.svg)](https://greenkeeper.io/)
+
 An example application using AnguarJS/Bootstrap as frontend and Spring MVC as REST API producer.
 
 **More details about the source codes, please read the online GitBook: [Building REST APIs with Spring MVC](https://www.gitbook.com/book/hantsy/build-a-restful-app-with-spring-mvc-and-angularjs/details).**
