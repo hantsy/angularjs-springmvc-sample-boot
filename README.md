@@ -3,9 +3,9 @@ angularjs-springmvc-sample-boot
 
 An example application using AnguarJS/Bootstrap as frontend and Spring MVC as REST API producer.
 
-**More details about the codes, please read the online GitBook: [Building REST APIs with Spring MVC](https://www.gitbook.com/book/hantsy/build-a-restful-app-with-spring-mvc-and-angularjs/details).**
+**More details about the source codes, please read the online GitBook: [Building REST APIs with Spring MVC](https://www.gitbook.com/book/hantsy/build-a-restful-app-with-spring-mvc-and-angularjs/details).**
 
-[![Codewake](https://www.codewake.com/badges/ask_question_flat_square.svg)](https://www.codewake.com/p/angular-spring-restful-sample)
+
 
 Technology stack:
 
