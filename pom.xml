@@ -14,7 +14,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>1.5.3.RELEASE</version>
+        <version>1.5.4.RELEASE</version>
     </parent>    
     
     <properties>  
@@ -25,12 +25,12 @@
         <aspectj.version>1.8.8</aspectj.version>
         <slf4j.version>1.7.16</slf4j.version>
         <!--<spring-boot.version>1.4.3.RELEASE</spring-boot.version>-->
-        <spring.version>4.3.8.RELEASE</spring.version>
-        <spring-security.version>4.2.2.RELEASE</spring-security.version>
+        <spring.version>4.3.9.RELEASE</spring.version>
+        <spring-security.version>4.2.3.RELEASE</spring-security.version>
         <hibernate.version>5.2.10.Final</hibernate.version>
         <hibernate-validator.version>5.3.3.Final</hibernate-validator.version>
         <jackson.version>2.8.7</jackson.version>
-        <modelmapper.version>0.7.5</modelmapper.version>
+        <modelmapper.version>1.0.0</modelmapper.version>
         <lombok.version>1.16.12</lombok.version>
                       
         <!--test dependencies-->
@@ -41,7 +41,7 @@
         <jbehave-site-resources.version>3.3</jbehave-site-resources.version>
         
         <!--asciidoc-->
-        <springfox.version>2.5.0</springfox.version>
+        <springfox.version>2.6.1</springfox.version>
         <spring-restdocs.version>1.1.0.RELEASE</spring-restdocs.version>
         <asciidoctor-maven-plugin.version>1.5.3</asciidoctor-maven-plugin.version>
         <jruby.version>1.7.21</jruby.version>

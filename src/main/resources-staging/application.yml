@@ -19,7 +19,7 @@ spring:
         useServerPrepStmts: true
 
     jpa:
-        database-platform: org.hibernate.dialect.MySQLInnoDBDialect
+        database-platform: org.hibernate.dialect.MySQL5Dialect
         database: MYSQL
         openInView: false
         show_sql: false
