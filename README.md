@@ -22,7 +22,7 @@ Technology stack:
 * AngularJS
 * Bootstrap
 
-This version improved the original version, including:
+This version improved [the original version(without Spring Boot)](https://github.com/hantsy/angularjs-springmvc-sample), including:
 
 * Introduction of Gulp build system to processing the static resources
 * The frontend UI can be run standalone via NodeJS eco-system
