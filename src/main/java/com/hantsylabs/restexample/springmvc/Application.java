@@ -1,53 +1,40 @@
 package com.hantsylabs.restexample.springmvc;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.SerializationFeature;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.AdviceMode;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
-import com.hantsylabs.restexample.springmvc.domain.User;
-import com.hantsylabs.restexample.springmvc.repository.UserRepository;
-import com.hantsylabs.restexample.springmvc.security.SecurityUtil;
-import com.hantsylabs.restexample.springmvc.security.SimpleUserDetailsServiceImpl;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
-import org.springframework.boot.jackson.JsonComponentModule;
 import org.springframework.context.annotation.Bean;
-import org.springframework.data.domain.AuditorAware;
-import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
-import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 @SpringBootApplication
-public class Application {
+public class Application extends WebMvcConfigurerAdapter {
+
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/**").addResourceLocations("file:/static/");
+    }
+
+    @Override
+    public void addViewControllers(ViewControllerRegistry registry) {
+        registry.addViewController("/").setViewName("redirect:/index.html");
+    }
 
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
     }
-
-
-  
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         return passwordEncoder;
     }
-    
+
 //    @Bean
 //    public UserDetailsService userDetailsService(UserRepository userRepository){
 //        return new SimpleUserDetailsServiceImpl(userRepository);
 //    }
-    
-
-
 //    @Configuration
 //    @Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
 //    protected static class ApplicationSecurity extends WebSecurityConfigurerAdapter {

@@ -115,3 +115,6 @@ You can use one of the following approaches to run this project.
 
 If you want to explore the REST API docs online, there is a *Swagger UI* configured for visualizing the REST APIs, just go to [http://localhost:9000/swagger-ui.html](http://localhost:9000/swagger-ui.html).
  
+### Docker
+
+You can run the project in multistage Docker building development environment, check [Multistage Builds](https://github.com/hantsy/devops-sandbox/blob/master/multistage.md).

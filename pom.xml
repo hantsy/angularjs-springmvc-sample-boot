@@ -252,11 +252,11 @@
             <artifactId>hibernate-java8</artifactId>
             <version>${hibernate.version}</version>
         </dependency>-->
-        <dependency>
+<!--        <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-envers</artifactId>
             <version>${hibernate.version}</version>
-        </dependency>
+        </dependency>-->
 <!--        <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-entitymanager</artifactId>
@@ -324,7 +324,7 @@
         </dependency>
 
         <!-- java mail -->
-        <dependency>
+<!--        <dependency>
             <groupId>javax.mail</groupId>
             <artifactId>mail</artifactId>
             <version>1.4.1</version>
@@ -333,7 +333,7 @@
             <groupId>javax.activation</groupId>
             <artifactId>activation</artifactId>
             <version>1.1.1</version>
-        </dependency>
+        </dependency>-->
 
         <!--jackson -->
         <dependency>
@@ -383,24 +383,6 @@
             <artifactId>logback-classic</artifactId>
         </dependency>
         
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
-            <version>3.4</version>
-        </dependency>
-        <dependency>
-            <groupId>commons-codec</groupId>
-            <artifactId>commons-codec</artifactId>
-            <version>1.10</version>
-        </dependency>
-        <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
-            <version>2.4</version>
-        </dependency>
-
-
-        
         <!-- SpringFox Swagger UI -->
         <dependency>
             <groupId>io.springfox</groupId>
@@ -448,14 +430,6 @@
         
         <!--dependencies for testing -->
         
-        <!--test -->
-        <dependency>
-            <groupId>com.google.code.gson</groupId>
-            <artifactId>gson</artifactId>
-            <version>2.7</version>
-            <scope>test</scope>
-        </dependency>
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
@@ -730,41 +704,7 @@
                     <verbose>false</verbose>
                 </configuration>
             </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-resources-plugin</artifactId>
-                <version>2.7</version>
-                <configuration>
-                    <encoding>${project.build.sourceEncoding}</encoding>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>copy-resources</id>
-                        <phase>prepare-package</phase>
-                        <goals>
-                            <goal>copy-resources</goal>
-                        </goals>
-                        <configuration>
-                            <outputDirectory>
-                                ${project.build.outputDirectory}/static/docs
-                            </outputDirectory>
-                            <resources>
-                                <resource>
-                                    <directory>
-                                        ${asciidoctor.html.output.directory}
-                                    </directory>
-                                </resource>
-                                <resource>
-                                    <directory>${asciidoctor.pdf.output.directory}</directory>
-                                    <includes>
-                                        <include>index.pdf</include>
-                                    </includes>
-                                </resource>
-                            </resources>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
+           
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
@@ -782,113 +722,7 @@
                     <redirectTestOutputToFile>true</redirectTestOutputToFile>
                 </configuration>
             </plugin>
-            <!-- First, use the swagger2markup plugin to generate asciidoc -->
-            <plugin>
-                <groupId>io.github.swagger2markup</groupId>
-                <artifactId>swagger2markup-maven-plugin</artifactId>
-                <version>${swagger2markup.version}</version>
-                <dependencies>
-                    <dependency>
-                        <groupId>io.github.swagger2markup</groupId>
-                        <artifactId>swagger2markup-import-files-ext</artifactId>
-                        <version>${swagger2markup.version}</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>io.github.swagger2markup</groupId>
-                        <artifactId>swagger2markup-spring-restdocs-ext</artifactId>
-                        <version>${swagger2markup.version}</version>
-                    </dependency>
-                </dependencies>
-                <configuration>
-                    <swaggerInput>${swagger.input}</swaggerInput>
-                    <outputDir>${generated.asciidoc.directory}</outputDir>
-                    <config>
-                        <swagger2markup.markupLanguage>ASCIIDOC</swagger2markup.markupLanguage>
-                        <swagger2markup.pathsGroupedBy>TAGS</swagger2markup.pathsGroupedBy>
-
-                        <swagger2markup.extensions.dynamicOverview.contentPath>${project.basedir}/src/docs/asciidoc/extensions/overview</swagger2markup.extensions.dynamicOverview.contentPath>
-                        <swagger2markup.extensions.dynamicDefinitions.contentPath>${project.basedir}/src/docs/asciidoc/extensions/definitions</swagger2markup.extensions.dynamicDefinitions.contentPath>
-                        <swagger2markup.extensions.dynamicPaths.contentPath>${project.basedir}/src/docs/asciidoc/extensions/paths</swagger2markup.extensions.dynamicPaths.contentPath>
-                        <swagger2markup.extensions.dynamicSecurity.contentPath>${project.basedir}src/docs/asciidoc/extensions/security/</swagger2markup.extensions.dynamicSecurity.contentPath>
-
-                        <swagger2markup.extensions.springRestDocs.snippetBaseUri>${swagger.snippetOutput.dir}</swagger2markup.extensions.springRestDocs.snippetBaseUri>
-                        <swagger2markup.extensions.springRestDocs.defaultSnippets>true</swagger2markup.extensions.springRestDocs.defaultSnippets>
-                    </config>
-                </configuration>
-                <executions>
-                    <execution>
-                        <phase>test</phase>
-                        <goals>
-                            <goal>convertSwagger2markup</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-
-            <!-- Run the generated asciidoc through Asciidoctor to generate
-            other documentation types, such as PDFs or HTML5 -->
-            <plugin>
-                <groupId>org.asciidoctor</groupId>
-                <artifactId>asciidoctor-maven-plugin</artifactId>
-                <version>1.5.3</version>
-                <!-- Include Asciidoctor PDF for pdf generation -->
-                <dependencies>
-                    <dependency>
-                        <groupId>org.jruby</groupId>
-                        <artifactId>jruby-complete</artifactId>
-                        <version>${jruby.version}</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>org.asciidoctor</groupId>
-                        <artifactId>asciidoctorj-pdf</artifactId>
-                        <version>${asciidoctorj-pdf.version}</version>
-                    </dependency>
-                </dependencies>
-                <!-- Configure generic document generation settings -->
-                <configuration>
-                    <sourceDirectory>${asciidoctor.input.directory}</sourceDirectory>
-                    <sourceDocumentName>index.adoc</sourceDocumentName>
-                    
-                    <sourceHighlighter>coderay</sourceHighlighter>
-                    <attributes>
-                        <doctype>book</doctype>
-                        <toc>left</toc>
-                        <toclevels>3</toclevels>
-                        <numbered></numbered>
-                        <hardbreaks></hardbreaks>
-                        <sectlinks></sectlinks>
-                        <sectanchors></sectanchors>
-                        <generated>${generated.asciidoc.directory}</generated>
-                    </attributes>
-                </configuration>
-                <!-- Since each execution can only handle one backend, run
-                separate executions for each desired output type -->
-                <executions>
-                    <execution>
-                        <id>output-html</id>
-                        <phase>test</phase>
-                        <goals>
-                            <goal>process-asciidoc</goal>
-                        </goals>
-                        <configuration>
-                            <backend>html5</backend>
-                            <outputDirectory>${asciidoctor.html.output.directory}</outputDirectory>
-                        </configuration>
-                    </execution>
-                    
-                    <execution>
-                        <id>output-pdf</id>
-                        <phase>test</phase>
-                        <goals>
-                            <goal>process-asciidoc</goal>
-                        </goals>
-                        <configuration>
-                            <backend>pdf</backend>
-                            <outputDirectory>${asciidoctor.pdf.output.directory}</outputDirectory>
-                        </configuration>
-                    </execution>              
-                </executions>
-            </plugin>
+           
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-assembly-plugin</artifactId>
@@ -1017,7 +851,7 @@
                     <plugin>
                         <groupId>org.codehaus.mojo</groupId>
                         <artifactId>exec-maven-plugin</artifactId>
-						<version>1.4.0</version>
+                        <version>1.4.0</version>
                         <executions>
                             <execution>
                                 <id>gulp-build</id>
@@ -1057,5 +891,160 @@
                 </plugins>
             </build>
         </profile>
+        <profile>
+            <id>restdocs</id>
+            <activation>
+                <property>
+                    <name>restdocs</name>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-resources-plugin</artifactId>
+                        <version>2.7</version>
+                        <configuration>
+                            <encoding>${project.build.sourceEncoding}</encoding>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>copy-resources</id>
+                                <phase>prepare-package</phase>
+                                <goals>
+                                    <goal>copy-resources</goal>
+                                </goals>
+                                <configuration>
+                                    <outputDirectory>
+                                        ${project.build.outputDirectory}/static/docs
+                                    </outputDirectory>
+                                    <resources>
+                                        <resource>
+                                            <directory>
+                                                ${asciidoctor.html.output.directory}
+                                            </directory>
+                                        </resource>
+                                        <resource>
+                                            <directory>${asciidoctor.pdf.output.directory}</directory>
+                                            <includes>
+                                                <include>index.pdf</include>
+                                            </includes>
+                                        </resource>
+                                    </resources>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <!-- First, use the swagger2markup plugin to generate asciidoc -->
+                    <plugin>
+                        <groupId>io.github.swagger2markup</groupId>
+                        <artifactId>swagger2markup-maven-plugin</artifactId>
+                        <version>${swagger2markup.version}</version>
+                        <dependencies>
+                            <dependency>
+                                <groupId>io.github.swagger2markup</groupId>
+                                <artifactId>swagger2markup-import-files-ext</artifactId>
+                                <version>${swagger2markup.version}</version>
+                            </dependency>
+                            <dependency>
+                                <groupId>io.github.swagger2markup</groupId>
+                                <artifactId>swagger2markup-spring-restdocs-ext</artifactId>
+                                <version>${swagger2markup.version}</version>
+                            </dependency>
+                        </dependencies>
+                        <configuration>
+                            <swaggerInput>${swagger.input}</swaggerInput>
+                            <outputDir>${generated.asciidoc.directory}</outputDir>
+                            <config>
+                                <swagger2markup.markupLanguage>ASCIIDOC</swagger2markup.markupLanguage>
+                                <swagger2markup.pathsGroupedBy>TAGS</swagger2markup.pathsGroupedBy>
+
+                                <swagger2markup.extensions.dynamicOverview.contentPath>${project.basedir}/src/docs/asciidoc/extensions/overview</swagger2markup.extensions.dynamicOverview.contentPath>
+                                <swagger2markup.extensions.dynamicDefinitions.contentPath>${project.basedir}/src/docs/asciidoc/extensions/definitions</swagger2markup.extensions.dynamicDefinitions.contentPath>
+                                <swagger2markup.extensions.dynamicPaths.contentPath>${project.basedir}/src/docs/asciidoc/extensions/paths</swagger2markup.extensions.dynamicPaths.contentPath>
+                                <swagger2markup.extensions.dynamicSecurity.contentPath>${project.basedir}src/docs/asciidoc/extensions/security/</swagger2markup.extensions.dynamicSecurity.contentPath>
+
+                                <swagger2markup.extensions.springRestDocs.snippetBaseUri>${swagger.snippetOutput.dir}</swagger2markup.extensions.springRestDocs.snippetBaseUri>
+                                <swagger2markup.extensions.springRestDocs.defaultSnippets>true</swagger2markup.extensions.springRestDocs.defaultSnippets>
+                            </config>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <phase>test</phase>
+                                <goals>
+                                    <goal>convertSwagger2markup</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                    <!-- Run the generated asciidoc through Asciidoctor to generate
+                    other documentation types, such as PDFs or HTML5 -->
+                    <plugin>
+                        <groupId>org.asciidoctor</groupId>
+                        <artifactId>asciidoctor-maven-plugin</artifactId>
+                        <version>1.5.3</version>
+                        <!-- Include Asciidoctor PDF for pdf generation -->
+                        <dependencies>
+                            <dependency>
+                                <groupId>org.jruby</groupId>
+                                <artifactId>jruby-complete</artifactId>
+                                <version>${jruby.version}</version>
+                            </dependency>
+                            <dependency>
+                                <groupId>org.asciidoctor</groupId>
+                                <artifactId>asciidoctorj-pdf</artifactId>
+                                <version>${asciidoctorj-pdf.version}</version>
+                            </dependency>
+                        </dependencies>
+                        <!-- Configure generic document generation settings -->
+                        <configuration>
+                            <sourceDirectory>${asciidoctor.input.directory}</sourceDirectory>
+                            <sourceDocumentName>index.adoc</sourceDocumentName>
+                    
+                            <sourceHighlighter>coderay</sourceHighlighter>
+                            <attributes>
+                                <doctype>book</doctype>
+                                <toc>left</toc>
+                                <toclevels>3</toclevels>
+                                <numbered></numbered>
+                                <hardbreaks></hardbreaks>
+                                <sectlinks></sectlinks>
+                                <sectanchors></sectanchors>
+                                <generated>${generated.asciidoc.directory}</generated>
+                            </attributes>
+                        </configuration>
+                        <!-- Since each execution can only handle one backend, run
+                        separate executions for each desired output type -->
+                        <executions>
+                            <execution>
+                                <id>output-html</id>
+                                <phase>test</phase>
+                                <goals>
+                                    <goal>process-asciidoc</goal>
+                                </goals>
+                                <configuration>
+                                    <backend>html5</backend>
+                                    <outputDirectory>${asciidoctor.html.output.directory}</outputDirectory>
+                                </configuration>
+                            </execution>
+                    
+                            <execution>
+                                <id>output-pdf</id>
+                                <phase>test</phase>
+                                <goals>
+                                    <goal>process-asciidoc</goal>
+                                </goals>
+                                <configuration>
+                                    <backend>pdf</backend>
+                                    <outputDirectory>${asciidoctor.pdf.output.directory}</outputDirectory>
+                                </configuration>
+                            </execution>              
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+                
     </profiles>
 </project>
