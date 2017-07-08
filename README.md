@@ -115,6 +115,24 @@ You can use one of the following approaches to run this project.
 
 If you want to explore the REST API docs online, there is a *Swagger UI* configured for visualizing the REST APIs, just go to [http://localhost:9000/swagger-ui.html](http://localhost:9000/swagger-ui.html).
  
+### Generate static REST API docs
+
+I move the rest docs generation to a standalone profile.
+
+Execute the following command line to generate HTML and PDF format for your REST APIs, which combined the Swagger description file and Spring test code snippets(as code samples).
+
+```
+mvn clean package -Drestdocs
+```
+
+The details are explained in [API documention](https://hantsy.gitbooks.io/build-a-restful-app-with-spring-mvc-and-angularjs/content/swagger.html) section.
+
+When it is done, check the generated static docs in *target/asciidoc* folder, including a HTML 5 file, and PDF format file.
+
+The pdf document looks like.
+
+![pdf](https://github.com/hantsy/angularjs-springmvc-sample-boot/blob/master/restdocs.png) 
+ 
 ### Docker
 
 You can run the project in multistage Docker building development environment, check [Multistage Builds](https://github.com/hantsy/devops-sandbox/blob/master/multistage.md).
