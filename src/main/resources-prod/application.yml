@@ -44,7 +44,8 @@ spring:
         check-template-location: false
     messages:
         basename: messages
-
+    resources:
+        static-locations: classpath:/static/, file:/static/
 logging.level:
     org.springframework.web: DEBUG
     com.verygood.payments.processing.http: DEBUG

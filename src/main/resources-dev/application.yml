@@ -37,7 +37,8 @@ spring:
         
     messages:
         basename: messages
-
+    resources:
+        static-locations: classpath:/static/, file:/static/
 logging:
     file: app.log
     level:

@@ -41,7 +41,8 @@ spring:
     
     messages:
         basename: messages
-        
+    resources:
+        static-locations: classpath:/static/, file:/static/    
 logging.level:
     org.springframework.web: INFO
     com.hantsylabs.restexample.springmvc: DEBUG
