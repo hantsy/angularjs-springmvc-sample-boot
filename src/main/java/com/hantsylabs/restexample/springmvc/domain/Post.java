@@ -2,7 +2,6 @@ package com.hantsylabs.restexample.springmvc.domain;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
@@ -12,15 +11,15 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate;
 
 /**
  *
@@ -78,11 +77,11 @@ public class Post implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "last_modified_by")
-    @CreatedBy
+    @LastModifiedBy
     private User lastModifiedBy;
 
     @Column(name = "last_modified_date")
-    @CreatedDate
+    @LastModifiedDate
     private LocalDateTime lastModifiedDate;
 
 }
