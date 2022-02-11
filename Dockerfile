@@ -2,7 +2,7 @@ FROM node:latest AS ui
 WORKDIR /usr/src/ui
 COPY package.json .
 # Setup NPM mirror, optionally for China users.
-#RUN npm config set registry https://registry.npm.taobao.org/ 
+#RUN npm config set registry https://registry.npmmirror.com/ 
 RUN npm install 
 COPY . .
 RUN node_modules/.bin/bower install --allow-root
